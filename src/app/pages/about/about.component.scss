@@ -1,0 +1,162 @@
+@import '../../theme/sass/auth';
+:host /deep/ {
+    h3 {
+        font-size: 30px;
+        color: #003a70;
+        margin: 0 0 10px;
+    }
+    .a_support_text {
+        margin-bottom: 20px;
+        p {
+            margin: 0 0 5px;
+            font-size: 16px;
+            color: #999;
+            a {
+                text-decoration: underline;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+    .a_simple_accordion {
+        .card {
+            border-style: none;
+            box-shadow: none;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 10px;
+        }
+        .card-header {
+            .accordion-toggle {
+                &.collapsed {
+                    &::before {
+                        -ms-transform: rotate(-90deg);
+                        -webkit-transform: rotate(-90deg);
+                        transform: rotate(-90deg);
+                    }
+                }
+            }
+        }
+        .card-header {
+            border-radius: 10px 10px 0 0;
+            background-color: #bcdcf3;
+            border-bottom: 1px solid #eaeaea;
+            height: auto;
+            padding: 10px 20px;
+            cursor: pointer;
+            .accordion-toggle {
+                color: #014c8c;
+                font-size: 18px;
+                font-weight: bold;
+                position: relative;
+                padding: 0 0 0 30px;
+                display: block;
+                white-space: normal;
+                text-align: left;
+                word-break: break-word;
+                line-height: normal;
+                &::before {
+                    background-image: url(/assets/images/accordion-icon.png);
+                    background-repeat: no-repeat;
+                    content: '';
+                    left: 0;
+                    top: 5px;
+                    position: absolute;
+                    width: 21px;
+                    height: 12px;
+                }
+                &:focus,
+                &:hover {
+                    text-decoration: none;
+                }
+                // &::before {
+                //     -ms-transform: rotate(-90deg);
+                //     -webkit-transform: rotate(-90deg);
+                //     transform: rotate(-90deg);
+                // }
+            }
+        }
+        .card-body {
+            padding: 10px 15px;
+            color: #788692;
+            font-size: 18px;
+            line-height: 22px;
+            border-bottom: 1px solid #e6e6e6;
+            border-left: 1px solid #e6e6e6;
+            border-right: 1px solid #e6e6e6;
+        }
+    }
+}
+:host {
+    .a_about_section {
+        // h3 {
+        //     font-size: 22px;
+        //     color: #60a0d6;
+        //     padding-left: 20px;
+        // }
+        // .a_back {
+        //     font-size: 22px;
+        //     color: #60a0d6;
+        //     font-weight: bold;
+        //     display: inline-block;
+        //     vertical-align: top;
+        //     margin-bottom: 15px;
+        //     float: right;
+        //     img {
+        //         margin-right: 10px;
+        //         margin-top: -3px;
+        //     }
+        // }
+    }
+    // .a_about_block {
+    //     border-radius: 7px 7px 0 0;
+    //     border-top: 1px solid #eaeaea;
+    //     border-left: 1px solid #eaeaea;
+    //     border-right: 1px solid #eaeaea;
+    //     .a_about_row {
+    //         padding: 34px 26px 34px 26px;
+    //         border-top: 1px solid #dbdddf;
+    //         border-bottom: 1px solid #eaeef1;
+    //         position: relative;
+    //         p {
+    //             margin: 0;
+    //             color: #003a70;
+    //             font-size: 18px;
+    //             line-height: 28px;
+    //         }
+    //     }
+    //     .a_about_row:first-of-type {
+    //         border-top: none;
+    //     }
+    //     .a_about_row:last-of-type {
+    //         border-bottom: none;
+    //     }
+    // }
+    @media screen and (max-width: $resM) {
+        // .a_about_section {
+        //     h3 {
+        //         font-size: 18px;
+        //         padding-left: 0;
+        //     }
+        //     .a_back {
+        //         font-size: 18px;
+        //         text-transform: capitalize;
+        //     }
+        // }
+        // .a_about_block {
+        //     .a_about_row {
+        //         padding: 15px 10px;
+        //     }
+        // }
+    }
+    @media screen and (max-width: $resXXS) {
+        // .a_about_section {
+        //     h3 {
+        //         font-size: 16px;
+        //     }
+        //     .a_back {
+        //         font-size: 16px;
+        //     }
+        // }
+    }
+}

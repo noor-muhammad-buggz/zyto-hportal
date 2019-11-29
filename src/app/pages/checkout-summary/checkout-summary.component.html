@@ -1,0 +1,395 @@
+<div class="container">
+  <section class="a_checkout_summary_section">
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="a_shipping_accordion">
+          <div class="card ">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <a #shippingBtn class="btn a_collapse_link" data-toggle="collapse" href="#shipping" aria-expanded="true" aria-controls="collapseOne">Shipping Info</a>
+                </div>
+              </div>
+            </div>
+            <div id="shipping" class="collapse show">
+              <div class="card-body">
+                <div *ngIf="shippingForm" class="a_shipping_info_form">
+                  <form [formGroup]="shippingForm" (ngSubmit)="onShippingSubmit(shippingForm.value,shippingBtn)">
+                    <h3 class="a_f_heading">Shipping Address</h3>
+                    <div class="row">
+                      <div class="col-12">
+                        <label for="">Country</label>
+                        <div class="form-group a_select" [ngClass]="{'has-error':!shippingForm.controls['Address'].controls['Country'].valid && shippingForm.controls['Address'].controls['Country'].touched}">
+                          <select class="form-control" [formControl]="shippingForm.controls['Address'].controls['Country']" (change)="onCountryChange($event)">
+                            <option value="" selected>Country</option>
+                            <option *ngFor="let item of countrylist" value="{{ item.Name }}">{{ item.Name}}</option>
+                          </select>
+                          <span class="text-danger" *ngIf="shippingForm.controls['Address'].controls['Country'].hasError('required') && (shippingForm.controls['Address'].controls['Country'].dirty || shippingForm.controls['Address'].controls['Country'].touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <label>Name</label>
+                        <div class="form-group" [ngClass]="{'has-error':!shippingForm.controls['Addressee'].valid && shippingForm.controls['Addressee'].touched}">
+                          <input [formControl]="shippingForm.controls['Addressee']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="shippingForm.controls['Addressee'].hasError('required') && (shippingForm.controls['Addressee'].dirty || shippingForm.controls['Addressee'].touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <label>Street Address</label>
+                        <div class="form-group" [ngClass]="{'has-error':!shippingForm.controls['Address'].controls['Line1'].valid && shippingForm.controls['Address'].controls['Line1'].touched}">
+                          <input [formControl]="shippingForm.controls['Address'].controls['Line1']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="shippingForm.controls['Address'].controls['Line1'].hasError('required') && (shippingForm.controls['Address'].controls['Line1'].dirty || shippingForm.controls['Address'].controls['Line1'].touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group" [ngClass]="{'has-error':!shippingForm.controls['Address'].controls['Line2'].valid && shippingForm.controls['Address'].controls['Line2'].touched}">
+                          <input [formControl]="shippingForm.controls['Address'].controls['Line2']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="shippingForm.controls['Address'].controls['Line2'].hasError('required') && (shippingForm.controls['Address'].controls['Line2'].dirty || shippingForm.controls['Address'].controls['Line2'].touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <label>City</label>
+                        <div class="form-group" [ngClass]="{'has-error':!shippingForm.controls['Address'].controls['City'].valid && shippingForm.controls['Address'].controls['City'].touched}">
+                          <input [formControl]="shippingForm.controls['Address'].controls['City']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="shippingForm.controls['Address'].controls['City'].hasError('required') && (shippingForm.controls['Address'].controls['City'].dirty || shippingForm.controls['Address'].controls['City'].touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <label for="">State / Province / Region</label>
+                        <div class="form-group a_select" [ngClass]="{'has-error':!shippingForm.controls['Address'].controls['Province'].valid && shippingForm.controls['Address'].controls['Province'].touched}">
+                          <select class="form-control" [formControl]="shippingForm.controls['Address'].controls['Province']">
+                            <option value="" selected disabled>State</option>
+                            <option *ngFor="let state of states" [value]="state.Name">{{ state.Name }}</option>
+                          </select>
+                          <span class="text-danger" *ngIf="shippingForm.controls['Address'].controls['Province'].hasError('required') && (shippingForm.controls['Address'].controls['Province'].dirty || shippingForm.controls['Address'].controls['Province'].touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <label>Postal Code (if applicable)</label>
+                        <div class="form-group" [ngClass]="{'has-error':!shippingForm.controls['Address'].controls['PostalCode'].valid && shippingForm.controls['Address'].controls['PostalCode'].touched}">
+                          <input [formControl]="shippingForm.controls['Address'].controls['PostalCode']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="shippingForm.controls['Address'].controls['PostalCode'].hasError('required') && (shippingForm.controls['Address'].controls['PostalCode'].dirty || shippingForm.controls['Address'].controls['PostalCode'].touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <h3 class="a_f_heading">Contact Info</h3>
+                    <div class="row">
+                      <div class="col-12">
+                        <label>Email</label>
+                        <div class="form-group" [ngClass]="{'has-error':!shippingForm.controls['Email'].valid && shippingForm.controls['Email'].touched}">
+                          <input [formControl]="shippingForm.controls['Email']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="shippingForm.controls['Email'].hasError('required') && (shippingForm.controls['Email'].dirty || shippingForm.controls['Email'].touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <label>Phone</label>
+                        <div class="form-group" [ngClass]="{'has-error':!shippingForm.controls['Phone'].valid && shippingForm.controls['Phone'].touched}">
+                          <input [formControl]="shippingForm.controls['Phone']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="shippingForm.controls['Phone'].hasError('required') && (shippingForm.controls['Phone'].dirty || shippingForm.controls['Phone'].touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <button type="submit" class="btn a_blue_btn a_right_icon" type="submit">Continue
+                        <img alt="" src="assets/images/right-arrow-icon.png">
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="a_payment_accordion">
+          <div class="card ">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <a class="btn a_collapse_link " [ngClass]="{'collapsed link-disabled': !shippingValid}" aria-disabled="true" [attr.data-toggle]="shippingValid ? 'collapse' : null"
+                    [attr.href]="shippingValid ? '#paymentinfo' : 'Javascript:;'" aria-expanded="true" aria-controls="collapseOne">Payment Info</a>
+                </div>
+              </div>
+            </div>
+            <div id="paymentinfo" class="collapse" [ngClass]="{'show': shippingValid}">
+              <div class="card-body">
+                <div *ngIf="paymentForm" class="a_payment_info_form">
+                  <form [formGroup]="paymentForm" (ngSubmit)="onPaymentSubmit(paymentForm.value)">
+                    
+                    
+                    
+                    <h3 class="a_f_heading">Billing Address</h3>
+                   
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group">
+                          <!-- <ul class="a_list a_radio_list a_clearfix">
+                                                        <li>
+                                                            <input id="address" name="address" type="checkbox" value="true" checked="checked" selected="selected">
+                                                            <label for="address">Same as my shipping address</label>
+                                                        </li>
+                                                    </ul> -->
+                          <ul class="a_list a_checkbox_list a_clearfix">
+                            <li>
+                              <input class="a_checkbox" id="same-shipping" type="checkbox" [(ngModel)]="sameShipping" [ngModelOptions]="{standalone: true}"
+                                (change)="paymentForm.patchValue(shippingForm.value)">
+                              <label for="same-shipping">Same as my shipping address</label>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label>Name (as it appears on your card)</label>
+                        <div class="form-group" [ngClass]="{'has-error':!paymentForm.controls['Name'].valid && paymentForm.controls['Name'].touched}">
+                          <input [formControl]="paymentForm.controls['Name']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="paymentForm.controls['Name'].hasError('required') && (paymentForm.controls['Name'].dirty || paymentForm.controls['Name'].touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="row">
+                      <div class="col-12">
+                        <label for="">Country</label>
+                        <div class="form-group a_select a_gray_select" [ngClass]="{'has-error':!paymentForm.controls['Address'].controls['Country'].valid && paymentForm.controls['Address'].controls['Country'].touched}">
+                          <select class="form-control" [formControl]="paymentForm.controls['Address'].controls['Country']" (change)="onCountryChange($event)">
+                            <option value="" selected disabled>Country</option>
+                            <option *ngFor="let item of countrylist" value="{{ item.Name }}">{{ item.Name}}</option>
+                          </select>
+                          <span class="text-danger" *ngIf="paymentForm.controls['Address'].controls['Country']?.hasError('required') && (paymentForm.controls['Address'].controls['Country']?.dirty || paymentForm.controls['Address'].controls['Country']?.touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div> -->
+                    <div class="row">
+                      <div class="col-12">
+                        <label>Address</label>
+                        <div class="form-group" [ngClass]="{'has-error':!paymentForm.controls['Address'].controls['Line1'].valid && paymentForm.controls['Address'].controls['Line1'].touched}">
+                          <input [formControl]="paymentForm.controls['Address'].controls['Line1']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="paymentForm.controls['Address'].controls['Line1']?.hasError('required') && (paymentForm.controls['Address'].controls['Line1']?.dirty || paymentForm.controls['Address'].controls['Line1']?.touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="row">
+                      <div class="col-12">
+                        <div class="form-group" [ngClass]="{'has-error':!paymentForm.controls['Address'].controls['Line2'].valid && paymentForm.controls['Address'].controls['Line2'].touched}">
+                          <input [formControl]="paymentForm.controls['Address'].controls['Line2']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="paymentForm.controls['Address'].controls['Line2']?.hasError('required') && (paymentForm.controls['Address'].controls['Line2']?.dirty || paymentForm.controls['Address'].controls['Line2']?.touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div> -->
+                    <div class="row">
+                      <div class="col-12">
+                        <label>City</label>
+                        <div class="form-group" [ngClass]="{'has-error':!paymentForm.controls['Address'].controls['City'].valid && paymentForm.controls['Address'].controls['City'].touched}">
+                          <input [formControl]="paymentForm.controls['Address'].controls['City']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="paymentForm.controls['Address'].controls['City']?.hasError('required') && (paymentForm.controls['Address'].controls['City']?.dirty || paymentForm.controls['Address'].controls['City']?.touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <label for="">State</label>
+                        <div class="form-group a_select a_gray_select" [ngClass]="{'has-error':!paymentForm.controls['Address'].controls['Province'].valid && paymentForm.controls['Address'].controls['Province'].touched}">
+                          <!-- <select class="form-control" [formControl]="paymentForm.controls['Address'].controls['Province']">
+                            <option value="" selected disabled>State</option>
+                            <option *ngFor="let state of states" [value]="state.Name">{{ state.Name }}</option>
+                          </select> -->
+                          <input [formControl]="paymentForm.controls['Address'].controls['Province']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="paymentForm.controls['Address'].controls['Province']?.hasError('required') && (paymentForm.controls['Address'].controls['Province']?.dirty || paymentForm.controls['Address'].controls['Province']?.touched)">This field is required</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <label>Zip</label>
+                        <div class="form-group" [ngClass]="{'has-error':!paymentForm.controls['Address'].controls['PostalCode'].valid && paymentForm.controls['Address'].controls['PostalCode'].touched}">
+                          <input [formControl]="paymentForm.controls['Address'].controls['PostalCode']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="paymentForm.controls['Address'].controls['PostalCode']?.hasError('required') && (paymentForm.controls['Address'].controls['PostalCode']?.dirty || paymentForm.controls['Address'].controls['PostalCode']?.touched)">This field is required</span>
+                          <span class="text-danger" *ngIf="paymentForm.controls['Address'].controls['PostalCode']?.hasError('pattern') && (paymentForm.controls['Address'].controls['PostalCode']?.dirty || paymentForm.controls['Address'].controls['PostalCode']?.touched)">Only numbers are allowed</span>
+                        </div>
+                      </div>
+                    </div>
+                    <h3 class="a_f_heading">Secure Payment Info</h3>
+                    <div class="row">
+                      <div class="col-12 mb-2">
+                        <img alt="" src="/assets/images/visa-icons.png">
+                        <!-- <ul class="a_list a_radio_list a_payment_radio a_clearfix">
+                                                    <li>
+                                                        <input id="yes" [formControl]="paymentForm.controls['Type']" name="isReffer" type="radio" value="Master" checked="checked" selected="selected">
+                                                        <label for="yes">
+                                <img alt="" src="/assets/images/visa-icons.png">
+                              </label>
+                                                    </li>
+                                                    <li>
+                                                        <input id="no" [formControl]="paymentForm.controls['Type']" name="isReffer" type="radio" value="Paypal">
+                                                        <label for="no">
+                                <img alt="" src="/assets/images/paypal-icon.png">
+                              </label>
+                                                    </li>
+                                                </ul> -->
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <label for="">Card Number </label>
+                        <div class="form-group" [ngClass]="{'has-error':!paymentForm?.controls['Number']?.valid && paymentForm.controls['Number'].touched}">
+                          <input [formControl]="paymentForm.controls['Number']" type="text" class="form-control" placeholder="">
+                          <span class="text-danger" *ngIf="paymentForm.controls['Number']?.hasError('required') && (paymentForm.controls['Number']?.dirty || paymentForm.controls['Number']?.touched)">This field is required</span>
+                          <span class="text-danger" *ngIf="paymentForm?.controls['Number']?.hasError('pattern') && (paymentForm.controls['Number']?.dirty || paymentForm.controls['Number']?.touched)">Only numbers are allowed</span>
+                          <span class="text-danger" *ngIf="(paymentForm?.controls['Number']?.hasError('minlength') || paymentForm?.controls['Number']?.hasError('maxlength')) && (paymentForm.controls['Number']?.dirty || paymentForm.controls['Number']?.touched)">
+                            Please enter 16 numbers printed on your card</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3" [ngClass]="{'has-error':!paymentForm.controls['ExpirationDate'].valid && paymentForm.controls['ExpirationDate'].touched}">
+                      <div class="col-sm-6">
+                        <label for="" class="a_form_label">MM/YY</label>
+                        <div class="form-group">
+                          <input [formControl]="paymentForm.controls['ExpirationDate']" type="text" class="form-control" placeholder="" [ngClass]="{'has-error':!paymentForm?.controls['ExpirationDate']?.valid && paymentForm?.controls['ExpirationDate']?.touched}">
+                          <span class="text-danger" *ngIf="paymentForm?.controls['ExpirationDate']?.hasError('required') && (paymentForm?.controls['ExpirationDate']?.dirty || paymentForm?.controls['ExpirationDate']?.touched)">This field is required</span>
+                          <span class="text-danger" *ngIf="paymentForm?.hasError('invalidExpiry') && !paymentForm?.controls['ExpirationDate']?.hasError('required') && (paymentForm?.controls['ExpirationDate']?.dirty || paymentForm?.controls['ExpirationDate']?.touched)">Please enter a valid expire date with format (MM/YY)</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                          <label for="">CVC </label>
+                        <!-- <div class="form-group a_select mb-0" [ngClass]="{'has-error':!paymentForm?.controls['ExpirationDate']?.valid && paymentForm?.controls['ExpirationDate']?.touched}">
+                          <select class="form-control" [(ngModel)]="selectedYear" [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
+                            <option value="" selected disabled>Year</option>
+                            <option *ngFor="let year of years; let i=index" [value]="year">{{ year }}</option>
+                          </select>
+                        </div> -->
+                        <div class="form-group" [ngClass]="{'has-error':!paymentForm.controls['Verification'].valid && paymentForm.controls['Verification'].touched}">
+                            <input [formControl]="paymentForm.controls['Verification']" type="text" class="form-control" placeholder="">
+                            <span class="text-danger" *ngIf="paymentForm.controls['Verification']?.hasError('required') && (paymentForm.controls['Verification']?.dirty || paymentForm.controls['Verification']?.touched)">This field is required</span>
+                          </div>
+                      </div>
+                    </div>
+                    
+                    <!-- <h3 class="a_f_heading">Contact Info</h3>
+                      <div class="row">
+                        <div class="col-12">
+                          <label>Email</label>
+                          <div class="form-group">
+                            <input [formControl]="paymentForm.controls['Email']" type="text" class="form-control" placeholder="Stephen@andersongraphix.com">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <label>Phone</label>
+                          <div class="form-group">
+                            <input [formControl]="paymentForm.controls['Phone']" type="text" class="form-control" placeholder="">
+                          </div>
+                        </div>
+                      </div> -->
+                    <div class="text-center py-3">
+                      <button class="btn a_green_btn a_right_icon m-2" type="submit">Place your order
+                        <img alt="" src="assets/images/right-arrow-icon.png">
+                      </button>
+                      <p>Your credit card will be charged.</p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="a_cartSummary_accordion ">
+          <div class="card ">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <a class="btn a_collapse_link" data-toggle="collapse" href="#cartSummary2">Cart Summary</a>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="pendingSaleOrderData" id="cartSummary2" class="collapse show">
+              <div class="card-body">
+                <div class="a_products">
+                  <div *ngFor="let item of pendingSaleOrderData.LineItems" class="a_product_row">
+                    <div class=" row align-items-center">
+                      <div class="col-md-3 col-12 text-center">
+                        <figure>
+                          <img src="{{item?.detail?.Image?.Html?.Url || '/assets/images/product-icon.png' }}" alt="Supplement">
+                        </figure>
+                      </div>
+                      <div class="col-6">
+                        <h3>{{ item?.Name }}</h3>
+                      </div>
+                      <div class="col-3">
+                        <h2>{{ item?.Price | currency:'USD':'symbol':'2.2-2'}}</h2>
+                      </div>
+                    </div>
+                    <div class=" row align-items-center">
+                      <div class="col-3"></div>
+                      <div class="col-6 text-right">
+                        <strong>Qty</strong>
+                      </div>
+                      <div class="col-3">
+                        <h2>{{ item?.Quantity }}</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="a_sub_total">
+                  <div class="d-flex justify-content-between">
+                    <span>Subtotal:</span>
+                    <span>
+                      <span>{{ pendingSaleOrderData?.Subtotal | currency:'USD':'symbol':'2.2-2'}}</span>
+                    </span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>Shipping & Handling </span>
+                    <span>
+                      <span>{{ (pendingSaleOrderData?.ShippingCost + pendingSaleOrderData?.HandlingFee) | currency:'USD':'symbol':'1.2-2'}}
+                      </span>
+                    </span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>Sales Taxes:</span>
+                    <span>
+                      <span>{{ pendingSaleOrderData?.Taxes | currency:'USD':'symbol':'1.2-2'}}</span>
+                    </span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <strong>TOTAL:</strong>
+                    <strong>
+                      <span>{{ pendingSaleOrderData.Total | currency:'USD':'symbol':'2.2-2'}}</span>
+                    </strong>
+                  </div>
+                </div>
+                <a href="javascript:;" [routerLink]="['/pages/client/', clientId , 'sessions',sessionId,'checkout-cart',pendingSaleOrderId]"
+                  class="a_edit_cart">&lt; Edit Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div *ngIf="globalState.enabledDebug && shippingForm" class="row">
+  <div class="col-md-12">
+    <pre> {{ country }} </pre>
+    <pre> {{ state }} </pre>
+    <pre> {{ sameShipping }} </pre>
+    <pre> {{ shippingForm.valid }} </pre>
+    <pre>{{shippingForm.value | json}}</pre>
+    <pre>{{paymentForm.value | json}}</pre>
+  </div>
+</div>

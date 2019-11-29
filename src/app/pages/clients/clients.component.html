@@ -1,0 +1,48 @@
+<div *ngIf="resultClients">
+  <!-- search result section -->
+  <div class="a_checkbox">
+    <input class="" id="show-inactive" [(ngModel)]="showInactive" value="true" type="checkbox" (ngModelChange)="refreshContent()">
+    <label for="show-inactive">Show Inactive</label>
+  </div>
+  <br>
+  <!-- <p *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+  </p> -->
+  <section *ngIf="!loading" class="a_search_result_section">
+    <div class="a_result_block a_block_bg" *ngIf="resultClients.length > 0; else emptyClient">
+      <div *ngFor="let result of resultClients;" class="a_result_row clearfix" [ngClass]="{'a_inactive': result?.AccountClientAssociation.Archived,'a_continue_session': result.ProgramRuns && result.ProgramRuns.length > 0 }">
+        <div class="a_result_detail">
+          <figure>
+            <img *ngIf="result.Client.img; else elseBlock" class="a_img" src="assets/images/profile-icon.jpg" alt="">
+            <ng-template #elseBlock><span>{{ result.Client.PersonInfo.Name.FirstName + ' ' + result.Client.PersonInfo.Name.LastName | nameInitials }}</span></ng-template>
+          </figure>
+          <h4><a href="javascript:;" [routerLink]="['/pages/client',result.Client.Id,'client-detail']">{{ result.Client.PersonInfo.Name.FirstName + ' ' + result.Client.PersonInfo.Name.LastName | titlecase }}</a></h4>
+          <p>Client Since : <span class="a_date">{{ result.Client.AggregateInfo.CreatedDate | date:'MM/dd/yyyy' }}</span></p>
+        </div>
+        <ul class="a_list a_result_btns">
+          <ng-container *ngIf="result?.AccountClientAssociation.Archived; else elseTemplate">
+            <li>
+              <a class="btn a_small_btn a_inactive_link">Inactive <img src="assets/images/right-arrow-icon.png" alt=""></a>
+            </li>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <li *ngIf="result.ProgramRuns && result.ProgramRuns.length > 0">
+              <a (click)="startClientSession(result.Client, (!result.ProgramRuns && globalState.expireGraceLicense), true, result.ProgramRuns[0].Id)" class="btn a_small_btn a_session_btn">Continue Session <img src="assets/images/right-arrow-icon.png" alt=""></a>
+            </li>
+            <li>
+              <a (click)="startClientSession(result.Client, (!result.ProgramRuns && globalState.expireGraceLicense), false,'')" class="btn a_small_btn" [ngClass]="{'disabled': !result.ProgramRuns && globalState.expireGraceLicense}" [attr.disabled]="!result.ProgramRuns && globalState.expireGraceLicense">Start Session <img src="assets/images/right-arrow-icon.png" alt=""></a>
+            </li>
+          </ng-template>
+          <!-- <li> -->
+            <!-- <a [routerLink]="['/pages/client',result.Client.Id,'client-detail']" class="btn a_small_btn a_view_detail">View Record</a> -->
+          <!-- </li> -->
+        </ul>
+      </div>
+    </div>
+    <ng-template #emptyClient>
+        <div class="a_result_block a_block_bg" style="margin: 10px;">
+          No Clients
+        </div>
+    </ng-template>
+  </section>
+</div>

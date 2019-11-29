@@ -1,0 +1,186 @@
+<section class="a_edit_account_form_section">
+    <div class="a_edit_account_form">
+        <form [formGroup]="accountForm" (ngSubmit)="onSubmit(accountForm.value)" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-sm-12 a_m40 d-flex align-items-end">
+                            <figure class="a_profile">
+                                <!-- <img class="a_img" src="assets/images/profile-icon.jpg" alt=""> -->
+                                <ba-picture-uploader #imageUpload [picture]="profile1" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions" (onUploadCompleted)="onUpload"></ba-picture-uploader>
+                                <!-- <span>HA</span> -->
+                            </figure>
+                            <!-- <a href="javascript:;" *ngIf="profile1" class="a_del_link" (click)="removeImage(image)"><i class="fa fa-trash-o" aria-hidden="true"></i> Remove Image</a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="a_form_block">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="">First Name</label>
+                                <div class="form-group a_left_icon_input" [ngClass]="{'has-error':!accountForm.controls['firstname'].valid && accountForm.controls['firstname'].touched}">
+                                    <i class="fa fa-id-card-o" aria-hidden="true"></i>
+                                    <input type="text" class="form-control" placeholder="First Name" formControlName="firstname">
+                                    <ng-container *ngIf="accountForm.controls['firstname'].hasError('required'); else elseFirstNameErrorTemplate">
+                                        <span class="text-danger" *ngIf="accountForm.controls['firstname'].hasError('required') && (accountForm.controls['firstname'].dirty || accountForm.controls['firstname'].touched)">This field is required</span>
+                                    </ng-container>
+                                    <ng-template #elseFirstNameErrorTemplate>
+                                        <span class="text-danger" *ngIf="accountForm.controls['firstname'].hasError('pattern') && (accountForm.controls['firstname'].dirty || accountForm.controls['firstname'].touched)">Please enter only alphabetical letters</span>
+                                    </ng-template>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="">Last Name</label>
+                                <div class="form-group a_left_icon_input" [ngClass]="{'has-error':!accountForm.controls['lastname'].valid && accountForm.controls['firstname'].touched}">
+                                    <i aria-hidden="true" class="fa fa-id-card-o"></i>
+                                    <input class="form-control" placeholder="Last Name" type="text" formControlName="lastname">
+                                    <ng-container *ngIf="accountForm.controls['lastname'].hasError('required'); else elseLastnameErrorTemplate">
+                                        <span class="text-danger" *ngIf="accountForm.controls['lastname'].hasError('required') && (accountForm.controls['lastname'].dirty || accountForm.controls['lastname'].touched)">This field is required</span>
+                                    </ng-container>
+                                    <ng-template #elseLastnameErrorTemplate>
+                                        <span class="text-danger" *ngIf="accountForm.controls['lastname'].hasError('pattern') && (accountForm.controls['lastname'].dirty || accountForm.controls['lastname'].touched)">Please enter only alphabetical letters</span>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="">Company Name</label>
+                                <div class="form-group a_left_icon_input" [ngClass]="{'has-error':!accountForm.controls['name'].valid && accountForm.controls['name'].touched}">
+                                    <i aria-hidden="true" class="fa fa-building-o"></i>
+                                    <input type="text" class="form-control" formControlName="name" placeholder="Company Name">
+                                    <span class="text-danger" *ngIf="accountForm.controls['name'].hasError('required') && (accountForm.controls['name'].dirty || accountForm.controls['name'].touched)">This field is required</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="">Phone Number</label>
+                                <div class="form-group a_left_icon_input" [ngClass]="{'has-error':!accountForm.controls['phone'].valid && accountForm.controls['phone'].touched}">
+                                    <i aria-hidden="true" class="fa fa-phone"></i>
+                                    <input class="form-control" formControlName="phone" placeholder="Phone number" type="text">
+                                    <span class="text-danger" *ngIf="accountForm.controls['phone'].hasError('required') && (accountForm.controls['phone'].dirty || accountForm.controls['phone'].touched)">This field is required</span>
+                                    <span class="text-danger" *ngIf="accountForm.controls['phone'].hasError('pattern') && (accountForm.controls['phone'].dirty || accountForm.controls['phone'].touched)">Please enter only numbers</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="">Email</label>
+                                <div class="form-group a_left_icon_input" [ngClass]="{'has-error':!accountForm.controls['email'].valid && accountForm.controls['email'].touched}">
+                                    <i aria-hidden="true" class="fa fa-envelope-o"></i>
+                                    <input class="form-control" formControlName="email" placeholder="Email" type="email">
+                                    <span class="text-danger" *ngIf="accountForm.controls['email'].hasError('required') && (accountForm.controls['email'].dirty || accountForm.controls['email'].touched)">This field is required</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="">Street 1</label>
+                                <div class="form-group a_left_icon_input" [ngClass]="{'has-error':!accountForm.controls['line1'].valid && accountForm.controls['line1'].touched}">
+                                    <i class="fa fa-road" aria-hidden="true"></i>
+                                    <input type="text" class="form-control" formControlName="line1" placeholder="Street 1">
+                                    <span class="text-danger" *ngIf="accountForm.controls['line1'].hasError('required') && (accountForm.controls['line1'].dirty || accountForm.controls['line1'].touched)">This field is required</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="">Street 2</label>
+                                <div class="form-group a_left_icon_input">
+                                    <i class="fa fa-road" aria-hidden="true"></i>
+                                    <input type="text" class="form-control" formControlName="line2" placeholder="Street 2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="">City</label>
+                                <div class="form-group a_left_icon_input" [ngClass]="{'has-error':!accountForm.controls['city'].valid && accountForm.controls['city'].touched}">
+                                    <i aria-hidden="true" class="fa fa-building"></i>
+                                    <input type="text" class="form-control" formControlName="city" placeholder="City">
+                                    <span class="text-danger" *ngIf="accountForm.controls['city'].hasError('required') && (accountForm.controls['city'].dirty || accountForm.controls['city'].touched)">This field is required</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="">Zip</label>
+                                <div class="form-group a_left_icon_input" [ngClass]="{'has-error':!accountForm.controls['postalcode'].valid && accountForm.controls['postalcode'].touched}">
+                                    <i aria-hidden="true" class="fa fa-envelope"></i>
+                                    <input type="text" class="form-control" formControlName="postalcode" placeholder="Zip">
+                                    <span class="text-danger" *ngIf="accountForm.controls['postalcode'].hasError('required') && (accountForm.controls['postalcode'].dirty || accountForm.controls['postalcode'].touched)">This field is required</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="">Country</label>
+                                <div class="form-group a_left_icon_input a_select_icon" [ngClass]="{'has-error':!accountForm.controls['country'].valid && accountForm.controls['country'].touched}">
+                                    <i class="fa fa-flag" aria-hidden="true"></i>
+                                    <!-- <input type="text" class="form-control" formControlName="country" placeholder="Country" value="{{account.ContactInfo?.Address?.Country}}"> -->
+                                    <select class="form-control" formControlName="country" (change)="onCountryChange($event)">
+                          <option value="" selected disabled>Country</option>
+                          <option *ngFor="let item of countrylist" value="{{ item.Name }}">{{ item.Name}}</option>
+                        </select>
+                                    <span class="text-danger" *ngIf="accountForm.controls['country'].hasError('required') && (accountForm.controls['country'].dirty || accountForm.controls['country'].touched)">This field is required</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="">State</label>
+                                <div class="form-group a_left_icon_input a_select_icon" [ngClass]="{'has-error':!accountForm.controls['province'].valid && accountForm.controls['province'].touched}">
+                                    <i class="fa fa-flag-o" aria-hidden="true"></i>
+                                    <!-- <input type="text" class="form-control" formControlName="state" placeholder="State" value="{{account.ContactInfo?.Address?.Province}}"> -->
+                                    <select class="form-control" formControlName="province">
+                          <option value="" selected disabled>State</option>
+                          <option *ngFor="let state of states" [value]="state.Name">{{ state.Name }}</option>
+                        </select>
+                                    <span class="text-danger" *ngIf="accountForm.controls['province'].hasError('required') && (accountForm.controls['province'].dirty || accountForm.controls['province'].touched)">This field is required</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn a_red_btn mr-2 a_left_icon" type="reset" [routerLink]="['/pages/account']">
+                            <img src="assets/images/close-icon.png" alt=""> Cancel
+                            </button>
+                            <button class="btn a_blue_btn a_right_icon ml-2" type="submit">
+                            Save <img src="assets/images/right-arrow-icon.png" alt="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </form>
+    </div>
+</section>
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crop</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <img id="cropimage" class="" src="assets/images/start-scan7.png" alt="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="globalState.enabledDebug" class="row">
+    <div class="col-md-12">
+        <pre>{{account | json}}</pre>
+        <pre>{{accountForm.value | json}}</pre>
+    </div>
+</div>

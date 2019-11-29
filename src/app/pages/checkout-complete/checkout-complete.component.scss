@@ -1,0 +1,45 @@
+@import '../../theme/sass/auth';
+:host /deep/ {
+    .a_thank_you_section {}
+    .a_thank_you_block {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 30px;
+        width: 100%;
+        h3 {
+            margin: 0 0 15px;
+            color: #003a70;
+            font-size: 24px;
+        }
+        h3:last-of-type {
+            margin-bottom: 30px;
+        }
+    }
+    .a_ty_btns {
+        border-top: 2px solid #bcdcf3;
+        padding: 30px 0;
+        button.a_green_btn.a_right_icon img,
+        .a_green_btn.a_right_icon img {
+            right: 14px;
+            width: 27px;
+            height: 27px;
+            margin-top: -14px;
+        }
+    }
+    @media screen and (max-width: $resM) {
+        .a_ty_btns {
+            padding: 15px 0;
+            button.a_green_btn.a_right_icon img,
+            .a_green_btn.a_right_icon img {
+                right: 10px;
+                width: 18px;
+                height: 18px;
+                margin-top: -10px;
+            }
+            button {
+                margin-bottom: 15px;
+            }
+        }
+    }
+}

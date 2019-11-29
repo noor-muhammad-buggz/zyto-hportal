@@ -1,0 +1,27 @@
+.center-video {
+    margin: 0px auto;
+}
+.mt-15
+{
+    margin-top: 15px;
+}
+.camera-select {
+    width: 520px;
+    margin: 0 auto 15px auto;
+
+    select {
+        height: 30px;
+        width: auto;
+        font-size: 14px;
+        border-radius: 10px;
+        padding: 0 5px;
+        border: 3px solid #0275d8;
+    }
+
+    label {
+        font-weight: 400;
+        font-size: 14px;
+        margin-right: 10px;
+        color: #000;
+    }
+}

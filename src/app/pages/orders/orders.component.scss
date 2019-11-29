@@ -1,0 +1,162 @@
+@import '../../theme/sass/auth';
+
+:host {
+    .a_orders_section{
+        .a_back{
+            font-size: 22px;
+            color: #60a0d6;
+            font-weight: bold;
+            display: inline-block;
+            vertical-align: top;
+            margin-bottom: 15px;
+            img {
+                margin-right: 10px;
+                margin-top: -3px;
+            }
+        }
+    }
+    .a_orders_block{
+        border-radius: 7px 7px 0 0;
+        border-top: 1px solid #eaeaea;
+        border-left: 1px solid #eaeaea;
+        border-right: 1px solid #eaeaea;
+        .a_orders_row{
+            padding: 34px 26px 34px 26px;
+            border-top: 1px solid #dbdddf;
+            border-bottom: 1px solid #eaeef1;
+            position: relative;
+            .a_orders_date{
+                position: relative;
+                padding-left: 75px;
+                float: left;
+                padding-top: 10px;
+                figure{
+                    margin: 0;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    position: absolute;
+                    left: 0;
+                    top: -11px;
+                    width: 56px;
+                    height: 56px;
+                    text-align: center;
+                    display: table;
+                    img{
+
+                    }
+                    span{
+                        display: table-cell;
+                        vertical-align: middle;
+                        width: 100%;
+                        height: 100%;
+                        background-color: #4cad77;
+                        font-size: 24px;
+                        font-weight: bold;
+                        color: #fff;
+                    }
+                }
+                h4{
+                    font-size: 17px;
+                    color: #7291b5;
+                    font-weight: bold;
+                    margin: 0;
+                    text-transform:uppercase;
+                }
+            }
+            .a_orders_btns{
+                float: right;
+                li{
+                    float: left;
+                    border-right: 1px solid #bedffa;
+                    padding-right: 15px;
+                    margin-right: 15px;
+                    padding-top: 3px;
+                    padding-bottom: 3px;
+                    .a_small_btn{
+
+                    }
+                    .a_fulfilled_btn{
+                        text-transform: uppercase;
+                        color: #4cad77;
+                        font-size: 16px;
+                        font-weight: bold;
+                        background-color: transparent;
+                        border-style: none;
+                    }
+                    .a_pending_btn{
+                        text-transform: uppercase;
+                        color: #f65b72;
+                        font-size: 16px;
+                        font-weight: bold;
+                        background-color: transparent;
+                        border-style: none;
+                    }
+                    .a_open_btn{
+                        color: #60a0d6;
+                        font-size: 15px;
+                        font-weight: normal;
+                        padding: 8px 20px;
+                        background-color: transparent;
+                        border-color: #7291b5;
+                        text-transform: capitalize;
+                        min-width: 110px;
+                    }
+                    .a_small_btn:hover{
+                        opacity: 0.7;
+                    }
+                }
+                li:last-child {
+                    margin-right: 0;
+                    padding-right: 0;
+                    border-right: none;
+                }
+
+            }
+        }
+        .a_orders_row:first-of-type {
+            border-top: none;
+        }
+        .a_orders_row:last-of-type {
+            border-bottom: none;
+        }
+        .a_orders_row.a_fulfilled{
+            .a_orders_date{
+                figure{
+                    span{
+                        background-color: #4cad77;
+                    }
+                }
+            }
+            .a_orders_btns{
+                li{
+                    .a_fulfilled_btn{
+                        display: block;
+                    }
+                    .a_pending_btn{
+                        display: none;
+                    }
+                }
+            }
+        }
+        .a_orders_row.a_pending{
+            .a_orders_date{
+                figure{
+                    span{
+                        background-color: #f65b72;
+                    }
+                }
+            }
+            .a_orders_btns{
+                li{
+                    .a_pending_btn{
+                        display: block;
+                    }
+                    .a_fulfilled_btn{
+                        display: none;
+                    }
+                }
+
+            }
+        }
+    }
+}

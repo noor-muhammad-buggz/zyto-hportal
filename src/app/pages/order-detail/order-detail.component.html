@@ -1,0 +1,92 @@
+<section class="a_order_detail_section">
+    <div class="a_od_top d-flex justify-content-between align-items-end">
+        <h2 class="a_h2">Order Summary</h2>
+        <div class="a_order_info d-flex justify-content-between">
+            <div class="a_left_info">
+                <p><b>Ship to:</b></p>
+                <p>{{order?.SalesOrder?.ShipTo?.Addressee}}</p>
+                <p>{{order?.SalesOrder?.ShipTo?.Address?.Line1}} {{order?.SalesOrder?.ShipTo?.Address?.Line2}}</p>
+                <p>{{order?.SalesOrder?.ShipTo?.Address?.City}}, {{order?.SalesOrder?.ShipTo?.Address?.Province}} {{order?.SalesOrder?.ShipTo?.Address?.PostalCode}}  </p>
+            </div>
+            <div class="a_right_info">
+                <p>Order Date: {{order.SalesOrder?.AggregateInfo?.CreatedDate | date:"MM-dd-y"}}</p>
+                <p>Order#: {{order?.SalesOrder?.Id}}</p>
+                <p>Vendor Order: 1234</p>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive a_order_table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">item</th>
+                    <th scope="col">quanty</th>
+                    <th scope="col">price</th>
+                    <th scope="col">total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of pendingSaleOrderData?.LineItems; let i = index"> 
+                    <td>{{ item.Name }}</td>
+                    <td class="left-align">{{ item.Quantity }}</td>
+                    <td>{{ item.Price | currency:'USD':'symbol':'2.2-2' }}</td>
+                    <td>{{ item.Price | currency:'USD':'symbol':'2.2-2' }}</td> 
+                </tr> 
+                
+                <tr>
+                    <td colspan="2"></td>
+                    <td class="a_br_none">Subtotal</td>
+                    <td class="a_bl_none">{{order?.SalesOrder?.Subtotal | currency:'USD':'symbol':'2.2-2'}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td class="a_br_none">Tax</td>
+                    <td class="a_bl_none">{{order?.SalesOrder?.Taxes | currency:'USD':'symbol':'2.2-2'}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td class="a_br_none">Shipping & Handling</td>
+                    <td class="a_bl_none">{{order?.SalesOrder?.ShippingCost+order?.SalesOrder?.HandlingFee | currency:'USD':'symbol':'2.2-2'}}</td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2"></th>
+                    <th scope="col">total</th>
+                    <th scope="col" class="total">{{order?.SalesOrder?.Total | currency:'USD':'symbol':'2.2-2'}}</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <hr class="a_hr">
+    <h2 class="a_heading" *ngIf="order?.SalesOrder?.ShippingFulfillment?.Packages">Fullfillment</h2>
+    <div class="a_order_card card" *ngIf="order?.SalesOrder?.ShippingFulfillment?.Packages">
+        <div class="card-header">
+            <ul class="a_list">
+                <li class="text-uppercase">Shipped DATE</li>
+                <li class="text-uppercase">Tracking number</li>
+                <li class="text-uppercase">shipping method</li>
+                <!-- <li>Memo (internal use only)</li> -->
+                <li class="text-uppercase">Status</li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <ul class="a_list clearfix" *ngFor="let item of order?.SalesOrder?.ShippingFulfillment.Packages">
+                <li><a class="">{{item?.ShippedDate | date:'MM/dd/yyyy'}}</a></li>
+                <li>{{item?.TrackingNumber}}</li>
+                <li >{{item?.ShippingMethod}}</li>
+                <!-- <li>{{item?.Memo}}</li> -->
+                <li><a class="a_ship_status">{{(item?.IsDelivered) ? 'Delivered' : 'Shipped'}}</a></li>
+            </ul>
+            <div class="card-header-bottom">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<div *ngIf="globalState.enabledDebug" class="row">
+        <div class="col-md-12">
+            <pre> {{ order | json }} </pre>
+        </div>
+    </div>

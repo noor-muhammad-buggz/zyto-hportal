@@ -1,0 +1,134 @@
+@import '../../theme/sass/conf/conf';
+:host {
+    .a_plan_section {
+        padding: 0 100px;
+        margin-bottom: 70px;
+        .a_profile {
+            margin-top: -60px;
+            width: 100%;
+            max-width: 210px;
+            height: 210px;
+            display: table;
+            border-radius: 100%;
+            overflow: hidden;
+            text-align: center;
+            margin-bottom: 40px;
+            background-color: #ccc;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+            span {
+                display: table-cell;
+                vertical-align: middle;
+                width: 100%;
+                height: 100%;
+                background-color: $green-color;
+                font-size: 95px;
+                font-weight: bold;
+                color: #fff;
+            }
+        }
+    }
+    .a_detail_block {
+        .a_back {
+            font-size: 22px;
+            color: #60a0d6;
+            font-weight: bold;
+            display: inline-block;
+            vertical-align: top;
+            margin-bottom: 15px;
+            img {
+                margin-right: 10px;
+                margin-top: -3px;
+            }
+        }
+        .a_label {
+            font-size: 18px;
+            color: #ffffff;
+            border-radius: 3px;
+            background-color: #60a0d6;
+            padding: 15px 20px;
+        }
+        .a_row {
+            border-bottom: 1px solid #bedffa;
+            padding: 30px 0;
+            margin: 0;
+            .a_top_text {
+                font-size: 14px;
+                font-style: italic;
+                color: #60a0d6;
+                margin-bottom: 5px;
+                display: inline-block;
+                vertical-align: top;
+            }
+            p {
+                color: #003a70;
+                margin: 0;
+                font-size: 18px;
+                &.a_mb20 {
+                    margin-bottom: 20px;
+                }
+                a {
+                    color: #003a70;
+                }
+                a:hover {
+                    color: #003a70;
+                    opacity: 0.7;
+                }
+            }
+            .a_edit_btn {
+                background-color: #79bae7;
+                color: #ffffff;
+                border-radius: 2px;
+                border-color: #7291b5;
+                font-size: 18px;
+                text-transform: uppercase;
+                min-width: 110px;
+            }
+        }
+    }
+    @media screen and (max-width: $resM) {
+        .a_detail_block {
+            .a_row {
+                padding: 10px 0;
+                .col-md-4,
+                .col-md-3,
+                .col-md-5,
+                .col-md-12,
+                .col-md-6,
+                .a_p0 {
+                    padding: 5px 0;
+                }
+            }
+        }
+        .a_plan_section {
+            .a_profile {
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 20px;
+            }
+        }
+    }
+    @media screen and (max-width: $resXL) {
+        .a_plan_section {
+            padding: 0;
+            .a_profile {
+                margin-top: 0;
+                width: 100%;
+                max-width: 150px;
+                height: 150px;
+                span {
+                    font-size: 50px;
+                }
+            }
+            .a_detail_block {
+                .a_row {
+                    h2 {
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+    }
+}

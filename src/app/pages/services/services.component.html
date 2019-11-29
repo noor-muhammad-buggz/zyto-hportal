@@ -1,0 +1,41 @@
+<section class="a_services_section">
+    <h3>Select the wellness services that you offer or refer out to :
+        <!-- <a class="a_back" href="javascript:;" [routerLink]="['/pages/account']"><img src="assets/images/left-arrow-icon-lightblue.png" alt="">Back</a> -->
+    </h3>
+    <form class="serviceForm" [formGroup]="serviceForm" (ngSubmit)="serviceSubmit(serviceForm.value)">
+            <!-- style="height: 700px; overflow-y: scroll;"  -->
+        <div class="a_services_block">
+            <div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()">
+                <div *ngFor="let item of services; let i = index" class="a_services_row clearfix a_fulfilled">
+                    <input class="a_checkbox" (change)="onChange(item.Id, $event.target.checked)" id="checkbox{{i}}" checked="{{item.checked}}" type="checkbox" value="{{item.Id}}">
+                    <label for="checkbox{{i}}">{{item.Name}}</label>
+                </div>
+            </div> 
+            
+            <!-- <div class="a_services_row clearfix a_fulfilled">
+              <input class="a_checkbox" id="checkbox2" type="checkbox">
+              <label for="checkbox2">Chiropractor</label>
+          </div>
+          <div class="a_services_row clearfix a_fulfilled">
+              <input class="a_checkbox" id="checkbox3" type="checkbox">
+              <label for="checkbox3">Chiropractor</label>
+          </div> -->
+          <div class="col-12 py-3" style="text-align:center" *ngIf="continuationToken != null">
+              <div class="a_small_loader d-inline-block"></div>
+          </div>
+        </div>
+        <!-- <ngb-pagination class="d-flex justify-content-end" [maxSize]="3" [collectionSize]="services.length" [pageSize]="pageSize" [(page)]="page" [boundaryLinks]="true" (pageChange)="pageChange($event)"></ngb-pagination> -->
+        <div class="text-center">
+            <button class="btn a_red_btn mr-2 a_left_icon" [routerLink]="['/pages/account']">
+                <img src="assets/images/close-icon.png" alt=""> Cancel
+            </button>
+            <button class="btn a_blue_btn a_right_icon ml-2" type="submit">
+        Save <img src="assets/images/right-arrow-icon.png" alt="">
+      </button>
+        </div>
+    </form>
+    <div *ngIf="globalState.enabledDebug && serviceForm" class="row">
+        {{serviceForm.value | json}}
+    </div>
+
+</section>

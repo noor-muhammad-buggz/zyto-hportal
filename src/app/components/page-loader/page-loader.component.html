@@ -1,0 +1,18 @@
+<div [ngClass]="{'page-loader-overlay': showOverlay,'page-loader-overlay-full':showFullOverlay}">
+    <ng-container *ngIf="showOverlay; else elsePageLoaderTemplate">
+        <div class="" [ngClass]="{'loader-3': showOverlay,'loader': !showOverlay}"></div>
+    </ng-container>
+    <ng-template #elsePageLoaderTemplate>
+        <div class="loader-container adjust">
+            <div class="" [ngClass]="{'loader-3': showOverlay,'loader': !showOverlay}"></div>
+            <!-- <div class="" [ngClass]="{'loader-3': showOverlay,'loader': !showOverlay}"><span></span></div> -->
+        </div>
+    </ng-template>
+    <div *ngIf="showSmallLoader">
+        <div class="a_blue_loader_overlay">
+            <div class="a_blue_loader"></div>
+            <p>Regenerating Insights…</p>
+        </div>
+    </div>
+
+</div>

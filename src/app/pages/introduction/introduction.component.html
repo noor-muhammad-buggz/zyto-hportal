@@ -1,0 +1,56 @@
+<ba-page-top></ba-page-top>
+<section class="a_training_section">
+    <div class="container">
+        <div class="a_steps_heading" *ngIf="trainingVideo">
+            <p><strong>{{ (trainingVideo.lastState == 0)? 'Welcome' : 'Step ' + trainingVideo.lastState }}</strong> <span>{{ getVideoTitle(trainingVideo.lastState) }}</span></p>
+        </div>
+        <div class="a_progress_stages">
+            <ul class="a_list a_clearfix">
+                <li *ngFor="let video of videos; let i=index;" class="a_visited" [ngClass]="{'a_visited':trainingVideo.lastState > i,'a_active':trainingVideo.lastState == i && videos[i].visible == true}">
+                    <a href="javascript:;"class="a_triangle"></a>
+                    <span class="a_bar"></span>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="videos" class="a_video_box">
+            <div id="step0" *ngIf="videos[0].visible">
+                <img src="assets/images/training-page-welcome-screen.jpg" alt="" class="a_img">
+            </div>
+            <div id="step1" *ngIf="videos[1].visible">
+                <videojs [idx]="0" [url]="videos[1].url"></videojs>
+            </div>
+            <div id="step2" *ngIf="videos[2].visible">
+                <videojs [idx]="1" [url]="videos[2].url"></videojs>
+            </div>
+            <div id="step3" *ngIf="videos[3].visible">
+                <videojs [idx]="2" [url]="videos[3].url"></videojs>
+            </div>
+            <div class="a_video_controls">
+                <ul class="a_list">
+                    <ng-container *ngIf="trainingVideo.lastState == 0; else elseTemplate">
+                        <li *ngIf="trainingVideo.lastState == 0">
+                            <a class="btn btn-primary a_white_btn a_right_icon" (click)="startTraining()">Get Started<img src="assets/images/right-arrow-icon-darkblue.png" alt=""></a>
+                        </li>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <li *ngIf="trainingVideo.lastState > 0">
+                            <a class="btn btn-primary a_lightBlue_btn a_left_icon" (click)="previousStep()"><img src="assets/images/left-arrow-icon.png" alt="">back</a>
+                        </li>
+                        <li *ngIf="trainingVideo.lastState < 3">
+                            <a class="btn btn-primary a_lightBlue_btn a_right_icon" (click)="nextStep()">Next<img src="assets/images/right-arrow-icon.png" alt=""></a>
+                        </li>
+                        <li *ngIf="trainingVideo.lastState == 3">
+                            <a class="btn btn-primary a_lightBlue_btn a_right_icon" (click)="stepCompleted()" >I Got It<img src="assets/images/right-arrow-icon.png" alt=""></a>
+                        </li>
+                    </ng-template>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- footer html -->
+<footer class="a_footer">
+    <div class="container">
+        <p class="text-center">&copy; 2017 <a href="javascript:;">ZYTO</a> Corp. All Rights Reserved | <a href="javascript:;">Privacy Policy</a> | <a href="javascript:;">Terms and Conditions</a></p>
+    </div>
+</footer>

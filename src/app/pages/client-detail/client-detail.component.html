@@ -1,0 +1,144 @@
+<section *ngIf="client && clientAssociation" class="a_client_detail_section" [ngClass]="{'a_inactive': clientAssociation?.Archived}">
+    <div class="row">
+        <div class="col-md-4">
+            <figure class="a_profile">
+                <img *ngIf="client.img; else elseBlock" class="a_img" src="assets/images/profile-icon.jpg" alt="">
+                <ng-template #elseBlock><span>{{ client.PersonInfo.Name.FirstName  + ' ' + client.PersonInfo.Name.LastName | nameInitials }}</span></ng-template>
+            </figure>
+            <ul class="a_list a_arrow_icon_list">
+                <li><a [routerLink]="['/pages/client',client.Id,'session-history']">SESSIONS HISTORY</a></li>
+                <li><a [routerLink]="['/pages/client',client.Id,'orders']">ORDERS</a></li>
+                <!-- <li [ngClass]="{'a_active': showNotes}"><a href="javascript:;" (click)="showNotesDetails()">NOTES</a></li> -->
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <div class="a_detail_block">
+                    <div class="row justify-content-end">
+                            <h2 class="light-blue-heading">Foundation For Wellness</h2>
+                            <div class="col-sm-auto">
+                                <div *ngIf="programs && programs.length > 0" class="as-inline-btn">
+                                    <a (click)="startClientSession(client, (!programs && globalState.expireGraceLicense), true, programs[0].Id)" class="btn as-green-btn thin-btn">Continue Session <img src="assets/images/right-arrow-icon.png" alt=""></a>
+                                </div>
+                                <div class="as-inline-btn">
+                                    <a (click)="startClientSession(client, (!programs && globalState.expireGraceLicense), false,'')" class="btn as-blue-btn thin-btn" [ngClass]="{'disabled': !programs && globalState.expireGraceLicense}" [attr.disabled]="!programs && globalState.expireGraceLicense">Start Session <img src="assets/images/right-arrow-icon.png" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+
+                <div class="row a_row">
+                    <div class="col-md-12 a_p0">
+                        <span class="a_top_text">Name</span>
+                        <h2>{{ (client.PersonInfo.Name?.FirstName) ? client.PersonInfo.Name?.FirstName : '' | titlecase}} {{(client.PersonInfo.Name?.LastName) ? client.PersonInfo.Name?.LastName : '' | titlecase }}</h2>
+                    </div>
+
+                    <!-- <div *ngIf="!clientAssociation?.Archived" class="col-md-6 a_p0">
+                        <a (click)="startClientSession(client,(!alreadyHasSession && globalState.expireGraceLicense))" class="btn a_blue_btn a_right_icon" [ngClass]="{'a_session_btn': alreadyHasSession, 'disabled': !alreadyHasSession && globalState.expireGraceLicense}">{{ (alreadyHasSession)? 'Continue SESSION' : 'Start SESSION' }} <img src="assets/images/right-arrow-icon.png" alt=""></a>
+                    </div> -->
+             
+                          
+                </div>
+                <div class="row a_row">
+                    <div class="col-md-5 a_p0">
+                        <span class="a_top_text">Birthday</span>
+                        <p>{{ client.PersonInfo?.DateOfBirth | date:'fullDate' }}</p>
+                    </div>
+                    <div class="col-md-4 a_p0">
+                        <span class="a_top_text">Gender</span>
+                        <p>{{ (client?.PersonInfo?.Gender) ? client?.PersonInfo?.Gender : '' }}</p>
+                    </div>
+                    <div class="col-md-3 a_p0 ">
+                        <span class="a_top_text">Phone Number</span>
+                        <p>{{ (client?.ContactInfo?.Phone) ? client?.ContactInfo?.Phone : '' }}</p>
+                    </div>
+                </div>
+                <div class="row a_row">
+                    <div class="col-md-5 a_p0">
+                        <span class="a_top_text">Email</span>
+                        <p>{{ (client?.ContactInfo?.Email) ? client?.ContactInfo?.Email : '' }}</p>
+                    </div>
+                    <div class="col-md-4 a_p0">
+                        <span class="a_top_text">Preferred form of Communication </span>
+                        <p>{{( client?.ContactInfo?.Preference) ? client?.ContactInfo?.Preference : '' }}</p>
+                    </div>
+                </div>
+                <div class="row a_row">
+                    <div class="col-md-5 a_p0">
+                        <span class="a_top_text">Mailing Street Address</span>
+                        <p>{{ (client?.ContactInfo?.DefaultShippingAddress?.Line1) ? client?.ContactInfo?.DefaultShippingAddress?.Line1 : '' }} {{ (client?.ContactInfo?.DefaultShippingAddress?.Line2 != Null) ? client?.ContactInfo?.DefaultShippingAddress?.Line2
+                            : ''}}
+                        </p>
+                    </div>
+                    <div class="col-md-4 a_p0">
+                        <span class="a_top_text">City </span>
+                        <p>{{ (client?.ContactInfo?.DefaultShippingAddress?.City) ? client?.ContactInfo?.DefaultShippingAddress?.City : '' }}</p>
+                    </div>
+                </div>
+                <div class="row a_row">
+                    <div class="col-md-5 a_p0">
+                        <span class="a_top_text">State</span>
+                        <p>{{ (client?.ContactInfo?.DefaultShippingAddress?.Province) ? client?.ContactInfo?.DefaultShippingAddress?.Province : '' }}</p>
+                    </div>
+                    <div class="col-md-4 a_p0">
+                        <span class="a_top_text">Country </span>
+                        <p>{{ (client?.ContactInfo?.DefaultShippingAddress?.Country) ? client?.ContactInfo?.DefaultShippingAddress?.Country : '' }}</p>
+                    </div>
+                    <div class="col-md-3 a_p0">
+                        <span class="a_top_text">Zip </span>
+                        <p>{{ (client?.ContactInfo?.DefaultShippingAddress?.PostalCode) ? client?.ContactInfo?.DefaultShippingAddress?.PostalCode : ''}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="a_detail_buttons">
+                <a [routerLink]="['/pages/client',client.Id,'client-edit']" class="btn a_lightBlue_btn a_edit_btn mr-2">EDIT</a>
+                <ng-container *ngIf="!clientAssociation?.Archived; else elseActiveTemplate">
+                    <a (click)="activateClient()" class="btn a_lightBlue_btn a_deactive_btn  ml-2">Deactivate</a>
+                </ng-container>
+                <ng-template #elseActiveTemplate>
+                    <a (click)="deactivateClient()" href="javascript:;" class="btn a_lightBlue_btn a_active_btn  ml-2">Activate</a>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <div class="a_edit_notes" *ngIf="showNotes">
+        <h4 class="clearfix">
+            <a style="padding-top: 15px;" class="pull-left">Notes</a>
+            <div class="pull-right">
+                <ng-container *ngIf="notesEditMode; else elseSaveTemplate">
+                    <!-- <button type="button" (click)="saveNotes()" class="btn a_small_lb_btn ml-2 pull-right">Save Notes</button> -->
+                    <a href="javascript:;" class="a_save_link pull-right" (click)="saveNotes()"><i class="fa fa-save" aria-hidden="true"></i> Save Notes</a>
+                </ng-container>
+                <ng-template #elseSaveTemplate>
+                    <a href="javascript:;" class="a_edit_link" (click)="notesEditMode = true"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Notes</a>
+                </ng-template>
+
+            </div>
+        </h4>
+        <ng-container *ngIf="notesEditMode; else elseReadTemplate">
+            <textarea placeholder="Enter Notes Here..." [(ngModel)]="notes" name="editNotes" class="form-control a_textarea" cols="80"></textarea>
+        </ng-container>
+        <ng-template #elseReadTemplate>
+            <div class="a_text" [innerText]="notes">
+            </div>
+        </ng-template>
+    </div>
+</section>
+<div *ngIf="globalState.enabledDebug && client" class="row">
+    <div class="col-md-12">
+        <pre>{{client | json}}</pre>
+        <pre>{{clientAssociation | json}}</pre>
+        <pre>{{notes}}</pre>
+    </div>
+</div>
+<!-- footer html -->
+<!-- <footer class="a_footer">
+    <div class="container">
+        <p class="text-center">&copy; 2017 <a href="javascript:;">ZYTO</a> Corp. All Rights Reserved | <a href="javascript:;">Privacy Policy</a> | <a href="javascript:;">Terms and Conditions</a></p>
+    </div>
+</footer> -->
+
+<!-- <div class="a_text">
+  <span class="a_date">01.01.2017</span>
+  <p>This is where the HP will type any notes a date will be automaticly entered whan a note is saved for each entry. That way the HP nevre has to enter a date  for the record. This copy is for position only</p>
+</div>
+<textarea name="editNotes" class="form-control a_textarea" rows="5" cols="80">01.01.2017 &#13;&#10;This is where the HP will type any notes a date will be automaticly entered whan a note is saved for each entry. That way the HP nevre has to enter a date  for the record. This copy is for position only
+</textarea> -->

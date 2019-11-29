@@ -1,0 +1,127 @@
+<section class="a_scan_section a_section a_block_bg 123">
+
+    <!-- <div class="alert alert-dismissible fade show" [ngClass]="{'alert-success': status}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button> tempStatus : {{tempStatus}} <br> temp : {{temp | json}} <br> status : {{status | json}} <br> ErrorMessage :  {{errorMessage | json}}  <br> Notification : {{notification | json}} <br> Noti :   {{noti | json}}
+        <br> calibrated : {{calibrated}}  <br> Progress : {{progress}} <br> contactStates : {{contactStates}}
+    </div> -->
+    <figure>
+        <ng-container *ngIf="(temp === 'complete') || (temp === 'pause-scan' && !calibrated) || ((temp === 'cradle-404' && calibrated) || (temp === 'pause-scan' && calibrated && notification === 'Calibrating'))">
+            <span class=" a_finger" [ngClass]="{'a_thumb': contactStates && contactStates[0]}"></span>
+            <span class="a_indexFinger a_finger" [ngClass]="{'a_indexFinger': contactStates && contactStates[1]}"></span>
+            <span class="a_middleFinger a_finger" [ngClass]="{'a_middleFinger': contactStates && contactStates[2]}"></span>
+            <span class="a_ringFinger a_finger" [ngClass]="{'a_ringFinger': contactStates && contactStates[3]}"></span>
+            <span class="a_pinky a_finger" [ngClass]="{'a_pinky': contactStates && contactStates[4]}"></span>
+            <span class="a_palm a_finger" [ngClass]="{'a_palm': contactTouches !== 0 }"></span>
+        </ng-container>
+
+        <ng-container>
+            <img class="a_img hide" [ngClass]="{'show': scanning1()}" src="assets/images/start-scan2.png" alt="Scanning-1">
+            <img class="a_img hide" [ngClass]="{'show': scan0()}" src="assets/images/start-scan0.png" alt="Start Scan">
+            <img class="a_img hide" [ngClass]="{'show': complete()}" src="assets/images/start-scan4.png" alt="completed Scan">
+            <img class="a_img hide" [ngClass]="{'show': placehand()}" src="assets/images/start-scan.png" alt="Place hand image">
+            <img class="a_img hide" [ngClass]="{'show': calibrating()}" src="assets/images/start-scan1.png" alt="Caliberating image">
+            <img class="a_img hide" [ngClass]="{'show': noHand()}" src="assets/images/start-scan6.png" alt="No hand cradle scan">
+            <img class="a_img hide" [ngClass]="{'show': errorScan()}" src="assets/images/start-scan7.png" alt="Error Scan">
+            <img class="a_img hide" [ngClass]="{'show': NoDevice()}" src="assets/images/start-scan7.png" alt="Error Scan">
+            <!-- <img class="a_img hide a_setting_loader" [ngClass]="{'show': insight()}" src="assets/images/setting.gif" alt="Error Scan"> -->
+            <div class="hide text-center" [ngClass]="{'show': insight()}">
+                <div class="a_small_loader d-inline-block "></div>
+            </div>
+        </ng-container>
+        <!-- <ng-template #elseTemplate>
+          <img class="a_img" src="assets/images/start-scan1.png" alt="Start Scan">
+      </ng-template> -->
+    </figure>
+    <div class="a_scan_links">
+        <div class="alert alert-danger a_alert hide" [ngClass]="{'show': noHand()}">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close"><img class="a_img" src="assets/images/close-icon.png" alt=""></a>
+            <strong><img src="assets/images/disable-icon.png" alt="">
+              Error: Your Hand Cradle not found. Please Connect your cradle to ZYTO system.
+            </strong>
+        </div>
+
+        <div class="alert alert-danger a_alert hide" [ngClass]="{'show': errorScan()}">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close"><img class="a_img" src="assets/images/close-icon.png" alt=""></a>
+            <strong><img src="assets/images/disable-icon.png" alt="">
+              Error: Scan Paused. Verify that clients hand is on the cradle.
+            </strong>
+        </div>
+
+        <div class="alert alert-danger a_alert hide" [ngClass]="{'show': NoDevice()}">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close"><img class="a_img" src="assets/images/close-icon.png" alt=""></a>
+            <strong><img src="assets/images/disable-icon.png" alt="">
+            Error: No Device is registered with this account.
+          </strong>
+        </div>
+
+        <a class="hide" [ngClass]="{'show': noti == 'FailedToGenerateInsight'}" href="javescript:;"> Failed To Generate Insights And Actions </a>
+        <a class="hide" [ngClass]="{'show': insight()}" href="javescript:;"> Generating Insights… </a>
+        <a class="hide" [ngClass]="{'show': placehand()}" href="javescript:;"> Place hand back on the scan device to continue</a>
+        <a class="hide" [ngClass]="{'show': calibrating()}" href="javescript:;"> Calibrating...</a>
+        <button class="btn a_blue_btn a_right_icon ml-2 hide" [ngClass]="{'show-inline': scanning1()}" (click)="startProcess()">
+            Start Scanning
+            <img src="assets/images/right-arrow-icon.png" alt="">
+        </button>
+        <button class="btn a_blue_btn a_right_icon ml-2 hide" style="margin:50px 20px" [ngClass]="{'show-inline': noti === 'FailedToGenerateInsight'}" (click)="checkInsightReady()">
+            Refresh
+            <img src="assets/images/right-arrow-icon.png" alt="">
+        </button>
+
+        <div *ngIf="temp === 'continueOrcancel'">
+            <button class="btn a_blue_btn a_right_icon ml-2 hide" style="margin:50px 20px" [ngClass]="{'show-inline': temp === 'continueOrcancel'}"  (click)="continueScan()">
+                Continue
+                <img src="assets/images/right-arrow-icon.png" alt="">
+            </button>
+            <button class="btn a_blue_btn a_right_icon ml-2 hide" style="margin:50px 20px" [ngClass]="{'show-inline': temp === 'continueOrcancel'}" (click)="cancelScan()">
+                Cancel
+                <img src="assets/images/right-arrow-icon.png" alt="">
+            </button>
+        </div>
+
+
+        <!-- {{progress}} -->
+        <div class="progress a_progress hide" [ngClass]="{'show': progressBar()}">
+            <div class="progress-bar" [ngClass]="{'green': noti == 'Completed','green': progress == 100}" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" [style.width.%]="progress">
+                {{progress}} % COMPLETE
+            </div>
+            <span *ngIf="noti !== 'Completed'">Scanning...</span>
+        </div>
+        <!-- <ng-container *ngIf="noti; else elseTemplate">
+                <div class="alert alert-danger a_alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close"><img class="a_img" src="assets/images/close-icon.png" alt=""></a>
+                    <strong><img src="assets/images/disable-icon.png" alt=""> Error: {{noti}}</strong>
+                </div>
+            </ng-container>
+            <ng-template #elseTemplate>
+
+            </ng-template> -->
+        <!-- <a href="javescript:;"> PLEASE PLACE YOUR HAND ON THE CRADLE</a> -->
+        <!-- <a href="javescript:;"> YOUR HAND IS NOW PROPERLY ENGAGED WITH THE CRADLE</a> -->
+        <!-- <a href="javescript:;"> YOUR SCAN IS IN PROGRESS PLEASE DON’T REMOVE YOUR HAND FROM THE CRADLE</a> -->
+        <!-- <a class="a_btn btn btn-primary" href="javescript:;"><i class="fa fa-500px" aria-hidden="true"></i> Review Scan Result</a> -->
+    </div>
+</section>
+
+
+
+
+
+<!-- <section class="a_scan_section a_section a_block_bg">
+        <div class="alert alert-success alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong><i class="fa fa-check-circle" aria-hidden="true"></i> Success!</strong> Simply dummy text of the printing and typesetting industry.
+        </div>
+
+        <figure>
+            <img class="a_img" src="assets/images/start-scan.png" alt="Start Scan">
+            <img class="a_img" src="assets/images/progress-a.png" alt="progress-a">
+            <img class="a_img" src="assets/images/progress-c.png" alt="progress-c">
+            <img class="a_img" src="assets/images/progress-d.png" alt="progress-d">
+        </figure>
+        <p class="text-center">
+            <a class="a_btn btn btn-primary" href="javescript:;"><i class="fa fa-500px" aria-hidden="true"></i> Start Scanning</a>
+            <a class="a_btn btn btn-primary" href="javescript:;"><i class="fa fa-500px" aria-hidden="true"></i> Review Scan Result</a>
+        </p>
+    </section> -->

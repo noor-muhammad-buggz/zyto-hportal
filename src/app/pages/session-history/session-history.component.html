@@ -1,0 +1,40 @@
+ <section class="a_session_history_section">
+  <a class="a_back" href="javascript:;" [routerLink]="['/pages/client',clientId,'client-detail']">
+    <img src="assets/images/left-arrow-icon-lightblue.png" alt="">Back</a>
+  <div class="a_sh_block" *ngIf="history; else empty">
+    <div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
+      (scrolled)="onScrollDown()">
+      <div class="a_sh_row clearfix" *ngFor="let item of history">
+        <div class="a_sh_date">
+          <figure>
+            <img src="" alt="">
+            <span>{{profile?.nickname | nameInitials}}</span>
+          </figure>
+          <h4>Sesssion : {{item.AggregateInfo.CreatedDate | date:'MM/dd/yyyy'}}</h4>
+        </div>
+        <ul class="a_list a_sh_btns">
+          <li *ngIf="item.Active">
+            <a class="btn a_small_btn y_session_btn" (click)="checkStatus(item.Id)">Continue</a>
+          </li>
+          <li *ngIf="!item.Active">
+            <a class="btn a_small_btn a_open_btn" (click)="checkStatus(item.Id)">open</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-12 py-3" style="text-align:center" *ngIf="continuationToken != null">
+        <div class="a_small_loader d-inline-block"></div>
+      </div>
+    </div>
+    <!-- <div class="col-12" style="text-align:center" *ngIf="">
+      <img src="assets/images/load.gif" style="width: 150px;">
+    </div> -->
+    <!-- <ngb-pagination class="d-flex justify-content-end" [maxSize]="3" [collectionSize]="history.length" [pageSize]="pageSize" [(page)]="page" [boundaryLinks]="true" (pageChange)="pageChange($event)"></ngb-pagination> -->
+  </div>
+  <ng-template #empty>
+    <div class="a_sh_block">
+      <div class="a_sh_row clearfix">
+        {{emptyMsg}}
+      </div>
+    </div>
+  </ng-template>
+</section>

@@ -1,0 +1,66 @@
+<!-- <div *ngFor="let alert of alerts" class="alert alert-dismissible fade show" [ngClass]="{'alert-success': alert.type == 'success'}">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button> {{alert.message}}
+</div> -->
+
+<section class="a_home_section" *ngIf="!resultClients && !loading">
+  <div class="row justify-content-around">
+      <div class="col-md-3  text-center p-md-0">
+          <figure>
+              <img class="a_img" src="assets/images/search-triangle.png" alt="">
+          </figure>
+          <p>Please search for a client by clicking the <strong>magnifying glass</strong> above.</p>
+          <h2><span>OR</span></h2>
+          <figure>
+              <img class="a_img" src="assets/images/plus-triangle.png" alt="">
+          </figure>
+          <p>Click the <strong>plus button</strong> above to create a new client record. </p>
+      </div>
+      <div class="col-3  text-center">
+      </div>
+  </div>
+</section>
+
+<!-- <img id="cropimage" class="" src="assets/images/start-scan7.png" alt=""> -->
+
+<div *ngIf="resultClients">
+  <!-- search result section -->
+  <div class="a_checkbox">
+      <input class="" id="show-inactive" [(ngModel)]="showInactive" value="true" type="checkbox" (ngModelChange)="refreshContent()">
+      <label for="show-inactive">Show Inactive</label>
+  </div>
+  <br>
+  <section *ngIf="!loading" class="a_search_result_section">
+      <div class="a_result_block a_block_bg">
+        <div *ngFor="let result of resultClients;" class="a_result_row clearfix" [ngClass]="{'a_inactive': result?.AccountClientAssociation.Archived,'a_continue_session': result.ProgramRuns && result.ProgramRuns.length > 0 }">
+            <div class="a_result_detail">
+              <figure>
+                <img *ngIf="result.Client.img; else elseBlock" class="a_img" src="assets/images/profile-icon.jpg" alt="">
+                <ng-template #elseBlock><span>{{ result.Client.PersonInfo.Name.FirstName + ' ' + result.Client.PersonInfo.Name.LastName | nameInitials }}</span></ng-template>
+              </figure>
+              <h4><a href="javascript:;" [routerLink]="['/pages/client',result.Client.Id,'client-detail']">{{ result.Client.PersonInfo.Name.FirstName + ' ' + result.Client.PersonInfo.Name.LastName | titlecase }}</a></h4>
+              <p>Client Since : <span class="a_date">{{ result.Client.AggregateInfo.CreatedDate | date:'MM/dd/yyyy' }}</span></p>
+            </div>
+            <ul class="a_list a_result_btns">
+              <ng-container *ngIf="result?.AccountClientAssociation.Archived; else elseTemplate">
+                <li>
+                  <a class="btn a_small_btn a_inactive_link">Inactive <img src="assets/images/right-arrow-icon.png" alt=""></a>
+                </li>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <li *ngIf="result.ProgramRuns && result.ProgramRuns.length > 0">
+                  <a (click)="startClientSession(result.Client, (!result.ProgramRuns && globalState.expireGraceLicense), true, result.ProgramRuns[0].Id)" class="btn a_small_btn a_session_btn">Continue Session <img src="assets/images/right-arrow-icon.png" alt=""></a>
+                </li>
+                <li>
+                  <a (click)="startClientSession(result.Client, (!result.ProgramRuns && globalState.expireGraceLicense), false,'')" class="btn a_small_btn" [ngClass]="{'disabled': !result.ProgramRuns && globalState.expireGraceLicense}" [attr.disabled]="!result.ProgramRuns && globalState.expireGraceLicense">Start Session <img src="assets/images/right-arrow-icon.png" alt=""></a>
+                </li>
+              </ng-template>
+              <!-- <li> -->
+                <!-- <a [routerLink]="['/pages/client',result.Client.Id,'client-detail']" class="btn a_small_btn a_view_detail">View Record</a> -->
+              <!-- </li> -->
+            </ul>
+          </div>
+      </div>
+  </section>
+</div>

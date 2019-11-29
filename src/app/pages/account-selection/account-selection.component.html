@@ -1,0 +1,33 @@
+<section class="a_distributor_selector_section a_section">
+    <h5 *ngIf="accountsDetails && !reason" class="a_h5 a_lightBlue_color">Select an account</h5>
+    <ul *ngIf="accountsDetails && !reason" class="list-group a_s_list">
+        <li class="list-group-item align-items-center justify-content-between d-flex  flex-md-row flex-column" *ngFor="let account of accountsDetails">
+            <span class="mb-3 mb-md-0">{{ account?.Name }}</span>
+            <a href="javascript:;" (click)="selectAccount(account)" class="btn a_s_blue_btn">Select <img class="a_right_icon" src="assets/images/right-arrow-icon.png" alt=""></a>
+        </li>
+    </ul>
+    <!-- <hr class="a_hr"> -->
+    <!-- <h5 *ngIf="accountsDetails && !reason"  class="a_h5">There are multiple accounts associated with this ZYTO ID. Please select one.</h5>
+    <div *ngIf="accountsDetails && !reason" class="a_ds_boxes">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let account of accountsDetails" >
+                <div class="a_ds_box d-flex flex-column">
+                    <h4 class="a_h4">{{ account?.Name }}</h4>
+                    <div class="text-right mt-auto">
+                        <a href="javascript:;" (click)="selectAccount(account)"  class="btn a_s_blue_btn">Select <img class="a_right_icon" src="assets/images/right-arrow-icon.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div *ngIf="this.reason && this.reason === 'noaccount'">
+        <ngb-alert [type]="'danger'" [dismissible]="false">
+            <strong>Un-Authorize!</strong> No ZYTO Insights account found for this user.
+        </ngb-alert>
+    </div>
+    <div *ngIf="this.reason && this.reason === 'nolicenses'">
+        <ngb-alert [type]="'info'" [dismissible]="false">
+            <strong>No Licenses!</strong> No ZYTO Insights license found for this user.
+        </ngb-alert>
+    </div>
+</section>

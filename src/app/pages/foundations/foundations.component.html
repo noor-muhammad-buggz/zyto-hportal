@@ -1,0 +1,252 @@
+<div class="as-page-wrap">
+  <div class="row">
+    <div class="col-lg-6">
+      <h3 class="lightblue-text m16 u-text">Overview</h3>
+      <h2 class="iconic-heading darkblue-text">
+        <img src="../../../assets/images/foundation-icon.png">Foundations</h2>
+    </div>
+    <div class="col-lg-6">
+      <div class="btn-wrap text-right">
+        <a href="javascript:;" class="btn as-darkblue-btn big-btn" [routerLink]="['/pages/sessions',programId,'action-plan']">Action Plan
+          <img src="../../../assets/images/right-arrow-icon.png">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!--BAR CHART -->
+  <div class="bar-chart-wrap">
+    <div class="chart-wrap">
+      <div class="dataset-chart" *ngIf="foundationDetail?.Foundations">
+
+        <div class="data-row row no-gutters" *ngFor="let bar of foundationDetail?.Foundations">
+          <div class="dataset-label col-12 col-md-4 col-xl-3">
+            <div class="row no-gutters">
+              <div class="col">
+                <div class="data-lable">
+                  <a href="javascript:;" [routerLink]="['/pages/sessions',programId,'foundations',bar?.Id,'detail']">{{ bar?.Name }}</a>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="data-icon">
+                  <img src="{{ bar?.Image }}">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="data-bar col-12 col-md-8 col-xl-9">
+            <div data-toggle="tooltip" title="{{bar?.Name}}: {{bar?.Result | number : '1.1-1'}}" class="data-bar-fill" [ngClass]="{'fs_10':bar?.Result < 1}"
+            [ngStyle]="{'font-size':(bar?.Result < 1)? '8px' : '12px', 'width': bar?.Result*10+'%','background-color': bar?.Color}">{{bar?.Result | number : '1.1-1'}}</div>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="chart-bg col-12 col-md-8 col-xl-9 offset-md-4 offset-xl-3">
+            <span class="point" id="point-0">
+              <span class="point-value">0</span>
+            </span>
+            <span class="point" id="point-1">
+              <span class="point-value">1</span>
+            </span>
+            <span class="point" id="point-2">
+              <span class="point-value">2</span>
+            </span>
+            <span class="point" id="point-3">
+              <span class="point-value">3</span>
+            </span>
+            <span class="point" id="point-4">
+              <span class="point-value">4</span>
+            </span>
+            <span class="point" id="point-5">
+              <span class="point-value">5</span>
+            </span>
+            <span class="point" id="point-6">
+              <span class="point-value">6</span>
+            </span>
+            <span class="point" id="point-7">
+              <span class="point-value">7</span>
+            </span>
+            <span class="point" id="point-8">
+              <span class="point-value">8</span>
+            </span>
+            <span class="point" id="point-9">
+              <span class="point-value">9</span>
+            </span>
+            <span class="point" id="point-10">
+              <span class="point-value">10</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--END BAR CHART -->
+  <div class="supplement-accordians accordians-main" *ngIf="foundationDetail?.DistributorProducts">
+    <h2 class="iconic-heading darkblue-text">
+      <img src="../../../assets/images/supplements-icon.png">Supplements</h2>
+    <div class="a_simple_accordion as-accordian" *ngFor="let supple of foundationDetail?.DistributorProducts | slice:start:end; let i=index">
+
+      <div class="card">
+        <div class="card-header">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" href="#collapse{{i}}" role="button" aria-expanded="true">
+            <div class="row d-flex justify-content-between align-items-center">
+              <span class="col-lg">
+                <img src="../../../assets/images/accordion-icon.png" class="accordian-caret">
+                <h3 class="card-header-text"> {{supple?.DistributorProduct?.Name}} |
+                  <strong>{{supple?.Result*100 | number:'1.1-1'}}%</strong>
+                </h3>
+              </span>
+              <span class="col-lg-4">
+                <ul class="icons-wth-value">
+                  <li *ngFor="let fd of supple?.FoundationDetail; let i=index">
+                    <img [src]="fd.Image">
+                    <span class="icon-value">{{fd.Result | number:'1.1-1'}}</span>
+                  </li>
+                </ul>
+              </span>
+              <span class="col-lg-2">
+                <h3 class="add-remove" *ngIf="!supple.InActionPlan">
+                  <a href="javascript:;" *ngIf="!supple?.DistributorProduct.OptionProducts" (click)="addToActionPlan('distributorproducts', supple?.DistributorProduct?.Id)">Add
+                    <img src="../../../assets/images/white-plus-icon.png">
+                  </a>
+                  <a href="javascript:;" *ngIf="supple?.DistributorProduct.OptionProducts" (click)="open(content,'distributorproducts', supple?.DistributorProduct?.Id)">Add
+                    <img src="../../../assets/images/white-plus-icon.png">
+                  </a>
+                </h3>
+                <h3 class="add-remove" *ngIf="supple.InActionPlan">
+                  <a href="javascript:;"  (click)="removeFromActionPlan('distributorproducts', supple?.DistributorProduct?.Id)">Remove
+                    <img src="../../../assets/images/white-minus-icon.png">
+                  </a>
+                </h3>
+              </span>
+            </div>
+          </a>
+        </div>
+        <div id="collapse{{i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-auto col-border-right">
+                <div class="according-content-image">
+                  <img src="{{supple?.DistributorProduct?.Image?.Html?.Url}}">
+                  <span class="ac-image-sku">sku: {{supple?.DistributorProduct?.Id}}</span>
+                </div>
+              </div>
+              <div class="col-lg">
+                <div class="acc-content-text">
+                  <p>
+                    <app-zone-detail [uid]="'read-more-a-' + i" [zoneData]="supple?.DistributorProduct?.Description"></app-zone-detail>
+                    <!-- <a href="javascript:;" class="acc-more-link">More...</a> -->
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-2">
+                <div class="acc-price">
+                  <h3>
+                    {{ (supple?.DistributorProduct.SalesPrices) ? (supple?.DistributorProduct.SalesPrices['0']?.Amount | currency:'USD':'symbol':'2.2-2')
+						: '' }}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="link-wrap text-right" *ngIf="end == 5 && foundationDetail?.DistributorProducts?.length > 5">
+      <a href="javascript:;" (click)="loadMore()" class="acc-show-more">Show more...</a>
+    </div>
+    <div class="link-wrap text-right" *ngIf="end > 5 && foundationDetail?.DistributorProducts?.length > 5">
+      <a href="javascript:;" (click)="loadLess()" class="acc-show-more">Show less...</a>
+    </div>
+  </div>
+  <div class="accordians-main" *ngIf="foundationDetail?.Services">
+    <h2 class="iconic-heading darkblue-text">
+      <img src="../../../assets/images/service-icon.png">Services</h2>
+    <div class="a_simple_accordion as-accordian" *ngFor="let service of foundationDetail?.Services | slice:start:end; let i=index">
+
+      <div class="card">
+        <div class="card-header">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" href="#collapseS{{i}}" role="button" aria-expanded="true">
+            <div class="row d-flex justify-content-between align-items-center">
+              <span class="col-lg">
+                <img src="../../../assets/images/accordion-icon.png" class="accordian-caret">
+                <h3 class="card-header-text"> {{service?.Name}} |
+                  <strong>{{service?.Result*100 | number:'1.1-1'}}%</strong>
+                </h3>
+              </span>
+              <span class="col-lg-4">
+                <ul class="icons-wth-value">
+                  <li *ngFor="let fd of service?.FoundationDetail; let i=index">
+                    <img [src]="fd.Image">
+                    <span class="icon-value">{{fd.Result | number:'1.1-1'}}</span>
+                  </li>
+                </ul>
+              </span>
+              <span class="col-lg-2" >
+                <h3 class="add-remove" *ngIf="!service.InActionPlan">
+                  <a href="javascript:;" (click)="addToActionPlan('services', service?.Id)">Add
+                    <img src="../../../assets/images/white-plus-icon.png">
+                  </a>
+                </h3>
+                <h3 class="add-remove" *ngIf="service.InActionPlan">
+                  <a href="javascript:;" (click)="removeFromActionPlan('services', service?.Id)">Remove
+                    <img src="../../../assets/images/white-minus-icon.png">
+                  </a>
+                </h3>
+              </span>
+            </div>
+          </a>
+        </div>
+        <div id="collapseS{{i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-auto col-border-right">
+                <div class="according-content-image">
+                  <img src="../../../assets/images/services-image.png">
+                </div>
+              </div>
+              <div class="col-lg">
+                <div class="acc-content-text">
+                  <p>
+                    <app-zone-detail [uid]="'read-more-a-' + i" [zoneData]="service?.Description"></app-zone-detail>
+                    <!-- <a href="javascript:;" class="acc-more-link">More...</a> -->
+                  </p> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="link-wrap text-right" *ngIf="serviceEnd == 5 && foundationDetail?.Services?.length > 5 ">
+      <a href="javascript:;" (click)="loadMoreService()" class="acc-show-more">Show more...</a>
+    </div>
+    <div class="link-wrap text-right" *ngIf="serviceEnd > 5 && foundationDetail?.Services?.length > 5">
+      <a href="javascript:;" (click)="loadLessService()" class="acc-show-more">Show less...</a>
+    </div>
+  </div>
+  <!-- <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button> -->
+
+  <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Select Flavor</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <div class="input-group a_left_icon_input">
+              <select class="form-control Flavor" [(ngModel)]="selectedOption" name="selectedOption">
+                <option value="">Select Flavor</option>
+                <option *ngFor="let opt of distOptions.OptionProducts" [ngValue]="opt.Id">{{opt.Options["0"].Value}}</option>
+              </select>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addToActionPlan('distributorproducts', selectedDistId, selectedOption)">Add To Action Plan</button>
+      </div>
+    </ng-template>
+
+</div>

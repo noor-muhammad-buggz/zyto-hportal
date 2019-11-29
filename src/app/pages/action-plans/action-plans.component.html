@@ -1,0 +1,351 @@
+<div class="page-top">
+  <a href="javascript:;" class="back-btn" [routerLink]="['/pages/sessions',programId,'foundations']">
+    <img src="../../../assets/images/left-blue.png">Back</a>
+</div>
+<div class="as-page-wrap">
+  <div class="row justify-content-end">
+    <div class="col-lg-auto">
+      <div class="btn-wrap text-right">
+        <a href="javascript:;" (click)="goToPrint()" class="action-btn print-icon-wrap">Print Action Plan
+          <img src="../../../assets/images/print.png" alt="Print Icon">
+        </a>
+        <a href="javascript:;" class="action-btn cart-icon-wrap" (click)="prepareSalesOrder()"
+          [attr.disabled]="!actionPlan?.DistributorProducts" [ngClass]="{'link-disabled':!actionPlan?.DistributorProducts}">Checkout
+          <img src="../../../assets/images/cart.png" alt="Print Icon">
+          <span class="checkout-count">{{actionPlan?.DistributorProducts?.length}}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-auto">
+      <h2 class="iconic-heading darkblue-text">
+        <img src="../../../assets/images/foundation-icon.png">Foundations</h2>
+    </div>
+  </div>
+
+
+
+  <div class="bar-chart-wrap">
+    <div class="chart-wrap">
+
+      <div class="dataset-chart">
+        <div class="data-row row no-gutters" *ngFor="let bar of actionPlan?.Foundations">
+          <div class="dataset-label col-12 col-md-4 col-xl-3">
+            <div class="row no-gutters">
+              <div class="col">
+                <div class="data-lable">
+                  <a href="javascript:;" [routerLink]="['/pages/sessions',programId,'foundations',bar?.Id,'detail']">{{ bar?.Name }}</a>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="data-icon">
+                  <img src="{{ bar?.Image }}">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="data-bar col-12 col-md-8 col-xl-9">
+            <div data-toggle="tooltip" title="{{bar?.Name}}: {{bar?.Result | number : '1.1-1'}}" [ngClass]="{'fs_10':bar?.Result < 1}"
+              class="data-bar-fill" [ngStyle]="{'font-size':(bar?.Result < 1)? '8px' : '12px','width': bar?.Result*10+'%','background-color': bar?.Color}">{{bar?.Result | number : '1.1-1'}}</div>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="chart-bg col-12 col-md-8 col-xl-9 offset-md-4 offset-xl-3">
+            <span class="point" id="point-0">
+              <span class="point-value">0</span>
+            </span>
+            <span class="point" id="point-1">
+              <span class="point-value">1</span>
+            </span>
+            <span class="point" id="point-2">
+              <span class="point-value">2</span>
+            </span>
+            <span class="point" id="point-3">
+              <span class="point-value">3</span>
+            </span>
+            <span class="point" id="point-4">
+              <span class="point-value">4</span>
+            </span>
+            <span class="point" id="point-5">
+              <span class="point-value">5</span>
+            </span>
+            <span class="point" id="point-6">
+              <span class="point-value">6</span>
+            </span>
+            <span class="point" id="point-7">
+              <span class="point-value">7</span>
+            </span>
+            <span class="point" id="point-8">
+              <span class="point-value">8</span>
+            </span>
+            <span class="point" id="point-9">
+              <span class="point-value">9</span>
+            </span>
+            <span class="point" id="point-10">
+              <span class="point-value">10</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="accordians-main">
+    <div class="a_simple_accordion as-accordian">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="row d-flex justify-content-between align-items-center">
+            <span class="col-lg">
+              <h3 class="card-header-text">Status Questions</h3>
+            </span>
+          </div>
+        </div>
+        <div id="c1">
+          <div class="card-body question-status" *ngIf="actionPlan?.hasAnswers; else empty">.
+            <ng-container *ngFor="let status of actionPlan?.Foundations">
+              <div class="pr-list-block" *ngIf="status?.hasAnswers">
+                <h4 class="darkblue-text m-16">{{status.Name}}</h4>
+                <ng-container *ngFor="let questions of status?.RecommendationQuestionnaire?.Section?.Questions">
+                  <div class="row" *ngIf="questions?.answer">
+                    <div class="col-lg-4">
+                      <span class="lightblue-text m-16">{{questions?.Name}}</span>
+                    </div>
+                    <div class="col-lg">
+                      <span class="gray-text n-16">{{questions?.answer}}</span>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+          <ng-template #empty>
+            <div class="card-body question-status">
+              <div class="pr-list-block">
+                <h4 class="darkblue-text m-16">No status questionnaire</h4>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="accordians-main">
+      <div class="a_simple_accordion as-accordian">
+
+        <div class="card">
+          <div class="card-header">
+            <div class="row d-flex justify-content-between align-items-center">
+              <span class="col-lg">
+                <h3 class="card-header-text">Notes</h3>
+              </span>
+            </div>
+          </div>
+          <div id="c1">
+            <div class="card-body question-status" *ngIf="actionPlan?.hasNotes else noNotes">
+              <ng-container *ngFor="let status of actionPlan?.Foundations">
+                <div class="note-h-p" *ngIf="status?.Note">
+                  <h4 class="gray-text m-16 note-h">{{status?.Name}}</h4>
+                  <span class="gray-text n-16 note-p">{{status?.Note}}</span>
+                </div>
+              </ng-container>
+            </div>
+            <ng-template #noNotes>
+              <div class="card-body question-status">
+                <div class="pr-list-block">
+                  <h4 class="darkblue-text m-16">No Notes Available</h4>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="supplement-accordians accordians-main" *ngIf="actionPlan?.DistributorProducts">
+      <h2 class="iconic-heading darkblue-text">
+        <img src="../../../assets/images/supplements-icon.png">Supplements</h2>
+      <div class="a_simple_accordion as-accordian" *ngFor="let supple of actionPlan?.DistributorProducts | slice:start:end; let i=index">
+
+        <div class="card">
+          <div class="card-header">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#collapse{{i}}" role="button" aria-expanded="true">
+              <div class="row d-flex justify-content-between align-items-center">
+                <span class="col-lg">
+                  <img src="../../../assets/images/accordion-icon.png" class="accordian-caret">
+                  <h3 class="card-header-text"> {{supple?.DistributorProduct?.Name}} |
+                    <strong>{{supple?.Result*100 | number:'1.1-1'}}%</strong>
+                  </h3>
+                </span>
+                <span class="col-lg-4">
+                  <ul class="icons-wth-value">
+                    <li *ngFor="let fd of supple?.actionPlan; let i=index">
+                      <img [src]="fd.Image">
+                      <span class="icon-value">{{fd.Result | number:'1.1-1'}}</span>
+                    </li>
+                  </ul>
+                </span>
+                <span class="col-lg-2">
+                  <h3 class="add-remove">
+                    <a href="javascript:;"  (click)="removeFromActionPlan('distributorproducts', supple?.DistributorProduct?.Id)">Remove
+                      <img src="../../../assets/images/white-minus-icon.png">
+                    </a>
+                  </h3>
+                </span>
+
+              </div>
+            </a>
+          </div>
+          <div id="collapse{{i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-auto col-border-right">
+                  <div class="according-content-image">
+                    <img src="{{supple?.DistributorProduct?.Image?.Html?.Url}}">
+                    <span class="ac-image-sku">sku: {{supple?.DistributorProduct?.Id}}</span>
+                  </div>
+                </div>
+                <div class="col-lg">
+                  <div class="acc-content-text">
+                    <p>
+                      <app-zone-detail [uid]="'read-more-a-' + i" [zoneData]="supple?.DistributorProduct?.Description"></app-zone-detail>
+                      <!-- <a href="javascript:;" class="acc-more-link">More...</a> -->
+                    </p>
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="acc-price">
+                    <h3>
+                      {{ (supple?.DistributorProduct.SalesPrices) ? (supple?.DistributorProduct.SalesPrices['0']?.Amount | currency:'USD':'symbol':'2.2-2')
+              : '' }}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="link-wrap text-right" *ngIf="end == 5 && actionPlan?.DistributorProducts.length > 5">
+        <a href="javascript:;" (click)="loadMore()" class="acc-show-more">Show more...</a>
+      </div>
+      <div class="link-wrap text-right" *ngIf="end > 5 && actionPlan?.DistributorProducts.length > 5">
+        <a href="javascript:;" (click)="loadLess()" class="acc-show-more">Show less...</a>
+      </div>
+    </div>
+    <div class="accordians-main" *ngIf="actionPlan?.Services">
+      <h2 class="iconic-heading darkblue-text">
+        <img src="../../../assets/images/service-icon.png">Services</h2>
+      <div class="a_simple_accordion as-accordian" *ngFor="let service of actionPlan?.Services | slice:start:end; let i=index">
+
+        <div class="card">
+          <div class="card-header">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#collapseS{{i}}" role="button" aria-expanded="true">
+              <div class="row d-flex justify-content-between align-items-center">
+                <span class="col-lg">
+                  <img src="../../../assets/images/accordion-icon.png" class="accordian-caret">
+                  <h3 class="card-header-text"> {{service?.Name}} |
+                    <strong>{{service?.Result*100 | number:'1.1-1'}}%</strong>
+                  </h3>
+                </span>
+                <span class="col-lg-4">
+                  <ul class="icons-wth-value">
+                    <li *ngFor="let fd of service?.actionPlan; let i=index">
+                      <img [src]="fd.Image">
+                      <span class="icon-value">{{fd.Result | number:'1.1-1'}}</span>
+                    </li>
+                  </ul>
+                </span>
+                <span class="col-lg-2">
+                  <h3 class="add-remove">
+                    <a href="javascript:;"  (click)="removeFromActionPlan('services', service?.Id)">Remove
+                      <img src="../../../assets/images/white-minus-icon.png">
+                    </a>
+                  </h3>
+                </span>
+
+              </div>
+            </a>
+          </div>
+          <div id="collapseS{{i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-auto col-border-right">
+                  <div class="according-content-image">
+                    <img src="../../../assets/images/services-image.png">
+                  </div>
+                </div>
+                <div class="col-lg">
+                  <div class="acc-content-text">
+                    <p>
+                      <app-zone-detail [uid]="'read-more-a-' + i" [zoneData]="service?.Description"></app-zone-detail>
+                      <!-- <a href="javascript:;" class="acc-more-link">More...</a> -->
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="link-wrap text-right" *ngIf="serviceEnd == 5 && actionPlan?.Services.length > 5 ">
+        <a href="javascript:;" (click)="loadMoreService()" class="acc-show-more">Show more...</a>
+      </div>
+      <div class="link-wrap text-right" *ngIf="serviceEnd > 5 && actionPlan?.Services.length > 5">
+        <a href="javascript:;" (click)="loadLessService()" class="acc-show-more">Show less...</a>
+      </div>
+    </div>
+
+
+    <!-- <div class="a_order_card card" *ngIf="(actionPlan?.CompletedSalesOrders && actionPlan?.CompletedSalesOrders.length > 0)">
+      <div class="card-header">
+        <ul class="a_list">
+          <li>ORDER DATE</li>
+          <li>ZYTO ORDER ID</li>
+          <li>CLIENT NAME</li>
+          <li>ORDER TOTAL</li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <ul class="a_list" *ngFor="let order of actionPlan?.CompletedSalesOrders">
+          <li>{{order.AggregateInfo.CreatedDate | date:'MM/dd/yyyy'}}</li>
+          <li>{{order.Id}} </li>
+          <li>{{actionPlan.Client.PersonInfo.Name.FirstName}} {{actionPlan.Client.PersonInfo.Name.LastName}}</li>
+          <li>${{order.Total}}</li>
+        </ul>
+      </div>
+    </div> -->
+
+
+    <div class="a_billing_information_block" *ngIf="(actionPlan?.CompletedSalesOrders && actionPlan?.CompletedSalesOrders.length > 0)">
+      <div class="table-responsive a_simple_table">
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th class="text-left m-16">ORDER DETAIL</th>
+                      <th class="text-left m-16">ZYTO ORDER ID</th>
+                      <th class="text-left m-16">CLIENT NAME</th>
+                      <th class="text-left m-16">ORDER TOTAL</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let order of actionPlan?.CompletedSalesOrders">
+                      <td class="text-left">{{order.AggregateInfo.CreatedDate | date:'MM/dd/yyyy'}}</td>
+                      <td>{{order.Id}} </td>
+                      <td>{{actionPlan.Client.PersonInfo.Name.FirstName}} {{actionPlan.Client.PersonInfo.Name.LastName}}</td>
+                      <td>${{order.Total}}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="d010421bcd43f01ed084a3c2b4c30aabb84309ba" datatype="html">
+        <source>CURRENT UPDATES
+        <x id="START_LINK" ctype="x-a"/>previous updates<x id="CLOSE_LINK" ctype="x-a"/>
+    </source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">E:/projects/zyto-angular/src/app/pages/about/about.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

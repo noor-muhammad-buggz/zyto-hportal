@@ -1,0 +1,281 @@
+<!-- <button type="button"  (click)="printPlan()">Print</button> -->
+<div class="printed-div a_print_body" *ngIf="actionPlan">
+  <div class="as-print-btns">
+    <a href="javascript:;" (click)="printPlan()" class="a_print_btn btn a_print_link a_right_icon pull-right" target="_blank">PRINT</a>
+    <a class="a_back" href="javascript:;" [routerLink]="[prevUrl]"><img src="assets/images/left-arrow-icon-lightblue.png" alt=""> BACK</a>
+  </div>
+  <div id="a-print-screen">
+    <div class="print-page">
+      <div class="print-header">
+        <div class="row no-gutters align-items-center">
+          <div class="col-lg-6">
+            <div class="header-left">
+              <div class="row align-items-center">
+                <div class="col-md-auto">
+                  <div class="print-logo">
+                    <img src="{{actionPlan?.Account?.Image?.Html?.Url || '../../../../../assets/images/table-logo.png'}}" style="width:140px" alt="Cambium Logo">
+                  </div>
+                </div>
+                <div class="col-md">
+                  <div class="header-contact-details">
+                    <h4 class="darkblue-text m-16">{{actionPlan?.Account?.Name}}</h4>
+                    <p class="gray-text m-16">{{actionPlan?.Account?.ContactInfo?.Phone}}</p>
+                    <p class="gray-text m-16">{{actionPlan?.Account?.ContactInfo?.Email}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="header-right" style="text-align: right;">
+              <div class="header-right-text">
+                <h1>Foundations for wellness</h1>
+                <h3>{{actionPlan?.Client?.PersonInfo?.Name?.FirstName}} {{actionPlan?.Client?.PersonInfo?.Name?.LastName}} | {{actionPlan?.Client?.AggregateInfo?.CreatedDate | date:'MMM dd, yyyy'}}</h3>
+              </div>
+              <div class="pattern-image">
+                <img src="../../../../../assets/images/main-bg.jpg" alt="Pattern Image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--BAR CHART -->
+      <div class="chart-wrap">
+        <div class="row">
+          <div class="col-lg-auto">
+            <h2 class="iconic-heading darkblue-text">
+              <img src="../../../../../assets/images/foundation-icon.png">Foundations</h2>
+          </div>
+        </div>
+
+        <div class="dataset-chart">
+          <div class="data-row row no-gutters" *ngFor="let bar of actionPlan?.Foundations">
+            <div class="dataset-label col-12 col-md-4">
+              <div class="row no-gutters">
+                <div class="col">
+                  <div class="data-lable">
+                    <a href="javascript:;" [routerLink]="['/pages/sessions',programId,'foundations',bar?.Id,'detail']">{{ bar?.Name }}</a>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="data-icon">
+                    <img src="{{ bar?.Image }}">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="data-bar col-12 col-md-8">
+              <div data-toggle="tooltip" title="{{bar?.Name}}: {{bar?.Result | number : '1.1-1'}}" [ngClass]="{'fs_10':bar?.Result < 1}"
+              class="data-bar-fill" [ngStyle]="{'font-size':(bar?.Result < 1)? '8px' : '12px','width': bar?.Result*10+'%','background-color': bar?.Color}">{{bar?.Result | number : '1.1-1'}}</div>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="chart-bg col-12 col-md-8 offset-md-4">
+              <span class="point" id="point-0">
+                <span class="point-value">0</span>
+              </span>
+              <span class="point" id="point-1">
+                <span class="point-value">1</span>
+              </span>
+              <span class="point" id="point-2">
+                <span class="point-value">2</span>
+              </span>
+              <span class="point" id="point-3">
+                <span class="point-value">3</span>
+              </span>
+              <span class="point" id="point-4">
+                <span class="point-value">4</span>
+              </span>
+              <span class="point" id="point-5">
+                <span class="point-value">5</span>
+              </span>
+              <span class="point" id="point-6">
+                <span class="point-value">6</span>
+              </span>
+              <span class="point" id="point-7">
+                <span class="point-value">7</span>
+              </span>
+              <span class="point" id="point-8">
+                <span class="point-value">8</span>
+              </span>
+              <span class="point" id="point-9">
+                <span class="point-value">9</span>
+              </span>
+              <span class="point" id="point-10">
+                <span class="point-value">10</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--END BAR CHART -->
+
+      <div class="accordians-main">
+        <div class="a_simple_accordion as-accordian">
+
+          <div class="card" *ngIf="actionPlan?.hasAnswers">
+            <div class="card-header">
+              <div class="row d-flex justify-content-between align-items-center">
+                <span class="col-lg">
+                  <h3 class="card-header-text">Practitioner Recommendations</h3>
+                </span>
+              </div>
+            </div>
+            <div id="c1">
+              <div class="card-body question-status">
+                <ng-container *ngFor="let status of actionPlan?.Foundations">
+                  <div class="pr-list-block" *ngIf="status?.hasAnswers">
+                    <h4 class="darkblue-text m-16">{{status.Name}}</h4>
+                    <ng-container *ngFor="let questions of status?.RecommendationQuestionnaire?.Section?.Questions">
+                      <div class="row" *ngIf="questions?.answer">
+                        <div class="col-lg-4">
+                          <span class="lightblue-text m-16">{{questions?.Name}}</span>
+                        </div>
+                        <div class="col-lg">
+                          <span class="gray-text n-16">{{questions?.answer}}</span>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="accordians-main" *ngIf="actionPlan?.hasNotes">
+        <div class="a_simple_accordion as-accordian">
+
+          <div class="card">
+            <div class="card-header">
+              <div class="row d-flex justify-content-between align-items-center">
+                <span class="col-lg">
+                  <h3 class="card-header-text">Notes</h3>
+                </span>
+              </div>
+            </div>
+            <div id="c1">
+              <div class="card-body question-status">
+                <ng-container *ngFor="let status of actionPlan?.Foundations">
+                  <div class="note-h-p" *ngIf="status?.Note">
+                    <h4 class="gray-text m-16 note-h">{{status?.Name}}</h4>
+                    <span class="gray-text n-16 note-p">{{status?.Note}}</span>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="supplement-accordians accordians-main" *ngIf="actionPlan?.DistributorProducts && actionPlan?.DistributorProducts.length > 0">
+        <h2 class="iconic-heading darkblue-text">
+          <img src="../../../../../assets/images/supplements-icon.png">Supplements</h2>
+        <div class="a_simple_accordion as-accordian" *ngFor="let supple of actionPlan?.DistributorProducts; let i=index">
+
+          <div class="card">
+            <div class="card-header pt-3">
+              <div class="row d-flex justify-content-between align-items-center">
+                <span class="col-lg">
+                  <h3 class="card-header-text"> {{supple?.DistributorProduct?.Name}} |
+                    <strong>{{supple?.Result*100 | number:'1.1-1'}}%</strong>
+                  </h3>
+                </span>
+                <span class="col-lg-4">
+                  <ul class="icons-wth-value">
+                    <li *ngFor="let fd of supple?.actionPlan; let i=index">
+                      <img [src]="fd.Image">
+                      <span class="icon-value">{{fd.Result | number:'1.1-1'}}</span>
+                    </li>
+                  </ul>
+                </span>
+
+              </div>
+            </div>
+            <div id="s1">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-auto col-border-right">
+                    <div class="according-content-image">
+                      <img src="{{supple?.DistributorProduct?.Image?.Html?.Url}}" style=" display: block; margin: 0 auto; max-height: 140px;">
+                      <span class="ac-image-sku">sku: {{supple?.DistributorProduct?.Id}}</span>
+                    </div>
+                  </div>
+                  <div class="col-lg">
+                    <div class="acc-content-text">
+                      <p [innerHTML]="supple?.DistributorProduct?.Description">
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-lg-2">
+                    <div class="acc-price">
+                      <h3>
+                        {{ (supple?.DistributorProduct.SalesPrices) ? (supple?.DistributorProduct.SalesPrices['0']?.Amount | currency:'USD':'symbol':'2.2-2')
+              : '' }}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordians-main" *ngIf="actionPlan?.Services && actionPlan?.Services.length > 0">
+        <h2 class="iconic-heading darkblue-text">
+          <img src="../../../../../assets/images/service-icon.png">Services</h2>
+        <div class="a_simple_accordion as-accordian" *ngFor="let service of actionPlan?.Services; let i=index">
+
+          <div class="card">
+            <div class="card-header pt-3">
+              <div class="row d-flex justify-content-between align-items-center">
+                <span class="col-lg">
+                  <h3 class="card-header-text"> {{service?.Name}} |
+                    <strong>{{service?.Result*100 | number:'1.1-1'}}%</strong>
+                  </h3>
+                </span>
+                <span class="col-lg-4">
+                  <ul class="icons-wth-value">
+                    <li *ngFor="let fd of service?.actionPlan; let i=index">
+                      <img [src]="fd.Image">
+                      <span class="icon-value">{{fd.Result | number:'1.1-1'}}</span>
+                    </li>
+                  </ul>
+                </span>
+
+              </div>
+            </div>
+            <div id="s2">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-auto col-border-right">
+                    <div class="according-content-image">
+                      <img src="../../../../../assets/images/services-image.png">
+                    </div>
+                  </div>
+                  <div class="col-lg">
+                    <div class="acc-content-text">
+                      <p [innerHTML]="service?.Description">
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</div>

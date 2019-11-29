@@ -1,0 +1,143 @@
+<section class="a_section a_netsuite_customer_section">
+  <a class="a_back_link" routerLink="/pages/account/plan" href="javascript:;">Back</a>
+  <div class="a_netsuite_customer_form">
+    <form [formGroup]="cardForm">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="radio-with-input form-group">
+            <label class="radio-label parent-radio">
+              <input type="radio" name="choose-card" (click)="setType('exist')">
+              <span class="checkmark"></span>
+              Edit Existing Card
+            </label>
+
+            <div class="existing-cards" *ngIf="accountDetail?.Subscription && accountDetail?.Subscription?.CreditCards">
+              <div class="row align-items-center justify-content-between existing-card" *ngFor="let card of accountDetail?.Subscription?.CreditCards">
+                <div class="col-4 text-left">
+                  <label class="radio-label">
+                    <input type="radio" name="choose-card1" (click)="setSelectedCard(card?.Id)" [checked]="card?.Default">
+                    <span class="checkmark"></span>
+                    {{card?.Type}} (xxxx-{{card?.LastFourDigits}})
+                  </label>
+                </div>
+                <div class="col-4">
+                  <div class="card-date">{{ card?.ExpirationDate | date:'MM/y' }}</div>
+                </div>
+                <div class="col-4">
+                  <div class="card-remove-wrap">
+                    <a href="javascript:;" class="btn card-remove-btn" (click)="removeExistingCard(card?.Id)" *ngIf="!card?.Default">Remove</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <label class="radio-label parent-radio">
+              <input type="radio" name="choose-card" (click)="setType('new')">
+              <span class="checkmark"></span>
+              Enter New Card
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <label for="" class="a_form_label">Name</label>
+          <div class="form-group">
+            <!-- <i aria-hidden="true" class="fa fa-id-card-o"></i> -->
+            <input class="form-control" [formControl]="cardForm.controls['Name']" placeholder="" type="text" [ngClass]="{'has-error':!cardForm.controls['Name'].valid && cardForm.controls['Name'].touched}">
+            <span class="text-danger" *ngIf="cardForm.controls['Name'].hasError('required') && (cardForm.controls['Name'].dirty || cardForm.controls['Name'].touched)">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <label for="" class="a_form_label">Address</label>
+          <div class="form-group">
+            <input class="form-control" [formControl]="cardForm?.controls['Line1']" placeholder="" type="text" [ngClass]="{'has-error':!cardForm?.controls['Line1'].valid && cardForm?.controls['Line1'].touched}">
+            <span class="text-danger" *ngIf="cardForm?.controls['Line1'].hasError('required') && (cardForm?.controls['Line1'].dirty || cardForm?.controls['Line1'].touched)">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <label for="" class="a_form_label">City</label>
+          <div class="form-group">
+            <!-- <i aria-hidden="true" class="fa fa-building"></i> -->
+            <input class="form-control" placeholder="" type="text" [ngClass]="{'has-error':!cardForm?.controls['City'].valid && cardForm?.controls['City'].touched}"
+              [formControl]="cardForm?.controls['City']">
+            <span class="text-danger" *ngIf="cardForm?.controls['City']?.hasError('required') && (cardForm?.controls['City']?.dirty || cardForm?.controls['City']?.touched)">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="" class="a_form_label">State</label>
+          <div class="form-group">
+            <!-- <i aria-hidden="true" class="fa fa-building"></i> -->
+            <input class="form-control" placeholder="" type="text" [ngClass]="{'has-error':!cardForm?.controls['Province'].valid && cardForm?.controls['Province'].touched}"
+              [formControl]="cardForm?.controls['Province']">
+            <span class="text-danger" *ngIf="cardForm?.controls['Province']?.hasError('required') && (cardForm?.controls['Province']?.dirty || cardForm?.controls['Province']?.touched)">This field is required</span>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label for="" class="a_form_label">ZIP</label>
+          <div class="form-group">
+            <!-- <i aria-hidden="true" class="fa fa-flag-o"></i> -->
+            <input class="form-control" placeholder="" type="text" [ngClass]="{'has-error':!cardForm?.controls['PostalCode'].valid && cardForm?.controls['PostalCode'].touched}"
+              [formControl]="cardForm?.controls['PostalCode']">
+            <span class="text-danger" *ngIf="cardForm?.controls['PostalCode']?.hasError('required') && (cardForm?.controls['PostalCode']?.dirty || cardForm?.controls['PostalCode']?.touched)">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <h6 class="a_f_heading">Secure Payment Info</h6>
+      <div class="row">
+        <div class="col-12 mb-2">
+          <img alt="" src="/assets/images/visa-icons.png">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <label for="" class="a_form_label">Card Number</label>
+          <div class="form-group">
+            <input [formControl]="cardForm.controls['Number']" type="text" class="form-control" placeholder="" [ngClass]="{'has-error':!cardForm.controls['Number'].valid && cardForm.controls['Number'].touched}">
+            <span class="text-danger" *ngIf="cardForm.controls['Number']?.hasError('required') && (cardForm.controls['Number']?.dirty || cardForm.controls['Number']?.touched)">This field is required</span>
+            <span class="text-danger" *ngIf="cardForm?.controls['Number']?.hasError('pattern') && (cardForm.controls['Number']?.dirty || cardForm.controls['Number']?.touched)">Only numbers are allowed</span>
+            <span class="text-danger" *ngIf="(cardForm?.controls['Number']?.hasError('minlength') || cardForm?.controls['Number']?.hasError('maxlength')) && (cardForm.controls['Number']?.dirty || cardForm.controls['Number']?.touched)">
+              Please enter 16 numbers printed on your card</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="" class="a_form_label">MM/YY</label>
+          <div class="form-group">
+            <input [formControl]="cardForm?.controls['ExpirationDate']" type="text" class="form-control" placeholder="" [ngClass]="{'has-error':!cardForm?.controls['ExpirationDate']?.valid && cardForm?.controls['ExpirationDate']?.touched}">
+            <span class="text-danger" *ngIf="cardForm?.controls['ExpirationDate']?.hasError('required') && (cardForm?.controls['ExpirationDate']?.dirty || cardForm?.controls['ExpirationDate']?.touched)">This field is required</span>
+            <span class="text-danger" *ngIf="cardForm?.hasError('invalidExpiry') && !cardForm?.controls['ExpirationDate']?.hasError('required') && (cardForm?.controls['ExpirationDate']?.dirty || cardForm?.controls['ExpirationDate']?.touched)">Please enter a valid expire date with format (MM/YY)</span>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label for="" class="a_form_label">CVC</label>
+          <div class="form-group">
+            <input [formControl]="cardForm.controls['Verification']" type="text" class="form-control" placeholder="" [ngClass]="{'has-error':!cardForm.controls['Verification'].valid && cardForm.controls['Verification'].touched}">
+            <span class="text-danger" *ngIf="cardForm.controls['Verification']?.hasError('required') && (cardForm.controls['Verification']?.dirty || cardForm.controls['Verification']?.touched)">This field is required</span>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="text-right my-3">
+        <a class="btn a_m_btn a_red mr-2 a_left_close" href="javascript:;" [routerLink]="['/pages/accounts/123/account-plan']">
+          <img alt="" src="assets/images/close-icon.png"> Cancel
+        </a>
+        <button class="btn a_m_btn a_right_icon ml-2" type="button" (click)="existingOrNew()" [disabled]="!type">
+          Save
+          <img alt="" src="assets/images/right-arrow-icon.png">
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

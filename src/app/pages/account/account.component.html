@@ -1,0 +1,92 @@
+<section *ngIf="account" class="a_client_detail_section">
+    <div class="row">
+        <div class="col-md-4">
+            <figure class="a_profile" [ngClass]="{'a_avatar':!account.Image}" [ngStyle]="{'background-image':(account?.Image?.Html?.Url) ? 'url('+account?.Image?.Html?.Url+')' : 'url(assets/img/app/profile/Nasta.png)'}">
+                <!-- <div class="a_profile_inner" *ngIf="!account.Image else elseBlock">
+                    <img src="{{ (account?.Image?.Html?.Url) || 'assets/img/app/profile/Nasta.png' }}" alt="profile">
+                </div>
+                <ng-template #elseBlock>
+                    <img src="{{ (account?.Image?.Html?.Url) || 'assets/img/app/profile/Nasta.png' }}" alt="profile">
+                </ng-template> -->
+            </figure>
+            <ul class="a_list a_arrow_icon_list">
+                <li><a [routerLink]="['/pages/account/device']">My Device</a></li>
+                <li><a href="javascript:;" [routerLink]="['/pages/account/plan']">My Plan</a></li>
+                <li><a href="javascript:;" [routerLink]="['/pages/account/manager']">My Account Rep</a></li>
+                <li><a href="javascript:;" [routerLink]="['/pages/account/services']">My Services</a></li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <div class="a_detail_block">
+                <div class="row a_row">
+                    <div class="col-md-6 a_p0">
+                        <span class="a_top_text">Name</span>
+                        <h2>{{ (account.ContactInfo?.PersonName?.FirstName) ? account.ContactInfo?.PersonName?.FirstName : ''}} {{(account.ContactInfo?.PersonName?.LastName) ? ' '+account.ContactInfo?.PersonName?.LastName : '' | titlecase }}</h2>
+                    </div>
+                </div>
+                <div class="row a_row">
+                    <div class="col-md-6 a_p0">
+                        <span class="a_top_text">Company Name</span>
+                        <p>{{ (account.Name) ? account.Name : '' | titlecase }}</p>
+                    </div>
+                </div>
+                <div class="row a_row">
+                    <div class="col-md-3 a_p0 ">
+                        <span class="a_top_text">Phone Number</span>
+                        <p>{{ (account?.ContactInfo?.Phone) ? account?.ContactInfo?.Phone : '' }}</p>
+                    </div>
+                    <div class="col-md-5 a_p0">
+                        <span class="a_top_text">Email</span>
+                        <p>{{ (account?.ContactInfo?.Email) ? account?.ContactInfo?.Email : '' }}</p>
+                    </div>
+                </div>
+                <div class="row a_row">
+                    <div class="col-md-5 a_p0">
+                        <span class="a_top_text">Mailing Street Address</span>
+                        <p>{{ (account?.ContactInfo?.Address?.Line1) ? account?.ContactInfo?.Address?.Line1 : '' }} {{ (account?.ContactInfo?.Address?.Line2) ? account?.ContactInfo?.Address?.Line2 : '' }}
+                        </p>
+                    </div>
+                    <div class="col-md-4 a_p0">
+                        <span class="a_top_text">City </span>
+                        <p>{{ (account?.ContactInfo?.Address?.City) ? account?.ContactInfo?.Address?.City : '' }}</p>
+                    </div>
+                </div>
+                <div class="row a_row">
+                    <div class="col-md-5 a_p0">
+                        <span class="a_top_text">State</span>
+                        <p>{{ (account?.ContactInfo?.Address?.Province) ? account?.ContactInfo?.Address?.Province : '' }}</p>
+                    </div>
+                    <div class="col-md-4 a_p0">
+                        <span class="a_top_text">Country </span>
+                        <p>{{ (account?.ContactInfo?.Address?.Country) ? account?.ContactInfo?.Address?.Country : '' }}</p>
+                    </div>
+                    <div class="col-md-3 a_p0">
+                        <span class="a_top_text">Zip </span>
+                        <p>{{ (account?.ContactInfo?.Address?.PostalCode) ? account?.ContactInfo?.Address?.PostalCode : '' }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="a_detail_buttons">
+                <a [routerLink]="['/pages/account/','edit']" class="btn a_lightBlue_btn a_edit_btn mr-2">EDIT</a>
+            </div>
+        </div>
+    </div>
+</section>
+<div *ngIf="globalState.enabledDebug && account" class="row">
+    <div class="col-md-12">
+        <pre>{{account | json}}</pre>
+    </div>
+</div>
+<!-- footer html -->
+<!-- <footer class="a_footer">
+    <div class="container">
+        <p class="text-center">&copy; 2017 <a href="javascript:;">ZYTO</a> Corp. All Rights Reserved | <a href="javascript:;">Privacy Policy</a> | <a href="javascript:;">Terms and Conditions</a></p>
+    </div>
+</footer> -->
+
+<!-- <div class="a_text">
+  <span class="a_date">01.01.2017</span>
+  <p>This is where the HP will type any notes a date will be automaticly entered whan a note is saved for each entry. That way the HP nevre has to enter a date  for the record. This copy is for position only</p>
+</div>
+<textarea name="editNotes" class="form-control a_textarea" rows="5" cols="80">01.01.2017 &#13;&#10;This is where the HP will type any notes a date will be automaticly entered whan a note is saved for each entry. That way the HP nevre has to enter a date  for the record. This copy is for position only
+</textarea> -->

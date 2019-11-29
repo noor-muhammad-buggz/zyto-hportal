@@ -1,0 +1,38 @@
+
+<section class="a_orders_section" >
+    <a class="a_back" href="javascript:;" [routerLink]="['/pages/client',clientId,'client-detail']"><img src="assets/images/left-arrow-icon-lightblue.png" alt="">Back</a>
+    <div class="a_orders_block" *ngIf="orders.length > 0">
+        <div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()">
+            <div *ngFor="let d of orders" class="a_orders_row clearfix"  [ngClass]="(d.Status=='Delivered')?' a_fulfilled':'a_pending'">
+                <div class="a_orders_date">
+                    <figure>
+                        <img src="" alt="">
+                        <span>{{profile?.nickname | nameInitials}}</span>
+                    </figure>
+                    <h4>DATE : {{d.AggregateInfo.CreatedDate | date:'MM/dd/yyyy' }}</h4>
+                </div>
+                <ul class="a_list a_orders_btns">
+                    <li>
+                        <a class="btn a_small_btn" [ngClass]="(d.Status=='Delivered')?' a_fulfilled_btn':'a_pending_btn'">
+                            {{d.Status || 'Pending'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn a_small_btn a_open_btn" [routerLink]="['/pages/client',clientId,'order',d.Id]">open</a> 
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12 py-3" style="text-align:center" *ngIf="continuationToken != null">
+                <div class="a_small_loader d-inline-block"></div>
+            </div>
+        <!-- <ngb-pagination class="d-flex justify-content-end" [maxSize]="3" [collectionSize]="orders.length" [pageSize]="pageSize" [(page)]="page" [boundaryLinks]="true" (pageChange)="pageChange($event)"></ngb-pagination> -->
+    </div>
+    <div class="a_orders_block" *ngIf="orders.length <= 0">
+            <div class="a_orders_row clearfix" style="margin: 10px;">
+                <div class="">
+                    <h6>No Orders</h6>
+                </div>
+            </div>
+    </div>
+</section>

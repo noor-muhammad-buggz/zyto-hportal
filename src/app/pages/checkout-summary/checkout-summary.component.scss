@@ -1,0 +1,337 @@
+@import '../../theme/sass/auth';
+:host /deep/ {
+    .a_checkout_summary_section {
+        padding: 50px 0;
+    }
+    .a_shipping_accordion {
+        margin-bottom: 20px;
+        .card {
+            border-radius: 10px;
+            box-shadow: none;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 10px;
+        }
+        .card-header {
+            border-radius: 10px 10px 0 0;
+            background-color: #bcdcf3;
+            border-bottom: 1px solid #eaeaea;
+            height: auto;
+            padding: 10px 20px;
+            .a_collapse_link {
+                color: #014c8c;
+                background-color: transparent;
+                font-size: 18px;
+                text-transform: uppercase;
+                font-weight: bold;
+                position: relative;
+                padding: 0 0 0 30px;
+                display: inline-block;
+                vertical-align: top;
+                white-space: normal;
+                word-wrap: normal;
+                &::before {
+                    background-image: url(/assets/images/accordion-icon.png);
+                    background-repeat: no-repeat;
+                    content: '';
+                    left: 0;
+                    top: 4px;
+                    position: absolute;
+                    width: 21px;
+                    height: 12px;
+                }
+                &:focus,
+                &:hover {
+                    box-shadow: none;
+                }
+                &.collapsed {
+                    &::before {
+                        -ms-transform: rotate(-90deg);
+                        -webkit-transform: rotate(-90deg);
+                        transform: rotate(-90deg);
+                    }
+                }
+            }
+        }
+        .card-body {
+            padding: 25px 120px 50px;
+            color: #788692;
+            font-size: 18px;
+            line-height: 22px;
+            border-bottom: 1px solid #e6e6e6;
+            border-left: 1px solid #e6e6e6;
+            border-right: 1px solid #e6e6e6;
+            border-radius: 0 0 10px 10px;
+        }
+    }
+    .a_payment_accordion {
+        margin-bottom: 20px;
+        .card {
+            border-radius: 10px;
+            box-shadow: none;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 10px;
+        }
+        .card-header {
+            border-radius: 10px 10px 0 0;
+            background-color: #bcdcf3;
+            border-bottom: 1px solid #eaeaea;
+            height: auto;
+            padding: 10px 20px;
+            .a_collapse_link {
+                color: #014c8c;
+                background-color: transparent;
+                font-size: 18px;
+                text-transform: uppercase;
+                font-weight: bold;
+                position: relative;
+                padding: 0 0 0 30px;
+                display: inline-block;
+                vertical-align: top;
+                white-space: normal;
+                word-wrap: normal;
+                &::before {
+                    background-image: url(/assets/images/accordion-icon.png);
+                    background-repeat: no-repeat;
+                    content: '';
+                    left: 0;
+                    top: 4px;
+                    position: absolute;
+                    width: 21px;
+                    height: 12px;
+                }
+                &:focus,
+                &:hover {
+                    box-shadow: none;
+                }
+                &.link-disabled {
+                    pointer-events: none;
+                }
+            }
+            .a_collapse_link.collapsed {
+                &::before {
+                    -ms-transform: rotate(-90deg);
+                    -webkit-transform: rotate(-90deg);
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+        .card-body {
+            padding: 25px 120px 50px;
+            color: #788692;
+            font-size: 18px;
+            line-height: 22px;
+            border-bottom: 1px solid #e6e6e6;
+            border-left: 1px solid #e6e6e6;
+            border-right: 1px solid #e6e6e6;
+            border-radius: 0 0 10px 10px;
+        }
+    }
+    .a_cartSummary_accordion {
+        margin-bottom: 20px;
+        &.a_fade_cartSummary {
+            opacity: 0.7;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: none;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 10px;
+        }
+        .card-header {
+            border-radius: 10px 10px 0 0;
+            background-color: #bcdcf3;
+            border-bottom: 1px solid #eaeaea;
+            height: auto;
+            padding: 10px 20px;
+            .a_collapse_link {
+                color: #014c8c;
+                background-color: transparent;
+                font-size: 18px;
+                text-transform: uppercase;
+                font-weight: bold;
+                position: relative;
+                padding: 0 0 0 30px;
+                display: inline-block;
+                vertical-align: top;
+                white-space: normal;
+                word-wrap: normal;
+                &::before {
+                    background-image: url(/assets/images/accordion-icon.png);
+                    background-repeat: no-repeat;
+                    content: '';
+                    left: 0;
+                    top: 4px;
+                    position: absolute;
+                    width: 21px;
+                    height: 12px;
+                }
+                &:focus,
+                &:hover {
+                    box-shadow: none;
+                }
+            }
+            .a_collapse_link.collapsed {
+                &::before {
+                    -ms-transform: rotate(-90deg);
+                    -webkit-transform: rotate(-90deg);
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+        .card-body {
+            padding: 25px;
+            color: #788692;
+            font-size: 18px;
+            line-height: 22px;
+            border-bottom: 1px solid #e6e6e6;
+            border-left: 1px solid #e6e6e6;
+            border-right: 1px solid #e6e6e6;
+            border-radius: 0 0 10px 10px;
+        }
+    }
+    .a_f_heading {
+        color: #7f8082;
+        font-size: 18px;
+        padding: 0 0 15px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #bcdcf3;
+        font-weight: bold;
+    }
+    .a_shipping_info_form {
+        .form-control {
+            @include placeholderStyle(#7f8082, 0.5);
+        }
+        .a_select {
+            background-color: #f4f4f4;
+            select {
+                color: #7f8082;
+                border-width: 1px;
+                background-color: transparent;
+                border-style: solid;
+                border-color: #e0e0e0;
+                height: 52px;
+                border-radius: 5px;
+                z-index: 5;
+                position: relative;
+                padding-right: 20px;
+                padding-left: 15px;
+            }
+        }
+    }
+    .a_payment_info_form {
+        p {
+            font-size: 18px;
+        }
+        .form-control {
+            @include placeholderStyle(#7f8082, 0.5);
+        }
+        .a_select {
+            select {
+                color: #7f8082;
+                border-width: 1px;
+                background-color: transparent;
+                border-style: solid;
+                border-color: #e0e0e0;
+                height: 52px;
+                border-radius: 5px;
+                z-index: 5;
+                position: relative;
+                padding-right: 20px;
+                padding-left: 15px;
+            }
+        }
+        .a_select.a_gray_select {
+            background-color: #f4f4f4;
+        }
+        .a_radio_list.a_payment_radio li {
+            margin-right: 20px !important;
+        }
+        .a_radio_list.a_payment_radio li [type="radio"]:checked+label,
+        .a_radio_list.a_payment_radio li [type="radio"]:not(:checked)+label {
+            padding-left: 36px !important;
+        }
+        .a_radio_list.a_payment_radio li>[type="radio"]:checked+label:before,
+        .a_radio_list.a_payment_radio li>[type="radio"]:not(:checked)+label:before {
+            top: 5px !important;
+        }
+        .a_radio_list.a_payment_radio li [type="radio"]:checked+label:before {
+            border: 1px solid #3797ff !important;
+            background-color: #3797ff !important;
+        }
+        .a_radio_list.a_payment_radio li [type="radio"]:checked+label:after,
+        .a_radio_list.a_payment_radio li [type="radio"]:not(:checked)+label:after {
+            background-color: #ffffff !important;
+            top: 13px !important;
+            left: 8px !important;
+            width: 8px !important;
+            height: 8px !important;
+        }
+    }
+    .a_products {
+        border-bottom: 2px solid #bcdcf3;
+        padding-bottom: 50px;
+        margin-bottom: 30px;
+        figure {
+            margin-bottom: 0;
+            display: inline-block;
+            vertical-align: top;
+            img {
+                max-width: 100%;
+            }
+        }
+        h3 {
+            font-size: 24px;
+            margin-bottom: 0;
+            color: #7f8082;
+            font-weight: normal;
+            line-height: 24px;
+        }
+        h2 {
+            font-size: 22px;
+            margin-bottom: 0;
+            color: #7f8082;
+            font-weight: bold;
+            line-height: 24px;
+        }
+        strong {
+            font-size: 24px;
+            margin-bottom: 0;
+            color: #4a73a2;
+            line-height: 24px;
+            font-weight: normal;
+        }
+    }
+    .a_sub_total {
+        font-size: 16px;
+        color: #60a0d6;
+        margin-bottom: 30px;
+    }
+    .a_edit_cart {
+        font-size: 18px;
+        color: #60a0d6;
+        display: inline-block;
+        vertical-align: top;
+        font-weight: bold;
+        text-transform: uppercase;
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+    @media screen and (max-width: $resM) {
+        .a_shipping_accordion {
+            .card-body {
+                padding: 20px 15px;
+            }
+        }
+        .a_payment_accordion {
+            .card-body {
+                padding: 20px 15px;
+            }
+        }
+        .a_cartSummary_accordion {
+            .card-body {
+                padding: 20px 15px;
+            }
+        }
+    }
+}

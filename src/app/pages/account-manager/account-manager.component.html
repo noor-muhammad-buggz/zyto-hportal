@@ -1,0 +1,34 @@
+<section class="a_plan_section">
+    <div class="row">
+        <div *ngIf="manager && manager.User" class="col-md-4">
+            <figure *ngIf="manager && manager.User"  class="a_profile">
+                <img src="{{ (manager.User.PictureFromUser) || (manager.User.PictureFromConnection) || '' }}" alt="profile">
+            </figure>
+        </div>
+        <div [ngClass]="{'col-md-8':manager && manager.User,'col-md-12':!(manager && manager.User)}" class="col-md-8">
+            <div class="a_detail_block">
+                <a class="a_back" href="javascript:;" [routerLink]="['/pages/account']"><img src="assets/images/left-arrow-icon-lightblue.png" alt="">Back</a>
+                <ng-container *ngIf="manager && manager.Administrator; else elseTemplate">
+                  <div class="a_label">
+                    <span>Your account rep is {{ manager?.Administrator?.Name?.FirstName }} {{ manager?.Administrator?.Name?.LastName }}</span>
+                </div>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <div class="a_label" *ngIf="globalState.showLoader == false" >
+                    <span>Your account is not assigned a Account Representative yet</span>
+                </div>
+                </ng-template>
+                <div *ngIf="manager && manager.Administrator" class="row a_row">
+                    <div class="col-md-6 ">
+                        <span class="a_top_text">Phone</span>
+                        <p>{{ manager?.Administrator?.Phone }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="a_top_text">Email</span>
+                        <p>{{ manager?.User?.Email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

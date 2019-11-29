@@ -1,0 +1,100 @@
+@import '../../theme/sass/auth';
+:host {
+    .a_services_section {
+        padding-bottom: 80px;
+        h3 {
+            font-size: 22px;
+            color: #60a0d6;
+        }
+        .a_back {
+            font-size: 22px;
+            color: #60a0d6;
+            font-weight: bold;
+            display: inline-block;
+            vertical-align: top;
+            margin-bottom: 15px;
+            float: right;
+            img {
+                margin-right: 10px;
+                margin-top: -3px;
+            }
+        }
+    }
+    .a_services_block {
+        border-radius: 7px;
+        border: 1px solid #eaeaea;
+        margin-bottom: 20px;
+        .a_services_row {
+            padding: 25px 26px 25px 26px;
+            //padding: 34px 26px 34px 26px;
+            border-top: 1px solid #dbdddf;
+            border-bottom: 1px solid #eaeef1;
+            position: relative;
+            .a_checkbox {
+                position: absolute;
+                opacity: 0;
+                left: 0;
+                top: 0;
+            }
+            .a_checkbox+label {
+                position: relative;
+                cursor: pointer;
+                padding: 0;
+                font-weight: normal;
+                margin: 0;
+                color: #003a70;
+                font-size: 18px;
+                word-break: break-all;
+                white-space: normal;
+                line-height: 24px;
+            }
+            .a_checkbox+label:before {
+                content: '';
+                margin-right: 30px;
+                display: inline-block;
+                vertical-align: sub;
+                width: 24px;
+                height: 24px;
+                background-color: #fff;
+                border-radius: 4px;
+                border: 1px solid #e0e0e0;
+            }
+            .a_checkbox:checked+label:after {
+                content: "\F00C";
+                position: absolute;
+                font-family: 'FontAwesome';
+                left: 2px;
+                top: 0px;
+                color: #7f8082;
+                font-size: 20px;
+            }
+        }
+        .a_services_row:first-of-type {
+            border-top: none;
+        }
+        .a_services_row:last-of-type {
+            border-bottom: none;
+        }
+    }
+    @media screen and (max-width: $resM) {
+        .a_services_section {
+            h3 {
+                font-size: 18px;
+                padding-left: 0;
+            }
+            .a_back {
+                font-size: 18px;
+                text-transform: capitalize;
+            }
+        }
+        .a_services_block {
+            .a_services_row {
+                padding: 15px 10px;
+            }
+        }
+        .a_services_block .a_services_row .a_checkbox+label:before {
+            content: '';
+            margin-right: 15px;
+        }
+    }
+}

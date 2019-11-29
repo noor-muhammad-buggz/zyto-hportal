@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "http://zyto.iserver.purelogics.net",
+    "secure": false,
+    "loglevel":"debug"
+  }
+}

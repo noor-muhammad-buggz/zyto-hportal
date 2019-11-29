@@ -1,0 +1,201 @@
+<section class="a_installation_section " [ngClass]="{'a_not_paired':!devices || devices.length == 0}">
+    <!--a_not_paired -->
+    <!-- <div class="alert alert-dismissible fade show" [ngClass]="{'alert-success': status}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button> tempStatus : {{tempStatus}} <br> temp : {{temp | json}} <br> status : {{status | json}} <br> ErrorMessage :  {{errorMessage | json}}  <br> Notification : {{notification | json}} <br> Noti :   {{noti | json}}
+        <br> calibrated : {{calibrated}}  <br> Progress : {{progress}} <br> contactStates : {{contactStates}} <br> contactTouches : {{contactTouches}}
+    </div>
+    <br><br><br> -->
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+            <a class="a_back" href="javascript:;" [routerLink]="['/pages/account']"><img src="assets/images/left-arrow-icon-lightblue.png" alt="">Back</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <figure class="a_profile">
+                <img class="" [src]="(!devices || devices.length == 0) ? 'assets/images/red-device-icon.png' : 'assets/images/device-icon.png'" alt="">
+                <!-- <span>HA</span> -->
+                <ng-container *ngIf="devices && devices.length !== 0">
+                    <span class="a_finger a_thumb hide" [ngClass]="{'show': contactStates && contactStates[0]}"></span>
+                    <span class="a_finger a_indexFinger hide" [ngClass]="{'show': contactStates && contactStates[1]}"></span>
+                    <span class="a_finger a_middleFinger hide" [ngClass]="{'show': contactStates && contactStates[2]}"></span>
+                    <span class="a_finger a_ringFinger hide" [ngClass]="{'show': contactStates && contactStates[3]}"></span>
+                    <span class="a_finger a_pinky hide" [ngClass]="{'show': contactStates && contactStates[4]}"></span>
+                    <span class="a_finger a_palm hide" [ngClass]="{'show': contactTouches !== 0}"></span>
+                </ng-container>
+            </figure>
+            <ul class="a_list a_arrow_icon_list">
+                <li><a href="javascript:;" (click)="openDriversPopop()">Download Drivers</a></li>
+                <li class=""><a href="{{windowApp}}">Download Scan App</a></li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <div class="a_detail_block">
+
+                <div class="row a_row">
+                    <!-- <h2 class="a_unpaired_h">Hand Cradle unpaired</h2> -->
+                    <ng-container *ngIf="devices[0] else nodevice">
+                        <ng-container *ngIf="edit else elseTemplate">
+                            <form role="form" (ngSubmit)="onSubmit(addDevice.value)" [formGroup]="addDevice" #editForm style="width: 100%;">
+                                <!-- <input type="text" class="form-control" value="{{devices[0].Id}}" formControlName="deviceId" name="deviceId" placeholder="Enter Device ID"> -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input #deviceFieldInput type="text" formControlName="name" placeholder="Enter Device Name" class="a_edit_title form-control" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="javascript:;" class="a_save_link" (click)="onSubmit(addDevice.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</a>
+                                        <a href="javascript:;" class="a_save_link" (click)="cancle()"><i class="fa fa-close" aria-hidden="true"></i> Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            <div class="row a_heading_name">
+                                <div class="col-md-6">
+                                    <h2>{{devices[0].Name}}</h2>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="javascript:;" (click)="onEdit()" class="a_edit_link"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit cradle name </a>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                    <ng-template #nodevice>
+                        <ng-container *ngIf="errorMessage?.message else elseError">
+                            <h2 class="a_unpaired_h">{{errorMessage.message || 'Pair your Hand Cradle to your ZYTO License'}} </h2>
+                        </ng-container>
+                        <ng-template #elseError>
+                            <h2 class="a_unpaired_h">{{errorMessage || 'Pair your Hand Cradle to your ZYTO License'}} </h2>
+                        </ng-template>
+                        <p class="a_unpaired_p">Copy your device ID number from your ZYTO scan app in your system tray. Paste the ID below.</p>
+                    </ng-template>
+                    <!-- <input type="text" class="a_edit_title form-control" placeholder=""> -->
+                </div>
+
+                <ng-container *ngIf="devices[0] else nodeviceform">
+                    <div class="row a_row" *ngFor="let item of devices">
+                        <div class="col-md-6 a_p0">
+                            <span class="a_top_text">Device ID</span>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="" value="{{devices[0].Id}}" aria-describedby="basic-addon2" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6 a_p0">
+                            <ul class="a_list a_result_btns">
+                                <li>
+                                    <a class="btn a_paired">paired</a>
+                                </li>
+                                <li>
+                                    <a class="btn a_pair" (click)="unregisterDevice(devices[0].Id)">Unpair</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #nodeviceform>
+                    <form role="form" (ngSubmit)="onSubmit(addDevice.value)" [formGroup]="addDevice">
+                        <div class="row a_row">
+                            <div class="col-md-6 a_p0">
+                                <span class="a_top_text">Device ID</span>
+                                <div class="input-group" [ngClass]="{'has-error':!addDevice.controls['deviceId'].valid && addDevice.controls['deviceId'].touched}">
+                                    <input type="text" class="form-control" placeholder="" formControlName="deviceId" aria-describedby="basic-addon2">
+                                    <span class="input-group-addon" id="basic-addon2">PASTE ID #</span>
+                                </div>
+                                <span class="text-danger" *ngIf="addDevice.controls['deviceId'].hasError('required') && (addDevice.controls['deviceId'].dirty || addDevice.controls['deviceId'].touched)">This field is required</span>
+
+                            </div>
+                            <div class="col-md-6 a_p0">
+                                <ul class="a_list a_result_btns">
+                                    <li>
+                                        <a class="btn a_unpaired">Unpaired</a>
+                                    </li>
+                                    <li>
+                                        <button class="btn a_pair" type="submit">Pair</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </ng-template>
+            </div>
+            <div *ngIf="devices && devices.length > 0" class=" row col-md-12 a_detail_block">
+                <p class="a_unpaired_p" *ngIf="status && !calibrated">
+                    {{status}}.
+                </p>
+                <p class="a_unpaired_p" *ngIf="calibrated">
+                    {{notification}}.
+                </p>
+                <p class="a_unpaired_p" *ngIf="temp === 'cradle-404' && errorMessage">
+                    {{errorMessage}}.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #installDriversModal let-idmClose="close" let-idmDismiss="dismiss">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="idmDismiss('Cross click')"><img src="assets/images/close-icon.png" alt=""></button>
+        <h3>DEVICE INSTALLATION</h3>
+        <h5>To pair your device follow the instructions below and then click next.</h5>
+    </div>
+    <div class="modal-body">
+        <div class="a_step1" *ngIf="installStep == 1">
+            <h2>1 ) DOWNLOAD & INSTALL THE ZYTO APP</h2>
+            <div class="a_devices">
+                <img class="a_logo" src="assets/images/model-logo1.png" alt="">
+                <ul class="a_list">
+                    <li>
+                        <a href="javacript;" class="a_apply_driver">Apple <br>Driver</a>
+                    </li>
+                    <li>
+                        <a href="javacript;" class="a_window_driver">Windows <br>Driver</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="a_step2" *ngIf="installStep == 2">
+            <h2>2 ) PLUG IN HAND CRADLE</h2>
+            <div class="a_devices">
+                <img class="a_logo" src="assets/images/model-logo1.png" alt="">
+                <ul class="a_list">
+                    <li>
+                        <a href="javacript;" class="a_apple_tv"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="a_step3" *ngIf="installStep == 3">
+            <h2>3 ) DOWNLOAD & INSTALL THE ZYTO APP</h2>
+            <div class="a_devices">
+                <img class="a_logo" src="assets/images/model-logo.png" alt="">
+                <ul class="a_list">
+                    <li>
+                        <a href="{{macApp}}" class="a_apply_driver">Apple <br>Application</a>
+                    </li>
+                    <li>
+                        <a href="{{windowApp}}" class="a_window_driver">Windows <br>(ver.7,8,10) <br>application</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <ng-container *ngIf="installStep < 3; else elseModalFooterTemplate">
+            <button type="button" class="btn a_btn a_right_icon" (click)="nextStep()">
+                  next
+                  <img src="assets/images/right-arrow-icon-darkblue.png" alt="">
+              </button>
+        </ng-container>
+        <ng-template #elseModalFooterTemplate>
+            <button type="button" class="btn a_btn a_right_icon" (click)="finalStep(idmClose)">
+                  next
+                  <img src="assets/images/right-arrow-icon-darkblue.png" alt="">
+              </button>
+        </ng-template>
+    </div>
+</ng-template>

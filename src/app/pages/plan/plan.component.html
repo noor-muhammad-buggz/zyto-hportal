@@ -1,0 +1,183 @@
+<section class="a_section a_dashbord_section">
+    <a class="a_back_link" href="javascript:;" [routerLink]="['/pages/account']">Back</a>
+    <div class="a_license_information_block mb-5">
+        <div class="table-responsive a_simple_table a_card_table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="a_mw_500 text-left m-16" colspan="2">LICENSE INFORMATION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td class="a_br_none text-left w-250">License Type</td>
+                            <td class="text-right a_blue_color">
+                                {{ (accountDetail?.Account?.License?.SubscriptionId) ? 'Monthly Subscription' : 'Demo' }} |
+                                <span  [ngClass]="{'a_green' : accountDetail?.Account?.License?.Active, 'a_red' : !accountDetail?.Account?.License?.Active}">{{ (accountDetail?.Account?.License?.Active) ? 'Active' : 'Inactive' }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="a_br_none text-left w-250">Expiration Date</td>
+                            <td class="text-right a_blue_color" *ngIf="accountDetail?.Account?.License?.Expiration">
+                                {{ accountDetail?.Account?.License?.Expiration?.Date | date:'MM/dd/y hh:mm a' }}
+                            </td>
+                            <td class="text-right a_blue_color" *ngIf="!accountDetail?.Account?.License?.Expiration?.Date">
+                                Perpectual
+                            </td>
+                        </tr>
+                        <tr *ngIf="accountDetail?.Subscription">
+                            <td class="a_br_none text-left ">Auto Renew</td>
+                            <td class="text-right a_blue_color">
+                                {{ (accountDetail?.Subscription?.NextChargeDate) ? 'Yes' : 'No' }}
+                            </td>
+                        </tr>
+                        <tr *ngIf="accountDetail?.Subscription">
+                            <td class="a_br_none text-left">Subscription Price</td>
+                            <td class="text-right a_blue_color">
+                                {{ accountDetail?.Subscription?.Amount | currency:'USD':'4.2-2' }}
+                            </td>
+                        </tr>
+    
+                    </tbody>
+                </table>
+        </div>
+        <div class="a_st_top">
+            <div class="d-flex justify-content-end align-items-center">
+                <a class="btn a_m_btn a_right_icon a_green" [routerLink]="['/pages/account/plan-upgrade']" *ngIf="!accountDetail?.Account?.License?.SubscriptionId">UPGRADE</a>
+                <a class="btn a_m_btn a_right_icon a_green" (click)="reActivate()" href="javascript:;" *ngIf="accountDetail?.Account?.License?.SubscriptionId !== null && !accountDetail?.Subscription?.NextChargeDate">Reactivate Subscription</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="as_subscription_plan_block" *ngIf="accountDetail?.Subscription">
+        <div class="table-responsive a_simple_table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="a_mw_500" colspan="2">SUBSCRIPTION INFORMATION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="a_br_none">Subscription ID</td>
+                        <td class="text-right a_blue_color">{{ accountDetail?.Sub }}</td>
+                    </tr>
+                    <tr>
+                        <td class="a_br_none">Renewal Date</td>
+                        <td class="text-right a_blue_color">January 01, 2018</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> -->
+
+    <div class="a_billing_information_block" *ngIf="accountDetail?.Subscription && billingInfo">
+        <div class="table-responsive a_simple_table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="a_mw_500 text-left m-16" colspan="3">BILLING INFORMATION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="a_br_none text-left">{{ billingInfo?.Type }} - {{ billingInfo?.LastFourDigits }} ({{ billingInfo?.ExpirationDate | date:'MM/y' }})</td>
+                        <td class="text-right">
+                            <a [routerLink]="['/pages/account/plan-edit']" href="javascript:;" class="btn a_s_btn a_lightBlue">Change</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- <div class="a_license_information_block mb-5">
+        <div class="table-responsive a_simple_table a_card_table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="a_mw_500 text-left m-16" colspan="2">LICENSE INFORMATION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="a_br_none text-left w-250">License Type
+                            <span class="a_tb_bar"></span>
+                        </td>
+                        <td class="text-right a_blue_color">
+                            Demo |
+                            <span class="a_green">Active</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="a_br_none text-left w-250">Expiration Date
+                            <span class="a_tb_bar"></span>
+                        </td>
+                        <td class="text-right a_blue_color">
+                            06/08/2018 4:00 PM
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            
+        </div>
+
+        <div class="a_st_top">
+            <div class="d-flex justify-content-end align-items-center as-btns">
+                <button class="btn a_m_btn a_right_icon a_green" type="buttton">UPGRADE</button>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+
+<!-- <section class="a_plan_section">
+    <div class="row">
+       <div class="col-md-4">
+            <figure class="a_profile">
+                <img src="assets/images/profile.jpg" alt="profile">
+            </figure>
+        </div> 
+        <div class="col-md-12">
+            <div class="a_detail_block">
+                <a class="a_back" href="javascript:;" [routerLink]="['/pages/account']"><img src="assets/images/left-arrow-icon-lightblue.png" alt="">Back</a>
+                <div class="a_label">
+                    <span>Your account rep is Sally Green</span>
+                </div>
+                <div class="row a_row">
+                    <div class="col-md-6 ">
+                        <span class="a_top_text">Phone</span>
+                        <p>732 766 2239 ext250</p>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="a_top_text">Email</span>
+                        <p>sgreen@zytohelp.com</p>
+                    </div>
+                </div>
+                <div class="row a_row">
+                    <div class="col-md-12">
+                        <span class="a_top_text">LIcense info</span>
+                        <p class="a_mb20" *ngIf="PlanDetail?.License?.Expiration">Activation date <strong>{{activeDate | date:'MM-dd-yyyy'}}</strong></p>
+                        <p *ngIf="PlanDetail?.License?.Expiration">Renewal date <strong>{{renewDate | date:'MM-dd-yyyy'}}</strong> </p>
+                        <p *ngIf="!PlanDetail?.License?.Expiration">Unknown</p>
+                    </div>
+                </div>
+                <div class="row a_row">
+                    <div class="col-md-5">
+                        <span class="a_top_text">Billing Info</span>
+                        <p>{{(PlanDetail?.Customer && PlanDetail?.Customer.CreditCards)? cardInfo.Type+'('+ cardInfo.Number +')' : 'No card on file'}} </p>
+                    </div>
+                    <div class="col-md-4" >
+                        <span class="a_top_text" *ngIf="PlanDetail?.Customer?.CreditCards">Expiration </span>
+                        <p *ngIf="PlanDetail?.Customer?.CreditCards">{{expireDate | date:'MM/dd/yyyy'}}</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <a href="javascript:;" [routerLink]="['/pages/account/billing']" class="btn a_edit_btn">EDIT</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->

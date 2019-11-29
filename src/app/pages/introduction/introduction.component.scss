@@ -1,0 +1,319 @@
+@import "../../theme/sass/auth";
+:host {
+    .a_white_btn {
+        color: #003a70 !important;
+        min-width: 270px;
+        background-color: #fff;
+        border-color: #fff;
+        font-size: 20px;
+        text-transform: initial;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 12px;
+        &.a_right_icon {
+            img {
+                right: 20% !important;
+                left: auto;
+            }
+        }
+    }
+    .a_lightBlue_btn {
+        color: #fff;
+        &:hover {
+            color: #fff !important;
+        }
+    }
+    .auth-main {
+        display: inherit !important;
+    }
+    .auth-block {
+        width: 769px;
+    }
+    .stepwizard-step p {
+        margin-top: 10px;
+    }
+    .stepwizard-row {
+        display: table-row;
+    }
+    .stepwizard {
+        display: table;
+        width: 100%;
+        position: relative;
+    }
+    .stepwizard-step button[disabled] {
+        opacity: 1 !important;
+        filter: alpha(opacity=100) !important;
+    }
+    .stepwizard-row:before {
+        top: 14px;
+        bottom: 0;
+        position: absolute;
+        content: " ";
+        width: 100%;
+        height: 1px;
+        background-color: #ccc;
+        z-order: 0;
+    }
+    .stepwizard-step {
+        display: table-cell;
+        text-align: center;
+        position: relative;
+    }
+    .btn-circle {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        padding: 6px 0;
+        font-size: 12px;
+        line-height: 1.428571429;
+        border-radius: 15px;
+        background-color: #fff;
+    }
+    .active {
+        background-color: #2ba5e3 !important;
+        color: #fff !important;
+    }
+    .skip-btn-container {
+        text-align: center;
+    }
+}
+
+/*training section css*/
+
+.a_training_section {
+    padding-top: 200px;
+    background-repeat: no-repeat;
+    background-image: url($a_images-root + "training_section_bg.png");
+    background-color: $a_blue;
+    position: relative;
+    background-position: 100% 138px;
+    .container {
+        max-width: 1000px;
+        width: 100%;
+    }
+    h1 {
+        text-align: center;
+        margin: 0 0 55px;
+    }
+}
+.a_steps_heading {
+    p {
+        font-size: 22px;
+        margin-bottom: 20px;
+        line-height: 26px;
+        strong {
+            //text-transform: uppercase;
+            color: #ffffff; //#79bae7;
+            margin-right: 10px;
+        }
+        span {
+            color: #ffffff;
+        }
+    }
+}
+.a_progress_stages {
+    ul {
+        margin-bottom: 20px;
+        li {
+            width: 90px;
+            float: left;
+            position: relative;
+            margin-right: 10px;
+            margin-bottom: 15px;
+            a.a_triangle {
+                display: inline-block;
+                vertical-align: top;
+                background-image: url($a_images-root + "triangle-icon.png");
+                background-repeat: no-repeat;
+                width: 29px;
+                height: 18px;
+                background-size: 100%;
+                text-indent: -99999px;
+            }
+            a.a_triangle:hover {
+                background-image: url($a_images-root + "visited-icon.png");
+            }
+            span.a_bar {
+                background-color: #4482b3;
+                width: 50px;
+                height: 2px;
+                display: inline-block;
+                vertical-align: top;
+                position: absolute;
+                right: 0;
+                top: 9px;
+            }
+        }
+        li:last-child {
+            span.a_bar {
+                display: none;
+            }
+        }
+        li.a_visited {
+            a.a_triangle {
+                background-image: url($a_images-root + "visited-icon.png");
+            }
+        }
+        li.a_active {
+            a.a_triangle {
+                -ms-transform: rotate(180deg);
+                /* IE 9 */
+                -webkit-transform: rotate(180deg);
+                /* Chrome, Safari, Opera */
+                transform: rotate(180deg);
+                background-image: url($a_images-root + "active-icon.png");
+            }
+        }
+    }
+}
+.a_video_controls {
+    padding: 30px 0 40px;
+    text-align: center;
+    ul {
+        display: inline-block;
+        vertical-align: top;
+        li {
+            float: left;
+            border-right: 1px solid #bedffa;
+            padding: 0 25px;
+            a {
+                position: relative;
+                img {
+                    position: absolute;
+                    left: 25%;
+                    top: 50%;
+                    margin-top: -10px;
+                }
+            }
+            a.a_left_icon {
+                img {
+                    left: 25%;
+                    right: auto;
+                }
+            }
+            a.a_right_icon {
+                img {
+                    right: 25%;
+                    left: auto;
+                }
+            }
+        }
+        li:last-child {
+            border-style: none;
+        }
+    }
+}
+.a_video_box {
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+    .a_video {
+        border: 4px solid #685d55;
+    }
+}
+.a_footer {
+    padding: 50px 0;
+    border-top: 3px solid #ffffff;
+    position: relative;
+    background-color: #d8e9f7;
+    background-image: url(/assets/images/training_footer_bg.png);
+    background-repeat: no-repeat;
+    background-position: 100% 0;
+    min-height: 184px;
+    p {
+        color: #60a0d6;
+        font-size: 12px;
+        margin: 0;
+        a {
+            color: #60a0d6;
+        }
+        a:hover {
+            opacity: 0.7;
+        }
+    }
+}
+@media screen and (max-width: $resXL) {
+    .a_training_section {
+        padding-top: 180px;
+        background-position: 100% 120px;
+        .container {
+            max-width: 650px;
+        }
+    }
+    .a_video_controls {
+        padding: 15px 0 15px;
+        ul {
+            li {
+                padding: 0 15px;
+                a {
+                    min-width: 140px;
+                    font-size: 16px;
+                    padding: 10px;
+                    img {
+                        margin-top: -8px;
+                        width: 8px;
+                    }
+                }
+                a.a_left_icon {
+                    img {
+                        left: 20%;
+                    }
+                }
+                a.a_right_icon {
+                    img {
+                        right: 20%;
+                    }
+                }
+            }
+            li:last-child {
+                border-style: none;
+            }
+        }
+        .a_white_btn.a_right_icon img {
+            right: 8% !important;
+        }
+    }
+}
+@media screen and (max-width: $resM) {
+    .a_training_section {
+        padding-top: 140px;
+        background-image: none;
+        h1 {
+            margin: 0 0 30px;
+        }
+    }
+    .a_progress_stages {}
+    .a_footer {
+        background-image: none;
+    }
+    .a_progress_stages {
+        ul {
+            li {
+                width: 64px;
+                margin-right: 8px;
+                margin-bottom: 0;
+                a.a_triangle {
+                    width: 20px;
+                    height: 12px;
+                }
+                span.a_bar {
+                    background-color: #4482b3;
+                    width: 36px;
+                    height: 2px;
+                    display: inline-block;
+                    vertical-align: top;
+                    position: absolute;
+                    right: 0;
+                    top: 9px;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: $resXXS) {
+    .a_progress_stages {
+        li {
+            p {}
+        }
+    }
+}

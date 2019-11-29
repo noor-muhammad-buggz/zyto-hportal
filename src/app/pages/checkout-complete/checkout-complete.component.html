@@ -1,0 +1,17 @@
+<section class="a_thank_you_section">
+    <div class="a_thank_you_block">
+        <h2 class="a_h2">Thank You</h2>
+        <h3>Your order has been submitted successfully.</h3>
+        <h3>Be sure to print the action Action Plan and review with your health professional.</h3>
+        <div class="a_ty_btns">
+            <button class="btn a_blue_btn a_mr3_786 a_right_icon mr-2" [routerLink]="['/pages/sessions', sessionId, 'action-plan']">
+                review action plan
+                <img alt="" src="assets/images/right-arrow-icon.png">
+            </button>
+            <button class="btn a_green_btn a_ml3_786 a_right_icon ml-2" (click)="print()">
+                print action plan
+                <img alt="" src="assets/images/print-icon-white.png">
+            </button>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,70 @@
+<div class="page-top" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)" [ngClass]="{scrolled: isScrolled,'a_checkout_pages_header':isNoSidebarPage == true}">
+    <div class="a_top_inner clearfix">
+        <div class="a_logo">
+            <a routerLink="/pages/dashboard">
+                <img class="a_img" src="assets/images/logo.png" alt="Zyto">
+            </a>
+        </div>
+        <!-- <a class="a_h2" *ngIf="isNoSidebarPage" routerLink="/pages/dashboard">Home <img  alt="" src="assets/images/right-arrow-icon.png"></a> -->
+        <a href="javascript:;" (click)="toggleMenu()" *ngIf="!isTrainingPage && !isNoSidebarPage" class="collapse-menu-link ion-navicon"></a>
+        <ul *ngIf="isNoSidebarPage" class="a_list a_back_next_control">
+            <li>
+                <a class="a_back" href="javascript:;" (click)="backToDashboard()">HOME</a>
+            </li>
+        </ul>
+        <h2 class="a_h2" *ngIf="isTrainingPage">TRAINING CENTER</h2>
+        <div class="a_top_right">
+            <div [ngClass]="{'show': !isTrainingPage && isSearchVisible}" class="a_search_field">
+                <input type="search" [(ngModel)]="searchString" #searchfield (keyup.enter)="searchPressed()" class="form-control searchfield" name="" value="">
+            </div>
+            <ul *ngIf="globalState.showHeaderMenu"  class="a_top_icons_menu a_list">
+                <li *ngIf="!isTrainingPage" class="a_search a_dn_768">
+                    <a (click)="searchPressed()"><img class="a_img" src="assets/images/search-icon.png" alt="search icon"></a>
+                </li>
+                <li *ngIf="!isTrainingPage" class="a_plus">
+                    <a routerLink="/pages/client"><img class="a_img" src="assets/images/plus-icon.png" alt="plus icon"></a>
+                </li>
+                <li *ngIf="isTrainingPage && isAlreadyTrainingCompleted" class="a_left_arrow">
+                    <a (click)="backToHomePage()"><img class="a_img" src="assets/images/top-right-arrow.png" alt="plus icon"></a>
+                </li>
+            </ul>
+            <div class="user-profile clearfix">
+                <div class="dropdown al-user-profile">
+                    <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ (profile?.user_metadata?.picture) || (profile?.picture) || ( 'Nasta' | baProfilePicture ) }}" alt="profile">
+                        <span>{{ (profile?.user_metadata?.name || profile?.nickname) }}</span>
+                    </a>
+                    <ul class="dropdown-menu top-dropdown-menu profile-dropdown" aria-labelledby="user-profile-dd">
+                        <li class="dropdown-item">
+                            <a href="javascript:;">
+                                <div class="profile-userpic">
+                                    <img src="{{ (profile?.user_metadata?.picture) || (profile?.picture) || ( 'Nasta' | baProfilePicture ) }}" alt="profile">
+                                    <!-- <img title="Alexander Ludwig" src="assets/images/profile.jpg" alt="profile"> -->
+                                </div>
+                                <div class="profile-usertitle">
+                                    <div class="profile-usertitle-name">
+                                        {{ (profile?.user_metadata?.name || profile?.nickname) }}
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- <li class="dropdown-item a_sub_dropdown">
+                            <a href="javascript:;" class="a_sub_dropdown_toggle">Drop down </a>
+                            <ul class="a_list a_sub_dropdown_menu">
+                                <li><a href="#">HTML</a></li>
+                                <li><a href="#">CSS</a></li>
+                            </ul>
+                        </li> -->
+                        <li class="dropdown-item a_id">
+                            <a href='{{ zytoAccountURL }}' target="_blank">My ZYTO ID</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="javascript:;" class="signout" (click)="logout()">Sign out</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- <ba-msg-center></ba-msg-center> -->
+            </div>
+        </div>
+    </div>
+</div>

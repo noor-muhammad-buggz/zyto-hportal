@@ -1,0 +1,36 @@
+image: mlaurie/aws-angular-builder:1.4.9
+
+pipelines:
+  default:
+    - step:
+        script:
+          - echo "This script runs on all branches that don't have any specific pipeline assigned in 'branches'."
+  branches:
+    master:
+    - step:
+        deployment: production
+        script:
+          - npm install
+          - ng build --prod --env=zyto-prod
+          - aws s3 sync dist s3://productx-hpportal --delete --cache-control "no-cache"
+    production-stage:
+    - step:
+        deployment: production
+        script:
+          - npm install
+          - ng build --prod --env=zyto-prod-stage
+          - aws s3 sync dist s3://productx-hpportal-production-stage --delete --cache-control "no-cache"
+    staging:
+    - step:
+        deployment: staging
+        script:
+          - npm install
+          - ng build --prod --env=zyto-stage
+          - aws s3 sync dist s3://productx-hpportal-staging --delete --cache-control "no-cache"
+    develop:
+    - step:
+        deployment: test
+        script:
+          - npm install
+          - ng build --prod --env=zyto-test
+          - aws s3 sync dist s3://productx-hpportal-testing --delete --cache-control "no-cache"		  

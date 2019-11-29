@@ -1,0 +1,59 @@
+<div class="page-main">
+  <div class="container">
+    <div class="start-content" *ngIf="facialData?.Status === 'Click' && state === 'start'">
+      <div class="start-text">
+        <p>Five instances of the photo that was uploaded will appear one at a time on the screen. Click on each image as soon as it appears.
+          Press the “START” button below to begin.</p>
+      </div>
+      <div class="start-btn-wrap">
+        <a href="javascript:;" class="btn as-darkblue-btn" (click)="startScan()">Start <img src="../../../assets/images/right-lightblue.png"></a>
+      </div>
+    </div>
+
+    <div class="click-image-section" *ngIf="state === 'randomize'">
+      <div class="click-image-title">
+        <p>Click on the image...</p>
+      </div>
+
+      <div class="click-image-wrap">
+          <div class="bounce-image-wrap" [ngStyle]="{'top':locY+'%','left':locX+'%'}">
+            <img src="{{ facialData?.Face?.Image?.Url || '../../../assets/images/y_u_no_photo_Square.png'}}" (click)="randomizeImage()" alt="Bounce Image">
+          </div>
+      </div>
+    </div>
+
+    <div class="click-image-section" *ngIf="state === 'scan'">
+      <div class="click-image-wrap">
+          <div class="scan-logo-wrap">
+            <img src="../../../assets/images/start-scan0.png" alt="Start Scan Image">
+            <span class="darkblue-text">Scanning...</span>
+          </div>
+      </div>
+    </div>
+
+
+    <div class="click-image-section" *ngIf="state === 'GeneratingInsights'">
+      <div class="click-image-wrap">
+          <div class="scan-loader-wrap">
+            <img src="../../../assets/images/loading-circle-blue.png" alt="Scan Loader Image">
+            <span class="darkblue-text">Generating Insights...</span>
+          </div>
+      </div>
+    </div>
+
+    <div *ngIf="state === 'continueOrcancel'">
+      <button class="btn a_blue_btn a_right_icon ml-2 hide" style="margin:50px 20px" [ngClass]="{'show-inline': state === 'continueOrcancel'}"  (click)="continueScan()">
+          Continue
+          <img src="assets/images/right-arrow-icon.png" alt="">
+      </button>
+      <button class="btn a_blue_btn a_right_icon ml-2 hide" style="margin:50px 20px" [ngClass]="{'show-inline': state === 'continueOrcancel'}" (click)="cancelScan()">
+          Cancel
+          <img src="assets/images/right-arrow-icon.png" alt="">
+      </button>
+  </div>
+
+
+
+
+  </div>
+</div>

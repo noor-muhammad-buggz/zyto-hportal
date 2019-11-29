@@ -1,0 +1,70 @@
+<div class="container">
+    <section class="a_cart_section">
+        <div class="a_cart_accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <a class="btn a_collapse_link" data-toggle="collapse" href="#accordionOne" aria-expanded="true" aria-controls="collapseOne">
+                                Cart Summary
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <form class="cartForm" [formGroup]="cartForm" (ngSubmit)="onsubmit(cartForm.value)">
+                        <div class="card-body" *ngIf="pendingSaleOrderData" formArrayName="LineItems">
+                            <div class="a_qty_row" *ngFor="let item of pendingSaleOrderData.LineItems; let i = index">
+                                <div class="row" formGroupName="{{i}}">
+                                    <div class="col-md-3">
+                                        <div class="a_left">
+                                            <span class="a_right_bar"></span>
+                                            <div class="a_per_img">
+                                                <figure>
+                                                    <img src="{{item?.Detail?.Image?.Html?.Url || '/assets/images/product-icon.png' }}" alt="Supplement">
+                                                </figure>
+                                            </div>
+                                            <h3><a href="javascript:;" (click)="remove(i)">Remove</a></h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="a_middle">
+                                            <h5>{{item?.Detail?.Name}}</h5>
+                                            <!-- <p [innerHTML]="item?.Detail?.Description"></p> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <div class="a_right">
+                                            <h5>{{(item?.Detail?.SalesPrices) ? (item?.Detail?.SalesPrices["0"].Amount | currency:'USD':'symbol':'2.2-2') : ''}}</h5>
+                                            <span class="a_qty">Qty</span>
+                                            <div class="form-group" [ngClass]="{'has-error':!cartForm.controls.LineItems.controls[i].controls['Quantity'].valid && !cartForm.controls.LineItems.controls[i].controls['Quantity'].touched}">
+                                                <!-- value="{{item.Quantity}}" -->
+                                                <span class="text-danger" *ngIf="cartForm.controls.LineItems.controls[i].controls['Quantity'].hasError('pattern') || cartForm.controls.LineItems.controls[i].controls['Quantity'].hasError('required') && (cartForm.controls.LineItems.controls[i].controls['Quantity'].dirty || cartForm.controls.LineItems.controls[i].controls['Quantity'].touched)">Required (Only numbers).</span>
+                                                <span class="text-danger" *ngIf="cartForm.controls.LineItems.controls[i].controls['Quantity'].hasError('validateMin') && (cartForm.controls.LineItems.controls[i].controls['Quantity'].dirty || cartForm.controls.LineItems.controls[i].controls['Quantity'].touched)">Min Quantity 1.</span>
+                                                <input type="text" number class="form-control" formControlName="Quantity">
+                                                <button class="btn btn-link" href="javascript:;" type="submit">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="a_cart_bottom">
+            <div class="row justify-content-end">
+                <div class="col-md-6">
+                    <div class="a_sub_total d-flex justify-content-between">
+                        <span>Subtotal:</span>
+                        <span>{{checkoutCart?.SalesOrder?.Subtotal | currency:'USD':'symbol':'2.2-2'}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <button class="btn a_blue_btn a_right_icon" (click)="RedirectToCheckoutSummary()">CHECKOUT <img  alt="" src="assets/images/right-arrow-icon.png"></button>
+            </div>
+        </div>
+    </section>
+</div>

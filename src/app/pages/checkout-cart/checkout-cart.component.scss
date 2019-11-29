@@ -1,0 +1,151 @@
+@import '../../theme/sass/conf/conf';
+:host {
+    .a_print_body {
+        display: none;
+    }
+    .a_cart_section {
+        padding-top: 30px;
+        padding-bottom: 50px;
+        .a_blue_btn {
+            font-weight: normal;
+            height: auto;
+            &.a_right_icon img {
+                right: 15px;
+                width: 8px;
+            }
+        }
+    }
+    .a_cart_accordion .card {
+        margin-bottom: 20px;
+        box-shadow: none;
+        border-radius: 10px 10px 0 0;
+        .card-header {
+            border-radius: 10px 10px 0 0;
+            background-color: #bcdcf3;
+            border-bottom: 1px solid #eaeaea;
+            height: auto;
+            padding: 10px 20px;
+        }
+        .a_collapse_link {
+            color: #014c8c;
+            background-color: transparent;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: bold;
+            position: relative;
+            padding: 0 0 0 30px;
+            display: inline-block;
+            vertical-align: top;
+            white-space: normal;
+            word-wrap: normal;
+            &::before {
+                background-image: url(/assets/images/accordion-icon.png);
+                background-repeat: no-repeat;
+                content: '';
+                left: 0;
+                top: 4px;
+                position: absolute;
+                width: 21px;
+                height: 12px;
+            }
+        }
+        .a_collapse_link.collapsed::before {
+            -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+        }
+        .card-body {
+            padding: 0;
+            color: #788692;
+            font-size: 18px;
+            line-height: 22px;
+            border-bottom: 1px solid #e6e6e6;
+            border-left: 1px solid #e6e6e6;
+            border-right: 1px solid #e6e6e6;
+            border-radius: 0 0 10px 10px;
+        }
+    }
+    .a_qty_row {
+        border-bottom: 1px solid #bedffa;
+        padding: 20px 20px;
+        ;
+        &:last-of-type {
+            border-bottom: none;
+        }
+        .a_left {
+            text-align: center;
+            position: relative;
+            figure {
+                display: inline-block;
+                vertical-align: top;
+                margin: 0 0 20px;
+                img {
+                    max-width: 110px;
+                }
+            }
+            a {
+                color: #60a0d6;
+                font-size: 18px;
+                &:hover {
+                    opacity: 0.6;
+                }
+            }
+        }
+        .a_middle {
+            h5 {
+                font-size: 24px;
+                color: #7f8082;
+                margin-bottom: 10px;
+            }
+            p {
+                font-size: 16px;
+            }
+        }
+        .a_right {
+            position: relative;
+            text-align: center;
+            padding-left: 50px;
+            display: inline-block;
+            vertical-align: top;
+            h5 {
+                font-size: 24px;
+                color: #7f8082;
+                margin-bottom: 20px;
+                font-weight: bold;
+            }
+            button.btn-link {
+                color: #60a0d6;
+                font-size: 18px;
+                &:hover {
+                    opacity: 0.6;
+                }
+            }
+            .a_qty {
+                font-size: 22px;
+                color: #4a73a2;
+                position: absolute;
+                left: 0;
+                top: 57px;
+            }
+            .form-group {
+                margin-bottom: 5px;
+                .form-control {
+                    max-width: 120px;
+                    margin: auto;
+                }
+            }
+        }
+    }
+    .a_cart_bottom {
+        .a_sub_total {
+            font-weight: bold;
+            color: #60a0d6;
+            font-size: 18px;
+            border-bottom: 1px solid #60a0d6;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            padding-right: 20px;
+            padding-left: 50px;
+        }
+    }
+    @media screen and (max-width: $resXXS) {}
+}

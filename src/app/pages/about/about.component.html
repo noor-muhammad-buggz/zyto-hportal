@@ -1,0 +1,76 @@
+<!-- <section class="a_about_section" *ngIf="about; else nocontent">
+    <h3 i18n>CURRENT UPDATES
+    </h3>
+    <div class="a_about_block">
+        <div class="a_about_row clearfix">
+            <p [innerHTML]="about.ReleaseNotes"></p>
+        </div>
+    </div>
+</section>
+<ng-template #nocontent>
+    <div class="a_about_block">
+        <div class="a_about_row clearfix">
+            <p>No releases notes</p>
+        </div>
+    </div>
+</ng-template> -->
+
+
+<section *ngIf="aboutData else noData" class="a_section a_about_section">
+    <h3 class=" mb-2">Support</h3>
+    <div class="a_support_text pl-md-4">
+        <p>For software support or to provide feedback about ZYTO Insights, send email to: <a href="javascript:;">insight@ZYTO.com</a></p>
+        <p>or call 801-224-7199</p>
+        <p><em>Monday-Thursday: 7 a.m. to 5 p.m. (Mountain Time -MT)</em></p>
+    </div>
+    <h3 class=" mb-2">Software Updates</h3>
+    <div class="search-results" data-infinite-scroll debounce [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()">
+        <div class="a_simple_accordion" *ngFor="let about of aboutData; let i = index">
+            <div class="card">
+                <div class="card-header">
+                    <a class="accordion-toggle" [ngClass]="{'collapsed':i != 0}" data-toggle="collapse" href="#collapseOne{{i}}" role="button" aria-expanded="true">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Release {{about.Id}}</span>
+                            <span>{{about.ReleaseDate | date:'MM/dd/yyyy'}}</span>
+                        </div>
+                    </a>
+                </div>
+                <div id="collapseOne{{i}}" [ngClass]="{'show':i == 0}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div [innerHTML]="about.ReleaseNotes"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <accordion class="a_simple_accordion" *ngFor="let about of aboutData; let i = index">
+        <accordion-group [isOpen]="isFirstOpen">
+            <div accordion-heading class="d-flex justify-content-between align-items-center">
+                <span>Release {{about.Id}}</span>
+                <span>{{about.ReleaseDate | date:'MM/dd/yyyy'}}</span>
+            </div>
+            <div [innerHTML]="about.ReleaseNotes"></div>
+        </accordion-group>
+    </accordion> -->
+</section>
+<section>
+    <div *ngIf="globalState.enabledDebug && aboutData" class="row">
+        <div class="col-md-12">
+            <pre>{{aboutData | json}}</pre>
+        </div>
+    </div>
+</section>
+<ng-template #noData>
+    <h3 class="a_h3 mb-2">Support</h3>
+    <div class="a_support_text pl-md-4 ">
+        <p>For software support or to provide feedback about ZYTO Insights, send email to: <a href="javascript:;">insight@ZYTO.com</a></p>
+        <p>or call 801-224-7199</p>
+        <p><em>Monday-Thursday: 7 a.m. to 5 p.m. (Mountain Time -MT)</em></p>
+    </div>
+    <h3 class="a_h3 mb-2">Software Updates</h3>
+    <div class="card a_simple_card">
+        <div class="card-header">
+            No updates
+        </div>
+    </div>
+</ng-template>

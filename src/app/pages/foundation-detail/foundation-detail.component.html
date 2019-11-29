@@ -1,0 +1,548 @@
+<div class="as-page-wrap">
+  <div class="row">
+    <div class="col-lg-6">
+      <h3 class="lightblue-text m16">
+        <a href="javascript:;" [routerLink]="['/pages/sessions',programId,'foundations']">Overview </a> >
+        <span class="lightblue-text b16 u-text">{{selectedFoundation?.Name}}</span>
+      </h3>
+      <h2 class="iconic-heading darkblue-text">
+        <img src="../../../assets/images/systems-32.png">Systems</h2>
+    </div>
+    <div class="col-lg-6">
+      <div class="btn-wrap text-right">
+        <a href="javascript:;" class="btn as-darkblue-btn big-btn" [routerLink]="['/pages/sessions',programId,'action-plan']">Action Plan
+          <img src="../../../assets/images/right-arrow-icon.png">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!--BAR CHART -->
+  <div class="bar-chart-wrap">
+    <div class="chart-wrap">
+      <div class="dataset-chart">
+
+        <div class="data-row row no-gutters" *ngFor="let bar of foundationDetail?.Systems">
+          <div class="dataset-label col-12 col-md-4 col-xl-3">
+            <div class="row no-gutters">
+              <div class="col">
+                <div class="data-lable">
+                  <a href="javascript:;" [routerLink]="['/pages/sessions',programId,'foundations',foundationId,'system',bar?.Id,'detail']">{{ bar?.Name }}</a>
+                </div>
+              </div>
+              <div class="col-auto">
+                <!-- <div class="data-icon">
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="data-bar col-12 col-md-8 col-xl-9">
+            
+            <div data-toggle="tooltip" title="{{bar?.Name}}: {{bar?.Result | number : '1.1-1'}}" [ngClass]="{'fs_10':bar?.Result < 1}"
+            class="data-bar-fill" [ngStyle]="{'font-size':(bar?.Result < 1)? '8px' : '12px','width': bar?.Result*10+'%','background-color': selectedFoundation?.Color}">{{bar?.Result | number : '1.1-1'}}</div>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="chart-bg col-12 col-md-8 col-xl-9 offset-md-4 offset-xl-3">
+            <span class="point" id="point-0">
+              <span class="point-value">0</span>
+            </span>
+            <span class="point" id="point-1">
+              <span class="point-value">1</span>
+            </span>
+            <span class="point" id="point-2">
+              <span class="point-value">2</span>
+            </span>
+            <span class="point" id="point-3">
+              <span class="point-value">3</span>
+            </span>
+            <span class="point" id="point-4">
+              <span class="point-value">4</span>
+            </span>
+            <span class="point" id="point-5">
+              <span class="point-value">5</span>
+            </span>
+            <span class="point" id="point-6">
+              <span class="point-value">6</span>
+            </span>
+            <span class="point" id="point-7">
+              <span class="point-value">7</span>
+            </span>
+            <span class="point" id="point-8">
+              <span class="point-value">8</span>
+            </span>
+            <span class="point" id="point-9">
+              <span class="point-value">9</span>
+            </span>
+            <span class="point" id="point-10">
+              <span class="point-value">10</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--END BAR CHART -->
+  <div class="supplement-accordians accordians-main" *ngIf="foundationDetail?.DistributorProducts?.length > 0">
+    <h2 class="iconic-heading darkblue-text">
+      <img src="../../../assets/images/supplements-icon.png">Supplements</h2>
+    <div class="a_simple_accordion as-accordian" *ngFor="let supple of foundationDetail?.DistributorProducts | slice:start:end; let i=index">
+
+      <div class="card">
+        <div class="card-header">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" href="#collapse{{i}}" role="button" aria-expanded="true">
+            <div class="row d-flex justify-content-between align-items-center">
+              <span class="col-lg">
+                <img src="../../../assets/images/accordion-icon.png" class="accordian-caret">
+                <h3 class="card-header-text"> {{supple?.DistributorProduct?.Name}} |
+                  <strong>{{supple?.Result*100 | number:'1.1-1'}}%</strong>
+                </h3>
+              </span>
+              <span class="col-lg-4">
+                <ul class="icons-wth-value">
+                  <li *ngFor="let fd of supple?.FoundationDetail; let i=index">
+                    <img [src]="fd.Image">
+                    <span class="icon-value">{{fd.Result | number:'1.1-1'}}</span>
+                  </li>
+                </ul>
+              </span>
+              <span class="col-lg-2">
+                <h3 class="add-remove" *ngIf="!supple.InActionPlan">
+                  <a href="javascript:;" *ngIf="!supple?.DistributorProduct.OptionProducts" (click)="addToActionPlan('distributorproducts', supple?.DistributorProduct?.Id)">Add
+                    <img src="../../../assets/images/white-plus-icon.png">
+                  </a>
+                  <a href="javascript:;" *ngIf="supple?.DistributorProduct.OptionProducts" (click)="open(content,'distributorproducts', supple?.DistributorProduct?.Id)">Add
+                    <img src="../../../assets/images/white-plus-icon.png">
+                  </a>
+                </h3>
+                <h3 class="add-remove" *ngIf="supple.InActionPlan">
+                  <a href="javascript:;" (click)="removeFromActionPlan('distributorproducts', supple?.DistributorProduct?.Id)">Remove
+                    <img src="../../../assets/images/white-minus-icon.png">
+                  </a>
+                </h3>
+              </span>
+            </div>
+          </a>
+        </div>
+        <div id="collapse{{i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-auto col-border-right">
+                <div class="according-content-image">
+                  <img src="{{supple?.DistributorProduct?.Image?.Html?.Url}}">
+                  <span class="ac-image-sku">sku: {{supple?.DistributorProduct?.Id}}</span>
+                </div>
+              </div>
+              <div class="col-lg">
+                <div class="acc-content-text">
+                  <p>
+                    <app-zone-detail [uid]="'read-more-a-' + i" [zoneData]="supple?.DistributorProduct?.Description"></app-zone-detail>
+                    <!-- <a href="javascript:;" class="acc-more-link">More...</a> -->
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-2">
+                <div class="acc-price">
+                  <h3>
+                    {{ (supple?.DistributorProduct.SalesPrices) ? (supple?.DistributorProduct.SalesPrices['0']?.Amount | currency:'USD':'symbol':'2.2-2')
+                        : '' }}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="link-wrap text-right" *ngIf="end == 5 && foundationDetail?.DistributorProducts.length > 5">
+      <a href="javascript:;" (click)="loadMore()" class="acc-show-more">Show more...</a>
+    </div>
+    <div class="link-wrap text-right" *ngIf="end > 5 && foundationDetail?.DistributorProducts.length > 5">
+      <a href="javascript:;" (click)="loadLess()" class="acc-show-more">Show less...</a>
+    </div>
+  </div>
+
+  <div class="accordians-main" *ngIf="foundationDetail?.Services?.length > 0">
+    <h2 class="iconic-heading darkblue-text">
+      <img src="../../../assets/images/service-icon.png">Services</h2>
+    <div class="a_simple_accordion as-accordian" *ngFor="let service of foundationDetail?.Services | slice:start:end; let i=index">
+
+      <div class="card">
+        <div class="card-header">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" href="#collapseS{{i}}" role="button" aria-expanded="true">
+            <div class="row d-flex justify-content-between align-items-center">
+              <span class="col-lg">
+                <img src="../../../assets/images/accordion-icon.png" class="accordian-caret">
+                <h3 class="card-header-text"> {{service?.Name}} |
+                  <strong>{{service?.Result*100 | number:'1.1-1'}}%</strong>
+                </h3>
+              </span>
+              <span class="col-lg-4">
+                <ul class="icons-wth-value">
+                  <li *ngFor="let fd of service?.FoundationDetail; let i=index">
+                    <img [src]="fd.Image">
+                    <span class="icon-value">{{fd.Result | number:'1.1-1'}}</span>
+                  </li>
+                </ul>
+              </span>
+              <span class="col-lg-2" >
+                <h3 class="add-remove" *ngIf="!service.InActionPlan">
+                  <a href="javascript:;" (click)="addToActionPlan('services', service?.Id)">Add
+                    <img src="../../../assets/images/white-plus-icon.png">
+                  </a>
+                </h3>
+                <h3 class="add-remove" *ngIf="service.InActionPlan">
+                  <a href="javascript:;" (click)="removeFromActionPlan('services', service?.Id)">Remove
+                    <img src="../../../assets/images/white-minus-icon.png">
+                  </a>
+                </h3>
+              </span>
+            </div>
+          </a>
+        </div>
+        <div id="collapseS{{i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-auto col-border-right">
+                <div class="according-content-image">
+                  <img src="../../../assets/images/services-image.png">
+                </div>
+              </div>
+              <div class="col-lg">
+                <div class="acc-content-text">
+                  <p>
+                    <app-zone-detail [uid]="'read-more-a-' + i" [zoneData]="service?.Description"></app-zone-detail>
+                    <!-- <a href="javascript:;" class="acc-more-link">More...</a> -->
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="link-wrap text-right" *ngIf="serviceEnd == 5 && foundationDetail?.Services?.length > 5 ">
+      <a href="javascript:;" (click)="loadMoreService()" class="acc-show-more">Show more...</a>
+    </div>
+    <div class="link-wrap text-right" *ngIf="serviceEnd > 5 && foundationDetail?.Services?.length > 5">
+      <a href="javascript:;" (click)="loadLessService()" class="acc-show-more">Show less...</a>
+    </div>
+  </div>
+
+
+  <div class="accordians-main">
+    <div class="a_simple_accordion as-accordian">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="row d-flex justify-content-between align-items-center">
+            <span class="col-lg">
+              <h3 class="card-header-text">Status Questions</h3>
+            </span>
+            <span class="col-lg-2">
+              <div class="btn-wrap text-right m-4-auto">
+                <a href="javascript:;" class="btn as-blue-btn edit-btn" *ngIf="!statusEdit" (click)="statusEditToggle()">Edit</a>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div id="c1">
+          <div class="card-body question-status">
+            <div *ngIf="!statusEdit">
+              <div *ngIf="foundationDetail?.StatusQuestionnaire?.Section?.hasAnswers"> 
+                <ng-container *ngFor="let pStatus of foundationDetail?.StatusQuestionnaire?.Section?.Questions">
+                  <div class="row" *ngIf="pStatus?.answer">
+                    <div class="col-lg-4">
+                      <span class="lightblue-text m-16">{{pStatus.Name}}</span>
+                    </div>
+                    <div class="col-lg">
+                      <span class="gray-text n-16">{{pStatus?.answer}}</span>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="row" *ngIf="!foundationDetail?.StatusQuestionnaire?.Section?.hasAnswers"> 
+                <div class="col-lg-8"><span class="lightblue-text m-16">No status questions has been answered</span></div>
+              </div>
+            </div>
+            <div class="data-edit-wrap" *ngIf="statusEdit">
+              <form [formGroup]="StatusForm">
+                <div *ngFor="let question of StatusSections.Questions; let qi=index">
+                  <div class="row align-items-center bb-1 ptb-10" *ngIf="question?.Type == 'SingleSelect'">
+                    <div class="col-lg-3">
+                      <span class="lightblue-text m-16 edit-ques">{{question.Name}}</span>
+                    </div>
+                    <div class="col-lg-3">
+                      <select class="t-select" [formControl]="StatusForm?.controls['QuestionResults']?.controls[question.qIndex]?.controls['Result']">
+                        <option value=""></option>
+                        <option *ngFor="let option of question?.ResultRestrictions?.QuestionOptions" value="{{option.Id}}">{{option?.Name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row align-items-center bb-1 ptb-10" *ngIf="question?.Type == 'MultiSelect'">
+                    <div class="col-lg-12">
+                      <div class="question-wrap-2">
+                        <span class="lightblue-text b-16 edit-ques">{{question.Name}}</span>
+
+                        <ng-container *ngFor="let chunk of question?.chunkedResults">
+                          <div class="row">
+                            <div class="col-lg-3" *ngFor="let option of chunk">
+                              <ul>
+                                <li>
+                                  <label class="checkbox-wrap">
+                                    <span class="lightblue-text m-16">{{option.Name}}</span>
+                                    <input type="checkbox" value="{{option.Id}}" (change)="setResults(question?.qIndex, option?.Id)" [checked]="checkResult(question?.qIndex, option?.Id)">
+
+                                    <span class="checkmark"></span>
+                                  </label>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center ptb-10" *ngIf="question?.Type == 'Text'">
+                    <div class="col-lg-12">
+                      <div class="question-wrap-2">
+                        <span class="lightblue-text b-16 edit-ques">{{question.Name}}</span>
+                        <div class="row">
+                          <div class="col-lg">
+                            <div class="big-text-field">
+                              <!-- [formControl]="wellnessForm?.controls['QuestionResults']?.controls[question.qIndex]?.controls['Result']" -->
+                              <textarea name="other-nutrition" class="full-textarea" cols="4" [formControl]="StatusForm?.controls['QuestionResults']?.controls[question.qIndex]?.controls['Result']"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row align-items-center">
+                  <div class="col-lg-12">
+                    <div class="edit-ques-btns text-right">
+                      <a class="btn as-pink-btn big-btn" href="javascript:;" (click)="statusEditToggle()">
+                        <img src="../../../assets/images/close-icon.png"> Cancel
+                      </a>
+                      <a class="btn as-darkblue-btn big-btn" href="javascript:;" (click)="saveQuestionaire()">Save
+                        <img src="../../../assets/images/right-arrow-icon.png">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="accordians-main">
+    <div class="a_simple_accordion as-accordian">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="row d-flex justify-content-between align-items-center">
+            <span class="col-lg">
+              <h3 class="card-header-text">Practitioner Recommendations</h3>
+            </span>
+            <span class="col-lg-2">
+              <div class="btn-wrap text-right m-4-auto">
+                <a href="javascript:;" class="btn as-blue-btn edit-btn" *ngIf="!practitionerEdit" (click)="practitionerEditToggle()">Edit</a>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div id="c1">
+          <div class="card-body question-status">
+            <div *ngIf="!practitionerEdit">
+              <div *ngIf="foundationDetail?.RecommendationQuestionnaire?.Section?.hasAnswers">
+                <ng-container *ngFor="let pStatus of foundationDetail?.RecommendationQuestionnaire?.Section?.Questions" >
+                  {{pStatus.answer}}{{pStatus.Name}}
+                  <div class="row" *ngIf="pStatus.answer">
+                    <div class="col-lg-4">
+                      <span class="lightblue-text m-16">{{pStatus.Name}}</span>
+                    </div>
+                    <div class="col-lg">
+                      <span class="gray-text n-16">{{pStatus.answer}}</span>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="row" *ngIf="!foundationDetail?.RecommendationQuestionnaire?.Section?.hasAnswers"> 
+                <div class="col-lg-8"><span class="lightblue-text m-16">No practitioner questions has been answered</span></div>
+              </div>
+              
+            </div>
+            
+            <!-- EDIT QUESTIONS TAB -->
+            <div class="data-edit-wrap" *ngIf="practitionerEdit">
+              <form [formGroup]="PractitionerForm">
+                <div *ngFor="let question of PractitionerSections.Questions; let qi=index">
+                  <div class="row align-items-center bb-1 ptb-10" *ngIf="question?.Type == 'SingleSelect'">
+                    <div class="col-lg-3">
+                      <span class="lightblue-text m-16 edit-ques">{{question.Name}}</span>
+                    </div>
+                    <div class="col-lg-3">
+                      <select class="t-select" [formControl]="PractitionerForm?.controls['QuestionResults']?.controls[question.qIndex]?.controls['Result']">
+                        <option></option>
+                        <option *ngFor="let option of question?.ResultRestrictions?.QuestionOptions" value="{{option.Id}}">{{option?.Name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row align-items-center bb-1 ptb-10" *ngIf="question?.Type == 'MultiSelect'">
+                    <div class="col-lg-12">
+                      <div class="question-wrap-2">
+                        <span class="lightblue-text b-16 edit-ques">{{question.Name}}</span>
+                        <ng-container *ngFor="let chunk of question?.chunkedResults">
+                          <div class="row">
+                            <div class="col-lg-3" *ngFor="let option of chunk">
+                              <ul>
+                                <li>
+                                  <label class="checkbox-wrap">
+                                    <span class="lightblue-text m-16">{{option.Name}}</span>
+                                    <input type="checkbox" value="{{option.Id}}" (change)="setResults1(question?.qIndex, option?.Id)" [checked]="checkResult1(question?.qIndex, option?.Id)">
+
+                                    <span class="checkmark"></span>
+                                  </label>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center ptb-10" *ngIf="question?.Type == 'Text'">
+                    <div class="col-lg-12">
+                      <div class="question-wrap-2">
+                        <span class="lightblue-text b-16 edit-ques">{{question.Name}}</span>
+                        <div class="row">
+                          <div class="col-lg">
+                            <div class="big-text-field">
+                              <!-- [formControl]="wellnessForm?.controls['QuestionResults']?.controls[question.qIndex]?.controls['Result']" -->
+                              <textarea name="other-nutrition" class="full-textarea" cols="4" [formControl]="PractitionerForm?.controls['QuestionResults']?.controls[question.qIndex]?.controls['Result']"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row align-items-center">
+                  <div class="col-lg-12">
+                    <div class="edit-ques-btns text-right">
+                      <a class="btn as-pink-btn big-btn" href="javascript:;" (click)="practitionerEditToggle()">
+                        <img src="../../../assets/images/close-icon.png"> Cancel
+                      </a>
+                      <a class="btn as-darkblue-btn big-btn" href="javascript:;" (click)="savePractitionerQuestionaire()">Save
+                        <img src="../../../assets/images/right-arrow-icon.png">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="accordians-main">
+    <div class="a_simple_accordion as-accordian">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="row d-flex justify-content-between align-items-center">
+            <span class="col-lg">
+              <h3 class="card-header-text">Notes</h3>
+            </span>
+            <span class="col-lg-2">
+              <div class="btn-wrap text-right m-4-auto">
+                <a href="javascript:;" class="btn as-blue-btn edit-btn" *ngIf="!notesEdit" (click)="notesEditToggle()">Edit</a>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div id="c1">
+          <div class="card-body question-status">
+            <div class="row" *ngIf="!notesEdit">
+              <div class="col-lg">
+                <p class="gray-text m-16">
+                  {{note || 'No Notes'}}
+                </p>
+              </div>
+            </div>
+
+            <!-- EDIT QUESTIONS TAB -->
+            <div class="data-edit-wrap" *ngIf="notesEdit">
+              <form [formGroup]="notesForm">
+              <div class="row align-items-center ptb-10">
+                <div class="col-lg-12">
+                  <div class="question-wrap-2">
+                    <div class="row">
+                      <div class="col-lg">
+                        <div class="big-text-field">
+                          <textarea [formControl]="notesForm.controls['Note']" class="full-textarea" cols="4"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row align-items-center">
+                <div class="col-lg-12">
+                  <div class="edit-ques-btns text-right">
+                    <a class="btn as-pink-btn big-btn" href="javascript:;" (click)="notesEditToggle()">
+                      <img src="../../../assets/images/close-icon.png"> Cancel
+                    </a>
+                    <a class="btn as-darkblue-btn big-btn" href="javascript:;" (click)="notesSave()">Save
+                      <img src="../../../assets/images/right-arrow-icon.png">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Select Flavor</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="form-group">
+        <div class="input-group a_left_icon_input">
+          <select class="form-control Flavor" [(ngModel)]="selectedOption" name="selectedOption">
+            <option value="">Select Flavor</option>
+            <option *ngFor="let opt of distOptions.OptionProducts" [ngValue]="opt.Id">{{opt.Options["0"].Value}}</option>
+          </select>
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="addToActionPlan('distributorproducts', selectedDistId, selectedOption)">Add To Action Plan</button>
+  </div>
+</ng-template>

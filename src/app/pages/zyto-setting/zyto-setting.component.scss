@@ -1,0 +1,459 @@
+@import "../../theme/sass/conf/conf";
+$red-color: #f5516a;
+:host {
+    .a_back {
+        font-size: 22px;
+        color: #60a0d6;
+        font-weight: bold;
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 15px;
+        img {
+            margin-right: 10px;
+            margin-top: -3px;
+        }
+    }
+    .hide {
+        display: none !important;
+    }
+    .show {
+        display: block !important;
+    }
+    .show-inline {
+        display: inline !important;
+    }
+    .a_installation_section {
+        padding: 0 100px;
+        margin-bottom: 70px;
+        .a_profile {
+            margin-top: -60px;
+            width: 100%;
+            max-width: 229px;
+            height: 229px;
+            display: table;
+            border-radius: 100%;
+            overflow: hidden;
+            text-align: center;
+            margin-bottom: 40px;
+            background-color: $green-color;
+            position: relative;
+            img {
+                padding-top: 22px;
+                width: 229px;
+            }
+            .a_finger {
+                position: absolute;
+                left: 0;
+                top: 0;
+                background-repeat: no-repeat;
+                opacity: 0.9;
+            }
+            .a_thumb {
+                width: 61px;
+                height: 37px;
+                background-image: url(/assets/images/p-thumb.png);
+                left: 47px;
+                top: 105px;
+            }
+            .a_indexFinger {
+                width: 70px;
+                height: 38px;
+                background-image: url(/assets/images/p-index-finger.png);
+                left: 48px;
+                top: 77px;
+            }
+            .a_middleFinger {
+                width: 66px;
+                height: 36px;
+                background-image: url(/assets/images/p-middle-finger.png);
+                left: 73px;
+                top: 64px;
+            }
+            .a_ringFinger {
+                width: 61px;
+                height: 34px;
+                background-image: url(/assets/images/p-ring-finger.png);
+                left: 105px;
+                top: 62px;
+            }
+            .a_pinky {
+                width: 36px;
+                height: 34px;
+                background-image: url(/assets/images/p-pinky.png);
+                left: 148px;
+                top: 81px;
+            }
+            .a_palm {
+                width: 39px;
+                height: 39px;
+                background-image: url(/assets/images/p-palm.png);
+                left: 135px;
+                top: 103px;
+            }
+        }
+        &.a_not_paired {
+            .a_profile {
+                background-color: $red-color;
+                img {}
+                span {
+                    background-color: $red-color;
+                }
+            }
+        }
+    }
+    .a_arrow_icon_list {
+        font-size: 18px;
+        li {
+            margin-bottom: 18px;
+            a {
+                color: #79bae7;
+                padding-left: 25px;
+                position: relative;
+                font-weight: bold;
+            }
+            a:hover {
+                color: #003a70;
+            }
+            a:before {
+                background-image: url($a_images-root + "list-icon.png");
+                background-repeat: no-repeat;
+                position: absolute;
+                left: 0;
+                top: 1px;
+                width: 12px;
+                height: 18px;
+                display: none;
+                content: "";
+            }
+            a:hover:before {
+                display: block;
+            }
+        }
+        li.a_active {
+            a {
+                color: #003a70;
+            }
+            a:before {
+                display: block;
+            }
+        }
+    }
+    .a_detail_block {
+        .a_heading_name {
+            width: 100%;
+        }
+        p.a_unpaired_p {
+            color: #7abbea;
+            margin: 17px 0 0 0;
+        }
+        .a_row {
+            border-bottom: 1px solid #bedffa;
+            padding: 17px 25px 30px 0;
+            margin: 0;
+            h2 {
+                font-size: 30px;
+                font-weight: 600;
+                margin: 0;
+                color: #163e6f;
+                word-wrap: break-word;
+                white-space: normal;
+            }
+            .a_edit_title.form-control {
+                color: #003a70;
+                height: 35px;
+                border-color: #a7a9aa;
+                max-width: 300px;
+                font-size: 30px;
+                border-width: 0 0 1px;
+                border-radius: 0;
+                &::-webkit-input-placeholder {
+                    color: #003a70;
+                    //opacity: $opacity;
+                }
+                &:-moz-placeholder {
+                    /* Firefox 18- */
+                    color: #003a70;
+                    //opacity: $opacity;
+                }
+                &::-moz-placeholder {
+                    /* Firefox 19+ */
+                    color: #003a70;
+                    //opacity: $opacity;
+                }
+                &:-ms-input-placeholder {
+                    color: #003a70;
+                    //opacity: $opacity;
+                }
+            }
+            h2.a_unpaired_h {
+                color: #7abbea;
+                width: 100%;
+            }
+            .a_edit_link {
+                color: #79bae7;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 30px;
+                //padding-top: 12px;
+                display: inline-block;
+                vertical-align: top;
+                font-size: 18px;
+                padding-top: 5px;
+            }
+            .a_save_link {
+                color: #79bae7;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 30px;
+                display: inline-block;
+                vertical-align: top;
+                font-size: 18px;
+                margin-left: 0;
+                margin-right: 15px;
+                padding-top: 10px;
+            }
+            .input-group {
+                margin-bottom: 0;
+                .form-control {
+                    font-size: 24px;
+                    color: #003a70;
+                    height: 58px;
+                    border-radius: 10px 0 0 10px;
+                    border-color: #a7a9aa;
+                    &::-webkit-input-placeholder {
+                        color: #003a70;
+                        //opacity: $opacity;
+                    }
+                    &:-moz-placeholder {
+                        /* Firefox 18- */
+                        color: #003a70;
+                        //opacity: $opacity;
+                    }
+                    &::-moz-placeholder {
+                        /* Firefox 19+ */
+                        color: #003a70;
+                        //opacity: $opacity;
+                    }
+                    &:-ms-input-placeholder {
+                        color: #003a70;
+                        //opacity: $opacity;
+                    }
+                }
+                .input-group-addon {
+                    font-size: 16px;
+                    text-transform: uppercase;
+                    color: #ffffff;
+                    border-radius: 0 10px 10px 0;
+                    background-color: #78bae9;
+                    max-width: 77px;
+                    white-space: normal;
+                    word-wrap: normal;
+                }
+            }
+            .form-group {
+                margin-bottom: 0;
+                .form-control {
+                    font-size: 24px;
+                    color: #003a70;
+                    height: 58px;
+                    border-radius: 10px;
+                    text-align: center;
+                    border-color: #a7a9aa;
+                    &::-webkit-input-placeholder {
+                        color: #003a70;
+                        //opacity: $opacity;
+                    }
+                    &:-moz-placeholder {
+                        /* Firefox 18- */
+                        color: #003a70;
+                        //opacity: $opacity;
+                    }
+                    &::-moz-placeholder {
+                        /* Firefox 19+ */
+                        color: #003a70;
+                        //opacity: $opacity;
+                    }
+                    &:-ms-input-placeholder {
+                        color: #003a70;
+                        //opacity: $opacity;
+                    }
+                }
+            }
+            .a_top_text {
+                font-size: 14px;
+                margin-bottom: 5px;
+                display: inline-block;
+                text-transform: uppercase;
+                color: #003a70;
+                display: block;
+            }
+            .a_result_btns {
+                float: right;
+                padding-top: 30px;
+                li {
+                    float: left;
+                    border-right: 1px solid #003a70;
+                    padding-right: 30px;
+                    margin-right: 30px;
+                    padding-top: 3px;
+                    padding-bottom: 3px;
+                    .btn {
+                        &.a_pair {
+                            color: #ffffff;
+                            font-size: 15px;
+                            font-weight: normal;
+                            padding: 8px 20px;
+                            background-color: #79bae7;
+                            border-color: #7291b5;
+                        }
+                        &.a_unpaired {
+                            color: #f65b72;
+                            font-size: 16px;
+                            font-weight: 600;
+                            text-transform: uppercase;
+                            padding: 8px 0;
+                            background-color: transparent;
+                            border-color: transparent;
+                        }
+                        &.a_paired {
+                            color: #4cad77;
+                            font-size: 16px;
+                            font-weight: 600;
+                            text-transform: uppercase;
+                            padding: 8px 0;
+                            background-color: transparent;
+                            border-color: transparent;
+                        }
+                    }
+                }
+                li:last-child {
+                    margin-right: 0;
+                    padding-right: 0;
+                    border-right: none;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: $resXL) {
+        .a_installation_section {
+            padding: 0;
+            .a_profile {
+                margin-top: 0;
+                width: 100%;
+                max-width: 150px;
+                span {
+                    font-size: 50px;
+                }
+            }
+            &.a_not_paired {
+                .a_profile {
+                    img {
+                        width: 100%;
+                        padding-top: 12px;
+                    }
+                    span {}
+                }
+            }
+            .a_detail_block {
+                .a_row {
+                    padding-right: 10px;
+                    h2 {
+                        font-size: 20px;
+                    }
+                    .a_result_btns {
+                        li {
+                            padding-right: 15px;
+                            margin-right: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: $resM) {
+        .a_driverInstall_modal {
+            .modal-body {
+                .a_step1 {
+                    text-align: center;
+                }
+                h2 {
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                }
+                .a_devices {
+                    padding-left: 155px;
+                    display: inline-block;
+                    vertical-align: top;
+                    .a_logo {
+                        top: -8px;
+                        width: 130px;
+                    }
+                    ul {
+                        li {
+                            position: relative;
+                            padding-left: 20px;
+                            margin-bottom: 10px;
+                            &:before {
+                                top: 10px;
+                                left: 0;
+                                width: 10px;
+                                height: 20px;
+                                background-size: 100%;
+                            }
+                            a {
+                                font-size: 15px;
+                                padding-left: 50px;
+                                font-weight: 300;
+                                padding-top: 0;
+                                line-height: 20px;
+                            }
+                            a.a_apply_driver::before {
+                                top: 0;
+                                width: 34px;
+                                height: 39px;
+                            }
+                            a.a_window_driver::before {
+                                top: 4px;
+                                width: 32px;
+                                height: 33px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .a_installation_section {
+            .a_profile {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        .a_detail_block .a_row .form-group .form-control {
+            font-size: 18px;
+        }
+        .a_arrow_icon_list {
+            font-size: 16px;
+            li {
+                margin-bottom: 7px;
+                a {
+                    padding-left: 0;
+                }
+            }
+        }
+        .a_detail_block {
+            .a_row {
+                padding: 10px 0;
+                .a_p0 {
+                    padding: 5px 0;
+                }
+                .a_result_btns {
+                    float: none;
+                    padding-top: 15px;
+                    display: inline-block;
+                    vertical-align: top;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

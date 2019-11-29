@@ -1,0 +1,15 @@
+<section class="a_breadcrumb_section a_section">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="a_title">{{(globalState.currentPageTitle || '') | translate}}</h3>
+            <ul class="breadcrumb al-breadcrumb">
+                <li class="breadcrumb-item" [ngClass]="globalState.currentPageSubTitleClasses">{{ (globalState.currentPageSubTitle || '') | translate }}</li>
+            </ul>
+        </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-12">
+        <app-alert></app-alert>
+      </div>
+    </div> -->
+</section>

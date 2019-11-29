@@ -1,0 +1,95 @@
+<div class="as-page-wrap" *ngIf="wellnessForm">
+  <h4 class="lightblue-text m-16">Check all that apply in each category.</h4>
+  <form [formGroup]="wellnessForm">
+    <div *ngFor="let section of sections; let i=index">
+      <div class="table-wrap">
+        <!--START CUSTOM TABLE-->
+        <div class="w-100 lightblue-header rounded-corner">
+          <div class="thead">
+            <span class="darkblue-text b-16">{{section.Name}}</span>
+           </div>
+          <div class="tbody" *ngIf="section.Questions">
+
+            <div class="tbody-inner" *ngFor="let question of section.Questions; let qi=index">
+              <!-- start multiselect check boxes section -->
+              <div class="question-wrap" *ngIf="question?.Type == 'MultiSelect'">
+                <span class="lightblue-text b-16">{{question.Name}}</span>
+                 
+                <ng-container *ngFor="let chunk of question?.chunkedResults">
+                    <div class="row"> 
+                  <div class="col-lg-3" *ngFor="let option of chunk">
+                  <ul>  
+                    <li>
+                      <label class="checkbox-wrap">
+                        <span class="lightblue-text m-16">{{option.Name}}</span>
+                        <input type="checkbox" value="{{option.Id}}" (change)="setResults(question?.qIndex, option?.Id)" [checked]="checkResult(question?.qIndex, option?.Id)">
+                        
+                        <span class="checkmark"></span>
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              </ng-container>
+              
+              </div>
+              <!-- end of multiselect check boxes section -->
+
+              <!-- start of text boxe section -->
+              <div class="question-textarea" *ngIf="question?.Type == 'Text'">
+                <div class="row">
+                  <div class="col-12">
+                    <span class="lightblue-text b-16">{{question.Name}}</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12"> 
+                    <div class="big-text-field">
+                      <textarea name="other-nutrition" class="full-textarea" cols="4" [formControl]="wellnessForm?.controls['QuestionResults']?.controls[question.qIndex]?.controls['Result']"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end of text boxe section -->
+
+              <!-- start of dropdown section -->
+              
+              <ng-container *ngIf="question?.Type == 'SingleSelect'">
+                  <div class="single-select bb-1">
+                <div class="row align-items-center">
+                <div class="col-md-3">
+                  <span class="lightblue-text b-16">{{question.Name}}</span>
+                </div>
+                <div class="col-md-3" colspan="3">
+                  <select class="t-select" [formControl]="wellnessForm?.controls['QuestionResults']?.controls[question.qIndex]?.controls['Result']">
+                    <option value=""></option>
+                    <option *ngFor="let option of question?.ResultRestrictions?.QuestionOptions" value="{{option.Id}}">{{option?.Name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+              </ng-container>
+              <!-- end of dropdown section -->
+              
+            </div>
+
+          </div>
+        </div>
+        <!--END CUSTOM TABLE-->
+      </div>
+    </div>
+    <div class="btn-wrap text-right">
+      <button type="submit" class="btn as-blue-btn" (click)="saveQuestionaire()">Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="globalState.enabledDebug && wellnessForm" class="row">
+    <div class="col-md-12">
+        <pre> {{ wellnessForm.valid }} </pre>
+        <pre>{{wellnessForm.value | json}}</pre>
+        <!-- <pre>{{previousSectionQuestionLength | json}}</pre> -->
+    </div>
+</div>

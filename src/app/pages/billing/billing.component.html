@@ -1,0 +1,181 @@
+<section class="a_billing_form_section">
+  <div class="a_billing_form">
+    <form *ngIf="customerForm" class="customerForm" [formGroup]="customerForm" (ngSubmit)="customerSubmit(customerForm.value)">
+      <div class="row">
+        <div class="col-12 mb-2">
+          <img alt="" src="/assets/images/visa-icons.png">
+          <!-- <ul class="a_list a_radio_list a_payment_radio a_clearfix">
+                                      <li>
+                                          <input id="yes" [formControl]="customerForm.controls['Type']" name="isReffer" type="radio" value="Master" checked="checked" selected="selected">
+                                          <label for="yes">
+                  <img alt="" src="/assets/images/visa-icons.png">
+                </label>
+                                      </li>
+                                      <li>
+                                          <input id="no" [formControl]="customerForm.controls['Type']" name="isReffer" type="radio" value="Paypal">
+                                          <label for="no">
+                  <img alt="" src="/assets/images/paypal-icon.png">
+                </label>
+                                      </li>
+                                  </ul> -->
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-sm-6">
+          <label>First name</label>
+          <div class="form-group" [ngClass]="{'has-error':!customerForm.controls['FirstNameOnCard'].valid && customerForm.controls['FirstNameOnCard'].touched}">
+            <input [formControl]="customerForm.controls['FirstNameOnCard']" type="text" class="form-control" placeholder="">
+            <span class="text-danger" *ngIf="customerForm.controls['FirstNameOnCard'].hasError('required') && (customerForm.controls['FirstNameOnCard'].dirty || customerForm.controls['FirstNameOnCard'].touched)">This field is required</span>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label>Last name</label>
+          <div class="form-group" [ngClass]="{'has-error':!customerForm.controls['LastNameOnCard'].valid && customerForm.controls['LastNameOnCard'].touched}">
+            <input [formControl]="customerForm.controls['LastNameOnCard']" type="text" class="form-control" placeholder="">
+            <span class="text-danger" *ngIf="customerForm.controls['LastNameOnCard'].hasError('required') && (customerForm.controls['LastNameOnCard'].dirty || customerForm.controls['LastNameOnCard'].touched)">This field is required</span>
+          </div>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-12">
+          <label for="">Name On Card </label>
+          <div class="form-group" [ngClass]="{'has-error':!customerForm?.controls['NameOnCard']?.valid && customerForm.controls['NameOnCard'].touched}">
+            <input [formControl]="customerForm.controls['NameOnCard']" type="text" class="form-control" placeholder="">
+            <span class="text-danger" *ngIf="customerForm.controls['NameOnCard']?.hasError('required') && (customerForm.controls['NameOnCard']?.dirty || customerForm.controls['NameOnCard']?.touched)">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label for="">Card Number (as it appears on your card) </label>
+          <div class="form-group" [ngClass]="{'has-error':!customerForm?.controls['Number']?.valid && customerForm.controls['Number'].touched}">
+            <input [formControl]="customerForm.controls['Number']" type="text" class="form-control" placeholder="">
+            <span class="text-danger" *ngIf="customerForm.controls['Number']?.hasError('required') && (customerForm.controls['Number']?.dirty || customerForm.controls['Number']?.touched)">This field is required</span>
+            <span class="text-danger" *ngIf="customerForm?.controls['Number']?.hasError('pattern') && (customerForm.controls['Number']?.dirty || customerForm.controls['Number']?.touched)">Only numbers are allowed</span>
+            <span class="text-danger" *ngIf="(customerForm?.controls['Number']?.hasError('minlength') || customerForm?.controls['Number']?.hasError('maxlength')) && (customerForm.controls['Number']?.dirty || customerForm.controls['Number']?.touched)">
+              Please enter 16 numbers printed on your card</span>
+          </div>
+        </div>
+      </div>
+      <label>Expiration date</label>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group a_select" [ngClass]="{'has-error':!customerForm?.controls['selectedMonth']?.valid && customerForm?.controls['selectedMonth']?.touched}">
+            <select class="form-control" [(ngModel)]="selectedMonth" [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
+              <option value="" selected disabled>Month</option>
+              <option *ngFor="let j of monthsTemp;" [value]="j">{{ months[j] }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group a_select" [ngClass]="{'has-error':!customerForm?.controls['selectedYear']?.valid && customerForm?.controls['selectedYear']?.touched}">
+            <select class="form-control" [(ngModel)]="selectedYear" [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
+              <option value="" selected disabled>Year</option>
+              <option *ngFor="let year of years; let i=index" [value]="year">{{ year }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <label>Security code (3 on back, Amex: 4 on front)</label>
+      <div class="row align-items-center">
+        <div class="col-sm-6">
+          <div class="form-group" [ngClass]="{'has-error':!customerForm.controls['Verification'].valid && customerForm.controls['Verification'].touched}">
+            <input [formControl]="customerForm.controls['Verification']" type="text" class="form-control" placeholder="">
+            <span class="text-danger" *ngIf="customerForm.controls['Verification']?.hasError('required') && (customerForm.controls['Verification']?.dirty || customerForm.controls['Verification']?.touched)">This field is required</span>
+          </div>
+        </div>
+        <div class="col-sm-6 text-center">
+          <div class="form-group">
+            <img alt="" src="/assets/images/security-code.png">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label>Phone</label>
+          <div class="form-group" [ngClass]="{'has-error':!customerForm.controls['BillingAddress'].controls['Phone'].valid && customerForm.controls['BillingAddress'].controls['Phone'].touched}">
+            <input [formControl]="customerForm.controls['BillingAddress'].controls['Phone']" type="text" class="form-control" placeholder="">
+            <span class="text-danger" *ngIf="customerForm.controls['BillingAddress'].controls['Phone']?.hasError('required') && (customerForm.controls['BillingAddress'].controls['Phone']?.dirty || customerForm.controls['BillingAddress'].controls['Phone']?.touched)">This field is required</span>
+            <span class="text-danger" *ngIf="customerForm.controls['BillingAddress'].controls['Phone']?.hasError('pattern') && (customerForm.controls['BillingAddress'].controls['Phone']?.dirty || customerForm.controls['BillingAddress'].controls['Phone']?.touched)">Only numbers are allowed</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label for="">Country</label>
+          <div class="form-group a_select a_gray_select" [ngClass]="{'has-error':!customerForm.controls['BillingAddress'].controls['Country'].valid && customerForm.controls['BillingAddress'].controls['Country'].touched}">
+            <select class="form-control" [formControl]="customerForm.controls['BillingAddress'].controls['Country']" (change)="onCountryChange($event)">
+              <option value="" selected disabled>Country</option>
+              <option *ngFor="let item of countrylist" value="{{ item.Name }}">{{ item.Name}}</option>
+            </select>
+            <span class="text-danger" *ngIf="customerForm.controls['BillingAddress'].controls['Country']?.hasError('required') && (customerForm.controls['BillingAddress'].controls['Country']?.dirty || customerForm.controls['BillingAddress'].controls['Country']?.touched)">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label>Street Address</label>
+          <div class="form-group" [ngClass]="{'has-error':!customerForm.controls['BillingAddress'].controls['Address1'].valid && customerForm.controls['BillingAddress'].controls['Address1'].touched}">
+            <input [formControl]="customerForm.controls['BillingAddress'].controls['Address1']" type="text" class="form-control" placeholder="">
+            <span class="text-danger" *ngIf="customerForm.controls['BillingAddress'].controls['Address1']?.hasError('required') && (customerForm.controls['BillingAddress'].controls['Address1']?.dirty || customerForm.controls['BillingAddress'].controls['Address1']?.touched)">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group" [ngClass]="{'has-error':!customerForm.controls['BillingAddress'].controls['Address2'].valid && customerForm.controls['BillingAddress'].controls['Address2'].touched}">
+            <input [formControl]="customerForm.controls['BillingAddress'].controls['Address2']" type="text" class="form-control" placeholder="">
+            <span class="text-danger" *ngIf="customerForm.controls['BillingAddress'].controls['Address2']?.hasError('required') && (customerForm.controls['BillingAddress'].controls['Address2']?.dirty || customerForm.controls['BillingAddress'].controls['Address2']?.touched)">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label>City</label>
+          <div class="form-group" [ngClass]="{'has-error':!customerForm.controls['BillingAddress'].controls['City'].valid && customerForm.controls['BillingAddress'].controls['City'].touched}">
+            <input [formControl]="customerForm.controls['BillingAddress'].controls['City']" type="text" class="form-control" placeholder="">
+            <span class="text-danger" *ngIf="customerForm.controls['BillingAddress'].controls['City']?.hasError('required') && (customerForm.controls['BillingAddress'].controls['City']?.dirty || customerForm.controls['BillingAddress'].controls['City']?.touched)">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label for="">State / Province / Region</label>
+          <div class="form-group a_select a_gray_select" [ngClass]="{'has-error':!customerForm.controls['BillingAddress'].controls['State'].valid && customerForm.controls['BillingAddress'].controls['State'].touched}">
+            <select class="form-control" [formControl]="customerForm.controls['BillingAddress'].controls['State']">
+              <option value="" selected disabled>State</option>
+              <option *ngFor="let state of states" [value]="state.Name">{{ state.Name }}</option>
+            </select>
+            <span class="text-danger" *ngIf="customerForm.controls['BillingAddress'].controls['State']?.hasError('required') && (customerForm.controls['BillingAddress'].controls['State']?.dirty || customerForm.controls['BillingAddress'].controls['State']?.touched)">This field is required</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label>Postal Code</label>
+          <div class="form-group" [ngClass]="{'has-error':!customerForm.controls['BillingAddress'].controls['Zip'].valid && customerForm.controls['BillingAddress'].controls['Zip'].touched}">
+            <input [formControl]="customerForm.controls['BillingAddress'].controls['Zip']" type="text" class="form-control" placeholder="">
+            <span class="text-danger" *ngIf="customerForm.controls['BillingAddress'].controls['Zip']?.hasError('required') && (customerForm.controls['BillingAddress'].controls['Zip']?.dirty || customerForm.controls['BillingAddress'].controls['Zip']?.touched)">This field is required</span>
+            <span class="text-danger" *ngIf="customerForm.controls['BillingAddress'].controls['Zip']?.hasError('pattern') && (customerForm.controls['BillingAddress'].controls['Zip']?.dirty || customerForm.controls['BillingAddress'].controls['Zip']?.touched)">Only numbers are allowed</span>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <button class="btn a_red_btn mr-2 a_left_icon" type="reset" [routerLink]="['/pages/account/plan']">
+          <img src="assets/images/close-icon.png" alt=""> Cancel
+        </button>
+        <button class="btn a_blue_btn a_right_icon ml-2" type="submit">
+          Save
+          <img src="assets/images/right-arrow-icon.png" alt="">
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<div *ngIf="globalState.enabledDebug && customerForm" class="row">
+  <div class="col-md-12">
+    <pre> {{ customerForm.valid }} </pre>
+    <pre>{{customerForm.value | json}}</pre>
+  </div>
+</div>
